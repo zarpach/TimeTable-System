@@ -1,0 +1,86 @@
+﻿@model AnnouncementDTO
+
+@{
+    Layout = null;
+}
+
+<form asp-controller="Announcements" asp-action="EditSections" method="post" id="editAnnouncementForm" name="editAnnouncementForm"
+      data-ajax="true" data-ajax-update="#editAnnouncementForm" data-ajax-mode="replace" data-ajax-success="saveSections()">
+
+    <div class="row">
+        <div class="col-12">
+
+            <input type="hidden" asp-for="Course.Number" />
+            <input type="hidden" asp-for="Course.NameEng" />
+            <input type="hidden" asp-for="Course.NameRus" />
+            <input type="hidden" asp-for="Course.Abbreviation" />
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CourseId" />
+            <input type="hidden" asp-for="SemesterId" />
+            <input type="hidden" asp-for="IsActivated" />
+            <input type="hidden" asp-for="IsForAll" />
+
+            @if (Model.ProposalCourse != null)
+            {
+                <input type="hidden" asp-for="ProposalCourse.Credits" />
+                <input type="hidden" asp-for="ProposalCourse.Schedule" />
+                <input type="hidden" asp-for="ProposalCourse.Comment" />
+
+                @if (Model.ProposalCourse.Instructors != null && Model.ProposalCourse.Instructors.Any())
+                {
+                    var num = 0;
+                    foreach (var instructor in Model.ProposalCourse.Instructors)
+                    {
+                        <input type="hidden" name="ProposalCourse.Instructors[@num].Id" value="@instructor.Id" />
+                        <input type="hidden" name="ProposalCourse.Instructors[@num].FullName" value="@instructor.FullName" />
+
+                        num++;
+                    }
+                }
+                <input type="hidden" asp-for="ProposalCourse.InstructorsJson" />
+            }
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 pb-2">
+
+            <div class="alert p-1 alert-danger @if(TempData["AnnouncementError"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementError"]
+            </div>
+            <div class="alert p-1 alert-danger @if(TempData["AnnouncementErrorMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementErrorMessage"]
+            </div>
+            <div class="alert p-1 alert-success @if(TempData["AnnouncementSuccessMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementSuccessMessage"]
+            </div>
+
+        </div>
+        <div class="col-12">
+
+            <div class="card">
+                <ul class="list-group list-group-flush" id="announcementSectionContainer">
+                    @if (Model.AnnouncementSections != null && Model.AnnouncementSections.Any())
+                    {
+                        var AnnouncementSections = Model.AnnouncementSections.OrderBy(x => x.Section).ToList();
+
+                        @for (int i = 0; i < AnnouncementSections.Count; i++)
+                        {
+                            <partial name="_EditAnnouncementSectionPartial" for="@AnnouncementSections[i]" />
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3 text-danger">No sections</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</form>

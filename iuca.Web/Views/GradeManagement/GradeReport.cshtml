@@ -1,0 +1,192 @@
+﻿@model IEnumerable<GradeReportViewModel>
+
+@{
+    int courseNum = 0;
+    int studentNum = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Grade report</h3>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="GradeReport">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentId" id="departmentId" asp-items="@ViewBag.Departments">
+                            <option>Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Grade:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="gradeId" id="gradeId" asp-items="@ViewBag.GradesFilter">
+                            <option>Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Course Id:</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control" name="courseImportCode" id="courseImportCode" value="@ViewBag.CourseImportCode"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Student Id:</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control" name="studentId" id="studentId" value="@ViewBag.StudentId"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <label>State:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="status" asp-items="@ViewBag.GradeReportStatuses">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-12 text-right">
+                <div class="col-12">
+                    <label>&nbsp;</label>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fab fa-sistrix"></i> &nbsp; Show
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="row">
+        <div class="col-6 text-right">
+            <b>Total courses: @Model.Count()</b>
+        </div>
+        <div class="col-6 text-right">
+            <b>Total grades: @Model.SelectMany(x => x.Students).Count()</b>
+        </div>
+    </div>
+    <br>
+    @foreach(var course in Model)
+    {
+        courseNum++;
+        studentNum = 0;
+        <div class="row bg-light-gray p-2">
+            <div class="col-lg-8 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <b>@courseNum<text>.</text> @course.CourseName</b>
+                    </div>
+                    <div class="col-6">
+                        @course.InstructorName
+                    </div>
+                    <div class="col-3">
+                        ID: @course.CourseImportCode
+                    </div>
+                    <div class="col-3">
+                        Creds: @course.Credits
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="row">
+                    <div class="col-12 text-center p-1 mt-1 alert @(course.GradeSheetSubmitted ? "alert-success" : "alert-danger")">
+                        @if (course.GradeSheetSubmitted)
+                        {
+                            <h6 class="submitTitle">Submitted</h6>
+                        }
+                        else
+                        {
+                            <h6 class="submitTitle">Not submitted</h6>
+                        }
+                    </div>
+                    <input type="hidden" name="announcementSectionId" value="@course.AnnouncementSectionId" />
+                    <div class="col-6 text-center">
+                        <button type="submit" class="btn btn-primary btn-block" name="submitGradeSheetBtn" @(course.GradeSheetSubmitted ? "disabled" : "")>
+                            <i class="fas fa-arrow-circle-down"></i> &nbsp; Submit
+                        </button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button type="submit" class="btn btn-primary btn-block" name="returnGradeSheetBtn" @(course.GradeSheetSubmitted ? "" : "disabled")>
+                            <i class="fas fa-arrow-circle-up"></i> &nbsp; Return
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @foreach (var student in course.Students.OrderBy(x => x.StudentName))
+        {
+            studentNum++;
+            <hr class="m-0"/>
+            <div class="row p-1">
+                <div class="col-lg-4 col-6">
+                    @studentNum. @student.StudentName (@student.StudentId)
+                </div>
+                <div class="col-lg-2 col-3 text-break">
+                    @student.StudentGroup
+                </div>
+                <div class="col-lg-2 col-3">
+                    @student.StudentState
+                </div>
+                <div class="col-lg-2 col-6">
+                    <select class="form-control dropdown" asp-for="@student.GradeId" asp-items="@ViewBag.Grades">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-6 text-right">
+                    <input type="hidden" name="announcementSectionId" value="@course.AnnouncementSectionId" />
+                    <input type="hidden" name="studentUserId" value="@student.StudentUserId" />
+                    <button class="btn btn-outline-primary btn-block" name="saveGradeBtn">
+                        Save
+                    </button>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/grade-report.js" asp-append-version="true"></script>
+
+}
+

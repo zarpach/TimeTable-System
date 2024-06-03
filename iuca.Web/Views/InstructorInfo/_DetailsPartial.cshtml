@@ -1,0 +1,436 @@
+﻿@model InstructorInfoDetailsViewModel
+@using iuca.Application.Enums
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-4 text-right">
+                <label class="label-info">Full Name Eng:</label>
+            </div>
+            <div class="col-8">
+                <label>@Model.UserInfo.FullNameEng</label>
+            </div>
+        </div>
+        @if (Model.InstructorOrgInfo != null)
+        {
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label class="label-info">Department:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.InstructorOrgInfo.Department.NameEng</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label class="label-info">State:</label>
+                </div>
+                <div class="col-8">
+                    <label>@((enu_InstructorState)Model.InstructorOrgInfo.State)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label class="label-info">Part time:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.InstructorOrgInfo.PartTime</label>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (@Model.InstructorBasicInfo != null)
+{
+    <div class="row">
+        <div class="col-lg-6">
+
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label class="label-info">Is married:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.InstructorBasicInfo.IsMarried</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">
+                    <label class="label-info">Children:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.InstructorBasicInfo.ChildrenQty</label>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    @if (Model.InstructorBasicInfo.InstructorOtherJobInfo != null)
+    {
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Other job Information
+                <hr />
+            </div>
+        </div>
+
+        @foreach (var otherJob in Model.InstructorBasicInfo.InstructorOtherJobInfo)
+        {
+            <div class="row  mb-3">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Place name eng:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PlaceNameEng</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Place name rus:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PlaceNameRus</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Place name kir:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PlaceNameKir</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Phone:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.Phone</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Position eng:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PositionEng</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Position rus:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PositionRus</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Position kir:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@otherJob.PositionKir</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @if (Model.InstructorBasicInfo.InstructorEducationInfo != null)
+    {
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Education information
+                <hr />
+            </div>
+        </div>
+
+        @foreach (var education in Model.InstructorBasicInfo.InstructorEducationInfo)
+        {
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Major eng:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.MajorEng</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Major rus:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.MajorRus</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Major kir:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.MajorKir</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Graduate year:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.GraduateYear</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">University:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.University.Code</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 text-right">
+                            <label class="label-info">Education type:</label>
+                        </div>
+                        <div class="col-8">
+                            <label>@education.EducationType.NameEng</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    if (Model.InstructorBasicInfo.InstructorContactInfo != null)
+    {
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Contact information
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Actual address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">City eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CityEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Street eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.StreetEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Address eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.AddressEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Zip code:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.ZipCode</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">City rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CityRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Street rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.StreetRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Address rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.AddressRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Zip code:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.Phone</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Citizenship address
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">City eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipCityEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Street eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipStreetEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Address eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipAddressEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Zip code:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipZipCode</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">City rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipCityRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Street rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipStreetRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Address rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipAddressRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Zip code:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.CitizenshipPhone</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 font-weight-bold">
+                Contact
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Contact name eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.ContactNameEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Contact name rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.ContactNameRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Contact phone:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.ContactPhone</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Relation eng:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.RelationEng</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Relation rus:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.RelationRus</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 text-right">
+                        <label class="label-info">Relation kir:</label>
+                    </div>
+                    <div class="col-8">
+                        <label>@Model.InstructorBasicInfo.InstructorContactInfo.RelationKir</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+
+

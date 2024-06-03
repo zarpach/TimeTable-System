@@ -1,0 +1,45 @@
+﻿@model List<CourseDTO>
+
+@{
+    Layout = null;
+    var index = 0;
+}
+
+@foreach(var course in Model)
+{
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="row">
+                <input type="hidden" name="CoursePrerequisites[@index].PrerequisiteId" value="@course.Id" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.Id" value="@course.Id" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.Abbreviation" value="@course.Abbreviation" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.Number" value="@course.Number" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.NameEng" value="@course.NameEng" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.NameRus" value="@course.NameRus" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.NameKir" value="@course.NameKir" />
+                <input type="hidden" name="CoursePrerequisites[@index].Prerequisite.ImportCode" value="@course.ImportCode" />
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-12">
+                            <b>@course.Abbreviation@course.Number</b> @course.Name
+                        </div>
+                        <div class="col-6">
+                            Language: <b>@course.Language?.NameEng</b>
+                        </div>
+                        <div class="col-6">
+                            Id: <b>@course.ImportCode</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 text-right">
+                    <button type="button" class="btn btn-danger" id="removeCoursePrerequisiteBtn" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+    index++;
+}
+
+

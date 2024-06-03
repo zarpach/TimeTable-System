@@ -1,0 +1,14 @@
+﻿
+<div class="row py-2">
+    <div class="col-8">
+        <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                data-live-search="true" data-actions-box="true" data-container="body"
+                asp-items="@ViewBag.InstructorIds" id="replaceProposalInstructorSelect">
+        </select>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-info shadow-none" name="replaceProposalInstructorBtn" onclick="replaceInstructors(this)">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+</div>

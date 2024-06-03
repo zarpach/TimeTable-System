@@ -1,0 +1,42 @@
+﻿@model SyllabusDTO
+
+<div class="container p-0">
+    <div class="row pt-2">
+        <div class="col-4">
+            <a asp-action="Index" asp-route-registrationCourseId="@Model.RegistrationCourseId"
+               asp-route-semesterId="@ViewBag.SemesterId" asp-route-instructorUserId="@ViewBag.InstructorUserId"
+               class="btn bg-gray text-white">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+        
+
+        <div class="col-4 text-center">
+            <div class="alert p-1 alert-danger @if(TempData["SyllabiError"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["SyllabiError"]
+            </div>
+            <div class="alert p-1 alert-danger @if(TempData["SyllabiErrorMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["SyllabiErrorMessage"]
+            </div>
+            <div class="alert p-1 alert-success @if(TempData["SyllabiSuccessMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["SyllabiSuccessMessage"]
+            </div>
+        </div>
+        <div class="col-lg-4 text-right">
+            <button type="submit" class="btn btn-primary" form="editSyllabus">
+                <i class="fas fa-save"></i>&nbsp; Save all
+            </button>
+        </div>
+    </div>
+
+    <form asp-action="Edit" method="post" id="editSyllabus">
+        <partial name="_EditPartial" />
+    </form>
+
+</div>
+
+@section Scripts{
+
+    <script src="~/js/edit-syllabus.js" asp-append-version="true"></script>
+
+} 

@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using iuca.Application.Enums
+@using iuca.Application.Interfaces.Common
+@using iuca.Application.Interfaces.Users
+@using System.Globalization
+
+@model RegistrationInfoViewModel
+
+@inject SignInManager<ApplicationUser> signInManager
+
+
+@{
+    ViewData["Title"] = "My IUCA";
+    List<DebtInfoViewModel> studentDebts = ViewBag.StudentDebts;
+}
+
+<div class="text-center">
+    <h2>Welcome to My IUCA</h2>
+</div>
+@if (!signInManager.IsSignedIn(User))
+{
+    <div class="row pt-5">
+        <div class="col-12 text-center">
+            <a class="btn btn-primary pl-3 pr-3" asp-controller="Account" asp-action="GoogleLogin">
+                <i class="fas fa-sign-in-alt"></i>&nbsp;Sign in
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    if (Model.IsStudent)
+    {
+        if (Model.IsCourseRegistrationOpened && !Model.IsRegistrationSubmitted)
+        {
+            <div class="alert alert-warning mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Вы не закончили регистрацию на курсы</h5>
+                    </div>
+                    <div class="col-12">
+                        Статус регистрации: @Model.RegistrationState
+                    </div>
+                </div>
+            </div>
+        }
+        
+        if (Model.IsRegistrationSubmitted && Model.IsAddDropOpened && !Model.IsAddDropSubmitted)
+        {
+            <div class="alert alert-warning mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Вы не завершили Add/Drop форму</h5>
+                    </div>
+                    <div class="col-12">
+                        Статус: @Model.AddDropState
+                    </div>
+                </div>
+            </div>
+        }
+
+        if ((Model.IsCourseRegistrationOpened || Model.IsAddDropOpened) && Model.IsDebt)
+        {
+            <div class="alert alert-danger mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Для прохождения регистрации необходимо погасить задолженности</h5>
+                    </div>
+                    <div class="col-12">
+                        <ul>
+                            @foreach (var debt in Model.DebtList)
+                            {
+                                <li>
+                                    @debt.DebtName: 
+                                    @if (debt.DebtAmount > 0)
+                                    {
+                                        <text>
+                                            Долг @debt.DebtAmount.ToString("N", new NumberFormatInfo {NumberGroupSeparator = ","}) сом 
+                                            @if (@debt.Comment != null)
+                                            {
+                                                <text>(@debt.Comment)</text>
+                                            }
+                                        </text>
+                                    } else
+                                    {
+                                        @debt.Comment 
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+        if (Model.IsCourseRegistrationOpened)
+        {
+            <div class="row mt-4">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <a class="btn btn-primary btn-block btn-lg" asp-controller="StudentCourseRegistrations" asp-action="CourseRegistration">Регистрация на курсы</a>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <a class="btn btn-info btn-block btn-lg" href="https://www.youtube.com/watch?v=7uRUGCM7i6w&t=1s" target="_blank">Инструкция к регистрации</a>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        }
+        @if (Model.IsAddDropOpened && Model.IsRegistrationSubmitted && Model.IsAddDropAllowed)
+        {
+            <div class="row mt-4">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <a class="btn btn-primary btn-block btn-lg" asp-controller="StudentCourseRegistrations" asp-action="AddDropCourses">Add/Drop</a>
+                </div>
+                <div class="col-3"></div>
+            </div> 
+            <div class="row mt-2">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <a class="btn btn-info btn-block btn-lg" href="https://www.youtube.com/watch?v=lDuq-981UVA" target="_blank">Инструкция к Add/Drop</a>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        }
+        
+    }
+}

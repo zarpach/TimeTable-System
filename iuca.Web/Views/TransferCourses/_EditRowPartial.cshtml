@@ -1,0 +1,71 @@
+﻿@model TransferCourseDTO
+@using iuca.Application.Enums
+@using iuca.Application.Interfaces.Common
+
+@inject IUniversityService universityService; 
+@inject IGradeService gradeService;
+@inject ISemesterService semesterService;
+
+
+@{
+    Layout = null;
+}
+
+<tr>
+    <td class="text-center numIndex">
+    </td>
+    <td class="text-center">
+        <select class="form-control dropdown" name="[0].UniversityId" 
+            asp-items="@universityService.GetUniversitySelectList(Model.UniversityId)" style="max-width: 180px;">
+        </select>
+    </td>
+    <td class="text-center">
+        <input class="form-control" name="[0].Year" value=@Model.Year style="max-width: 70px;"/>
+    </td>
+    <td class="text-center">
+        <select class="form-control dropdown" name="[0].Season" 
+            asp-items="@semesterService.GetSeasonList(Model.Season)" style="max-width: 120px;">
+        </select>
+    </td>
+    <td class="text-center">
+        <div class="d-flex">
+            <span>En:&nbsp;</span>
+            <textarea class="form-control mb-1" name="[0].NameEng" @(Model.IsAcademicPlanCourse ? "readonly" : "")>@Model.NameEng</textarea>
+        </div>
+        <div class="d-flex">
+            <span>Ru:&nbsp;</span>
+            <textarea class="form-control mb-1" name="[0].NameRus" @(Model.IsAcademicPlanCourse ? "readonly" : "")>@Model.NameRus</textarea>
+        </div>
+        <div class="d-flex">
+            <span>Kg:&nbsp;</span>
+            <textarea class="form-control" name="[0].NameKir" @(Model.IsAcademicPlanCourse ? "readonly" : "")>@Model.NameKir</textarea>
+        </div>
+    </td>
+    <td class="text-center">
+        <input class="form-control" name="[0].Points" value=@Model.Points style="max-width: 60px;" @(Model.IsAcademicPlanCourse ? "readonly" : "")/>
+    </td>
+    <td class="text-center" style="max-width: 50px;">
+        <input class="big-checkbox m-1" type="checkbox" name="[0].IsAcademicPlanCourse" value="@(Model.IsAcademicPlanCourse ? "true" : "false")" 
+                    @(Model.IsAcademicPlanCourse ? "checked" : "") onchange="this.value = this.checked;"/>
+    
+        <button type="button" class="btn btn-primary mt-2" name="selectAcademicPlanCourseBtn" @(!Model.IsAcademicPlanCourse ? "disabled" : "")>
+            <i class="fas fa-search"></i>
+        </button>
+        <input type="hidden" name="rowIndex" value="0" />
+        <input type="hidden" name="[0].CyclePartCourseId" value="@Model.CyclePartCourseId" />
+        <input type="hidden" name="[0].Id" value="@Model.Id" />
+    </td>
+    <td class="text-center">
+        <select class="form-control dropdown" name="[0].GradeId" 
+            asp-items="@gradeService.GetGradeSelectListForTransferCourses(Model.GradeId)" style="min-width: 50px;">
+        <option></option>
+        </select>
+    </td>
+    
+
+    <td class="text-center">
+        <button type="button" class="btn btn-danger" name="removeCourseBtn">
+            <i class="fas fa-trash"></i>
+        </button>
+    </td>
+</tr>

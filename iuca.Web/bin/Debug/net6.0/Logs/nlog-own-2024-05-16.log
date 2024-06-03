@@ -1,0 +1,5 @@
+2024-05-16 01:05:01.3486|14|INFO|Microsoft.Hosting.Lifetime|Now listening on: https://localhost:2222 |url: |action: |Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync| body: 
+2024-05-16 01:05:01.3696|14|INFO|Microsoft.Hosting.Lifetime|Now listening on: http://localhost:2221 |url: |action: |Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync| body: 
+2024-05-16 01:05:01.4261|0|INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 
+2024-05-16 01:05:01.4295|0|INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 
+2024-05-16 01:05:01.4321|0|INFO|Microsoft.Hosting.Lifetime|Content root path: /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 

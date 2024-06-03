@@ -1,0 +1,118 @@
+﻿@model List<InstructorCourseStudentGradeViewModel>
+
+@{
+    int num = 0;
+
+    bool gradingPeriodOpened = ViewBag.GradingPeriodOpened != null && ViewBag.GradingPeriodOpened;
+    bool gradeSheetSubmitted = ViewBag.GradeSheetSubmitted != null && ViewBag.GradeSheetSubmitted;
+    List<string> notAllowedToChange = new List<string> { "AU", "I", "W", "X" };
+}
+
+<div class="container p-0">
+
+    <div class="row align-items-center">
+        <div class="col-lg-2 col-4 mt-4">
+            <a asp-action="Index" asp-route-semesterId="@ViewBag.SemesterId"
+               asp-route-instructorUserId="@ViewBag.InstructorUserId" class="btn bg-gray text-white"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+        <div class="col-lg-6 col-8 mt-4">
+            @{
+                var msgs = new List<string>();
+            }
+            @if (!gradingPeriodOpened)
+            {
+                msgs.Add("Grading period is closed");
+            }
+            @if (!gradeSheetSubmitted)
+            {
+                msgs.Add("Report is not submitted");
+            }
+            else
+            {
+                msgs.Add("Report is submitted");
+            }
+            <div class="text-center alert @(!gradeSheetSubmitted ? "alert-warning" : "alert-success")">
+                <h5>@String.Join(", ", msgs)</h5>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-12 mt-4 text-right">
+            <input type="hidden" name="announcementSectionId" value="@ViewBag.AnnouncementSectionId" />
+            <button type="submit" class="btn btn-primary" id="submitGradeSheetBtn" @(gradeSheetSubmitted ? "disabled" : "")>
+                <i class="fas fa-arrow-circle-down"></i> &nbsp; Submit Report
+            </button>
+            <a asp-action="GradeSheet" asp-route-semesterId="@ViewBag.SemesterId" asp-route-announcementSectionId="@ViewBag.AnnouncementSectionId" 
+                class="btn btn-primary @(gradeSheetSubmitted ? "" : "disabled")" target="_blank">
+                <i class="fas fa-file-alt"></i> &nbsp; Grade Report
+            </a>
+        </div>
+        <div class="col-12 mt-4">
+            <h5>Course ID: <b>@ViewBag.CourseId</b>, Section: <b>@ViewBag.CourseSection</b></h5>
+            <h5><b>@ViewBag.CourseCode</b> @ViewBag.CourseName </h5>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row mt-4">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header bg-gray text-white">
+
+                    <div class="row align-items-end justify-content-between">
+                        <div class="col-lg-12 col-12">
+                            <h5 class="m-0">Student Grades</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            @if (Model.Count() > 0)
+                            {
+                                @foreach (var student in Model)
+                                {
+                                    num++;
+                                    <div class="alert bg-gray-light text-black" role="alert">
+
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-5 col-8 my-1"><b>@num.</b> @student.StudentName</div>
+                                            <div class="col-lg-2 col-4 my-1 text-lg-left text-right"><b>ID:</b> @student.StudentId</div>
+                                            <div class="col-lg-3 col-6 my-1">@student.StudentMajor @student.StudentGroup (@student.StudentStatus)</div>
+                                            <div class="col-lg-2 col-6 my-1">
+                                                <input type="hidden" name="studentCourseId" value="@student.StudentCourseId" />
+                                                <select class="form-control dropdown shadow-none" name="studentGrade" asp-for="@student.GradeId" asp-items="@ViewBag.Grades"
+                                                        disabled="@(!gradingPeriodOpened || gradeSheetSubmitted || notAllowedToChange.Contains(student.Grade?.GradeMark))">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No students</p>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/instructor-course-students.js" asp-append-version="true"></script>
+
+}

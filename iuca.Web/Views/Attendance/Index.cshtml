@@ -1,0 +1,253 @@
+﻿@model IEnumerable<AnnouncementSectionDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>
+                Attendances
+                @if (!string.IsNullOrEmpty(ViewBag.MainSpreadsheetLink))
+                {
+                    <a class="btn btn-link" style="text-decoration: none !important" href="@ViewBag.MainSpreadsheetLink" target="_blank">
+                        <i class="fa fa-link"></i>
+                    </a>
+                }
+            </h2>
+            <span class="text-success">
+                @TempData["AttendanceSuccessMessage"]
+            </span>
+            <span class="text-danger">
+                @TempData["AttendanceErrorMessage"]
+            </span>
+            <span class="text-danger">
+                @TempData["AttendanceError"]
+            </span>
+            <span class="text-muted">
+                @ViewBag.LastParsing
+            </span>
+        </div>
+        <div class="col-auto">
+
+            <button type="button" class="btn bg-blue text-white shadow-none mt-2" onclick="generateAttendanceTables(this)">
+                <span class="btnTitle">
+                    Generate tables
+                </span>
+                <span class="spinner" hidden>
+                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                    &nbsp; Generating...
+                </span>
+            </button>
+            <button type="button" class="btn bg-blue text-white shadow-none mt-2" onclick="parseAttendanceTables(this)">
+                <span class="btnTitle">
+                    Parse tables
+                </span>
+                <span class="spinner" hidden>
+                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                    &nbsp; Parsing...
+                </span>
+            </button>
+
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center justify-content-between">
+
+                        <div class="col-lg-auto col-12">
+                            <div class="row">
+                                <form method="get" asp-action="Index">
+                                    <div class="col-lg-auto col-12">
+                                        <select class="form-control shadow-none" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()">
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <div class="row justify-content-end">
+                            <div class="col-lg-4 col-12 pt-lg-0 pt-2">
+                                <input type="text" id="searchText" oninput="searchItems(this)" class="form-control shadow-none" placeholder="Id, name, mark" />
+                            </div>
+                        </div>
+                    </li>
+
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var announcementSection in Model)
+                        {
+                            num++;
+                            <li class="list-group-item search-item">
+                                <div class="row">
+                                    <div class="col-lg-9 col-12">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12 py-1 search-name">
+                                                <span class="text-gray">#@num</span> @announcementSection.Announcement.Course.NameEng
+                                            </div>
+
+                                            <div class="col-lg-2 col-6 py-1 search-course-id">
+                                                <strong>ID @announcementSection.Announcement.Course.ImportCode</strong>
+                                            </div>
+
+                                            <div class="col-lg-2 col-6 py-1 text-gray">
+                                                <em>
+                                                    @announcementSection.Section section
+                                                </em>
+                                            </div>
+
+                                            <div class="col-lg-2 col-6 py-1 search-mark">
+                                                @if (announcementSection.AttendanceInconsistencies.UndefinedMarkCount != 0) 
+                                                {
+                                                    <span class="text-danger">@announcementSection.AttendanceInconsistencies.UndefinedMarkCount undefined</span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        @if (announcementSection.AttendanceInconsistencies.MissingStudents != null && announcementSection.AttendanceInconsistencies.MissingStudents.Any())
+                                        {
+                                            string missingStudents = string.Join(", ", announcementSection.AttendanceInconsistencies.MissingStudents.Select(x => x.FullNameEng));
+
+                                            <div class="row py-1">
+                                                <div class="col-12 search-mark">
+                                                    <small class="text-danger">Missing students</small>
+                                                </div>
+                                                <div class="col-12">
+                                                    <span>@missingStudents</span>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @if (announcementSection.AttendanceInconsistencies.SurplusStudents != null && announcementSection.AttendanceInconsistencies.SurplusStudents.Any())
+                                        {
+                                            string surplusStudents = string.Join(", ", announcementSection.AttendanceInconsistencies.SurplusStudents.Select(x => x.FullNameEng));
+
+                                            <div class="row py-1">
+                                                <div class="col-12 search-mark">
+                                                    <small class="text-warning">Surplus students</small>
+                                                </div>
+                                                <div class="col-12">
+                                                    <span>@surplusStudents</span>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                    <div class="col-lg-3 col-12 text-right">
+
+                                        <small class="text-gray">Spreadsheet</small>
+
+                                        <div class="row">
+                                            <div class="col-12">
+
+                                                @if (!string.IsNullOrEmpty(announcementSection.Announcement.AttendanceSpreadsheetId))
+                                                {
+                                                    <a class="btn bg-blue text-white shadow-none" href="@announcementSection.Announcement.AttendanceSpreadsheetLink" target="_blank">
+                                                        <i class="fa fa-link"></i>
+                                                    </a>
+                                                    <a class="btn bg-blue text-white shadow-none" asp-controller="RegistrationCourses" asp-action="RegistrationCourseDetails" asp-route-registrationCourseId="@announcementSection.Id" target="_blank">
+                                                        <i class="fas fa-users"></i>
+                                                    </a>
+                                                    <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="generateAttendanceTable(this)" value="@announcementSection.AnnouncementId">
+                                                        <span class="btnTitle">
+                                                            Update
+                                                        </span>
+                                                        <span class="spinner" hidden>
+                                                            <i class="fas fa-circle-notch animate-icon rotate"></i> Updating..
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger transparent-hover shadow-none" onclick="deleteAttendanceSpreadsheet(this)" value="@announcementSection.AnnouncementId">
+                                                        <span class="btnTitle">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                        <span class="spinner" hidden>
+                                                            <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                                        </span>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn bg-blue text-white shadow-none" asp-controller="RegistrationCourses" asp-action="RegistrationCourseDetails" asp-route-registrationCourseId="@announcementSection.Id" target="_blank">
+                                                        <i class="fas fa-users"></i>
+                                                    </a>
+                                                    <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="generateAttendanceTable(this)" value="@announcementSection.AnnouncementId">
+                                                        <span class="btnTitle">
+                                                            Generate
+                                                        </span>
+                                                        <span class="spinner" hidden>
+                                                            <i class="fas fa-circle-notch animate-icon rotate"></i> Generating..
+                                                        </span>
+                                                    </button>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <small class="text-gray">Attendance</small>
+
+                                        <div class="row">
+                                            <div class="col-12">
+
+                                                <a class="btn bg-blue text-white shadow-none" asp-action="Details" asp-route-id="@announcementSection.Id"
+                                                   asp-route-searchSemesterId="@ViewBag.SemesterId" target="_blank">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </a>
+                                                @if (!string.IsNullOrEmpty(announcementSection.Announcement.AttendanceSpreadsheetId))
+                                                {
+
+                                                    <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="parseAttendanceTable(this)" value="@announcementSection.AnnouncementId">
+                                                        <span class="btnTitle">
+                                                            Parse
+                                                        </span>
+                                                        <span class="spinner" hidden>
+                                                            <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                                        </span>
+                                                    </button>
+                                                }
+                                                <button type="button" class="btn btn-danger shadow-none" onclick="deleteAttendance(this)" value="@announcementSection.Id">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No attendances</p>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/attendance.js" asp-append-version="true"></script>
+    <script src="~/js/attendance-generating.js" asp-append-version="true"></script>
+
+}

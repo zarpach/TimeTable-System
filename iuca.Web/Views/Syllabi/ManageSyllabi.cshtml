@@ -1,0 +1,264 @@
+﻿@model RegistrationCoursesSyllabusStatusesViewModel
+@using iuca.Application.Enums
+@using Microsoft.AspNetCore.Authorization
+@using iuca.Application.Constants
+
+@inject IAuthorizationService AuthorizationService
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row mt-4">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header bg-gray text-white">
+
+                    <div class="row align-items-end justify-content-between">
+                        <div class="col-lg-6 col-12">
+                            <h5>Syllabus management</h5>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            
+                            <form method="get" asp-action="ManageSyllabi">
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-12 my-1">
+                                        <select class="form-control shadow-none" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                                    </div>
+
+                                    <div class="col-lg-4 col-8 my-1">
+                                        <select class="form-control shadow-none" name="departmentId" asp-items="@ViewBag.Departments">
+                                            <option value="0">Not selected</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-2 col-4 my-1 text-right">
+                                        <button type="submit" class="btn bg-white">
+                                            <i class="fab fa-sistrix"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+
+                                    <form method="get" asp-action="ManageSyllabi">
+                                        <input type="hidden" name="departmentId" value="@ViewBag.DepartmentId" />
+                                        <input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+                                        <div class="row align-items-center justify-content-center">
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="" class="btn btn-link-dark shadow-none">
+                                                    All <span class="badge badge-secondary">@(@Model.notAddedCount + @Model.notSubmittedCount + @Model.rejectedCount + @Model.pendingCount + @Model.approvedCount)</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="0" class="btn btn-link-dark shadow-none">
+                                                    Not Added <span class="badge badge-danger">@Model.notAddedCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="@((int)enu_SyllabusStatus.Draft)" class="btn btn-link-dark shadow-none">
+                                                    Not Submitted <span class="badge badge-danger">@Model.notSubmittedCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="@((int)enu_SyllabusStatus.Rejected)" class="btn btn-link-dark shadow-none">
+                                                    Rejected <span class="badge badge-danger">@Model.rejectedCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="@((int)enu_SyllabusStatus.Pending)" class="btn btn-link-dark shadow-none">
+                                                    Pending <span class="badge badge-warning">@Model.pendingCount</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <button type="submit" name="status" value="@((int)enu_SyllabusStatus.Approved)" class="btn btn-link-dark shadow-none">
+                                                    Approved <span class="badge badge-success">@Model.approvedCount</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <hr class="my-1" />
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    @if (Model.RegistrationCourses.Count() > 0)
+                                    {
+                                        @foreach (var registrationCourse in Model.RegistrationCourses)
+                                        {
+                                            num++;
+
+                                            string approveButton = "d-none";
+                                            string rejectButton = "d-none";
+                                            string syllabusStatus = "Not Added";
+                                            string syllabusStatusColor = "text-danger";
+                                            string syllabusViewButtons = "d-none";
+                                            string commentTextarea = "disabled";
+                                            string approverComment = "";
+                                            int syllabusId = 0;
+
+                                            if (registrationCourse.AnnouncementSection.Syllabus != null)
+                                            {
+                                                if (registrationCourse.AnnouncementSection.Syllabus.Status == (int)enu_SyllabusStatus.Pending)
+                                                {
+                                                    syllabusStatusColor = "text-warning";
+                                                    syllabusViewButtons = "";
+                                                    commentTextarea = "";
+                                                    approveButton = "";
+                                                    rejectButton = "";
+                                                }
+                                                if (registrationCourse.AnnouncementSection.Syllabus.Status == (int)enu_SyllabusStatus.Approved)
+                                                {
+                                                    syllabusStatusColor = "text-success";
+                                                    syllabusViewButtons = "";
+                                                    commentTextarea = "";
+                                                    rejectButton = ""; 
+                                                }
+                                                syllabusId = registrationCourse.AnnouncementSection.Syllabus.Id;
+                                                syllabusStatus = EnumExtentions.GetDisplayName((enu_SyllabusStatus)registrationCourse.AnnouncementSection.Syllabus.Status);
+                                                approverComment = registrationCourse.AnnouncementSection.Syllabus.ApproverComment;
+                                            }
+                                            <div class="alert bg-gray-light text-black" role="alert">
+                                                <div class="row">
+
+                                                    <div class="col-12">
+                                                        <div class="row align-items-center">
+
+                                                            <div class="col-lg-6 col-12">
+                                                                <i class="fas fa-circle @syllabusStatusColor"></i> @syllabusStatus
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-12 text-right">
+
+                                                                @if ((AuthorizationService.AuthorizeAsync(User, Permissions.SyllabiApprover.Edit)).Result.Succeeded)
+                                                                {
+                                                                    <a data-toggle="modal" data-target="#manageModel@(num)" class="btn bg-white cursor-pointer @syllabusViewButtons">
+                                                                        Manage
+                                                                    </a>
+                                                                    <div class="modal fade" id="manageModel@(num)" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content text-left">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">
+                                                                                        <strong>@(num + ". " + registrationCourse.AnnouncementSection.Course.Abbreviation + " " + registrationCourse.AnnouncementSection.Course.Number)</strong>
+                                                                                        @registrationCourse.AnnouncementSection.Course.NameEng
+                                                                                    </h5>
+                                                                                    <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-12">
+
+                                                                                            <h5>@registrationCourse.InstructorName</h5>
+                                                                                            <p>
+                                                                                                @if (registrationCourse.AnnouncementSection.Syllabus != null && registrationCourse.AnnouncementSection.Syllabus.InstructorComment != null)
+                                                                                                {
+                                                                                                    <span>@registrationCourse.AnnouncementSection.Syllabus.InstructorComment</span>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span class="text-secondary">(no comment)</span>
+                                                                                                }
+                                                                                            </p>
+
+                                                                                        </div>
+                                                                                        <div class="col-12 pt-4">
+                                                                                            <textarea name="approverComment" class="form-control shadow-none" rows="4" placeholder="Approver comment" @commentTextarea>@approverComment</textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <input type="hidden" name="syllabusId" value="@syllabusId" />
+                                                                                    <button type="button" name="approveSyllabusBtn" class="btn btn-success @approveButton">
+                                                                                        <i class="fas fa-check"></i> Approve
+                                                                                    </button>
+                                                                                    <button type="button" name="rejectSyllabusBtn" class="btn btn-danger @rejectButton">
+                                                                                        <i class="fas fa-times"></i> Reject
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+
+                                                                <a asp-action="Details" asp-route-id="@syllabusId" target="_blank" class="btn bg-white @syllabusViewButtons">
+                                                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a asp-action="Print" asp-route-Id="@syllabusId" target="_blank" class="btn bg-white @syllabusViewButtons">
+                                                                    <i class="fas fa-print"></i>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-lg-6 col-12">
+                                                        <strong>@(num + ". " + registrationCourse.AnnouncementSection.Course.Abbreviation + " " + registrationCourse.AnnouncementSection.Course.Number)</strong>
+                                                        @registrationCourse.AnnouncementSection.Course.NameEng <strong>\</strong> @registrationCourse.AnnouncementSection.Course.NameRus <strong>(</strong>@registrationCourse.AnnouncementSection.Course.Language.NameEng<strong>)</strong>
+                                                    </div>
+
+                                                    <div class="col-lg-2 col-6">
+                                                        ID <strong>@registrationCourse.AnnouncementSection.Course.ImportCode</strong>
+                                                    </div>
+
+                                                    <div class="col-lg-1 col-6">
+                                                        <strong>@registrationCourse.AnnouncementSection.Course.Department.Code</strong>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-12 text-lg-right">
+                                                        @registrationCourse.InstructorName
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No courses announced</p>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+      
+@section Scripts {
+
+    <script src="~/js/syllabuses.js" asp-append-version="true"></script>
+
+}

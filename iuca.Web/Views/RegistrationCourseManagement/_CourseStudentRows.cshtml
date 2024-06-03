@@ -1,0 +1,43 @@
+﻿@model List<TransferCourseStudentViewModel>
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+<div class="row">
+    <div class="col-12 font-weight-bold">
+        <input type="hidden" name="@(ViewBag.IsFrom ? "courseIdFrom" : "courseIdTo")" value="@ViewBag.CourseId"/>
+        <span>@ViewBag.CourseName</span>
+    </div>
+</div>
+<hr>
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="row">
+        <div class="col-1">
+            <span class="studentNum">@(++num)</span>
+        </div>
+        <div class="col-7">
+            <input type="hidden" name="studentUserId" value="@Model[i].UserId"/>
+            @Model[i].Name
+        </div>
+        <div class="col-2">
+            @Model[i].Group
+        </div>
+        <div class="col-2">
+            @if (ViewBag.IsFrom)
+            {
+                <button type="button" class="btn btn-primary" name="transferCourseToBtn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="button" class="btn btn-primary" name="transferCourseFromBtn" hidden>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            }
+        </div>
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+}

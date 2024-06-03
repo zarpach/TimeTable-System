@@ -1,0 +1,185 @@
+﻿@using iuca.Application.Enums;
+@model MidtermAdviserReportViewModel
+
+@{
+    var num = 0;
+    bool isDean = ViewBag.IsDean != null && ViewBag.IsDean;
+    bool onlyActiveStudents = ViewBag.OnlyActiveStudents != null && ViewBag.OnlyActiveStudents;
+}
+
+<div class="container p-0">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Midterm Adviser Report</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <form asp-action="MidtermAdviserReport" method="get">
+        <div class="row">
+            @if (isDean)
+            {
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-5 col-12">
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label>Adviser:</label>
+                                </div>
+                                <div class="col-12">
+                                    <select class="form-control dropdown" name="adviserUserId" id="adviserSelect" asp-items="@ViewBag.Advisers">
+                                        <option value="">Not selected</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" name="adviserUserId" value="@Model.AdviserUserId" />
+            }
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department Group:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentGroupId" id="departmentGroupSelect" 
+                            asp-items="@ViewBag.DepartmentGroups">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Sorting:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="sorting" asp-items="@ViewBag.Sorting"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <label>
+                            <input type="checkbox" name="onlyActiveStudents" value="@(onlyActiveStudents ? "true" : "false")"
+                            @(onlyActiveStudents ? "checked" : "") onchange="this.value = this.checked;" />
+                            Only active students
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <div class="col-lg-2 col-6 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Show</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div style="width:100%;height:500pt;overflow:auto;">
+        <table class="table table-bordered table-striped table-sm small tableFixHead">
+            <thead>
+                <tr>
+                    <th style="min-width:180pt;"></th>
+                    @foreach (var course in Model.AllCourses)
+                    {
+                        <th class="text-center" style="min-width:80pt;">
+                            @course.Abbreviation @course.Number, @course.NameEng
+                            <br>ID: @course.ImportCode
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.AllStudents)
+                {
+                    num++;
+                    <tr>
+                        <th class="font-weight-normal">
+                            <a class="text-reset" asp-action="MidtermStudentReport" asp-route-semesterId="@Model.Semester.Id"
+                               asp-route-studentUserId="@student.StudentInfo.StudentUserId" target="_blank">
+                                @num.
+                                <span class="font-weight-bolder">@student.StudentInfo.Name</span><br>
+                                @student.StudentInfo.Group (@student.StudentInfo.State)
+                                @if (student.AttentionCount > 0)
+                                {
+                                    <span class="badge badge-pill badge-warning">@student.AttentionCount</span>
+                                }
+                            </a>
+                        </th>
+                        
+                        @foreach(var course in Model.AllCourses)
+                        {
+                            var key = $"{student.StudentInfo.StudentUserId}_{course.Id}";
+                            <td class="text-center">
+                                
+                                    <h6>
+                                        @if (Model.AllStudentCourses.ContainsKey(key))
+                                        {
+                                            <a class="text-reset" asp-action="MidtermStudentReport" asp-route-semesterId="@Model.Semester.Id"
+                                               asp-route-studentUserId="@student.StudentInfo.StudentUserId" 
+                                               asp-route-courseId="@Model.AllStudentCourses[key].AnnouncementSection.Course.ImportCode" 
+                                               target="_blank">
+                                                @if (Model.AllStudentCourses[key].StudentMidterm != null)
+                                                {
+                                                    if (Model.AllStudentCourses[key].StudentMidterm.Attention)
+                                                    {
+                                                        <i class="fas fa-exclamation-circle text-warning"></i>
+                                                    }
+                                                    <span>
+                                                        @(Model.AllStudentCourses[key].StudentMidterm.MaxScore > 0 ? Model.AllStudentCourses[key].StudentMidterm.Score * 100 / Model.AllStudentCourses[key].StudentMidterm.MaxScore : 0)%
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-danger">Not filled</span>
+                                                }
+                                            </a>
+                                        }
+                                    </h6>
+                                
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/midterm-adviser-report.js" asp-append-version="true"></script>
+
+}

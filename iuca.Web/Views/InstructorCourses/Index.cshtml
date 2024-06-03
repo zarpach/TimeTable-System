@@ -1,0 +1,111 @@
+﻿@model List<InstructorCourseViewModel>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Instructor Courses</h3>
+            <h5>@ViewBag.InstructorName</h5>
+        </div>
+    </div>
+
+    <hr>
+
+    <form asp-controller="InstructorCourses" method="get">
+        <div class="row">
+            @if (ViewBag.IsAdmin || ViewBag.IsDean)
+            {
+                <div class="col-lg-6 col-12">
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label>Instructor:</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control dropdown" name="instructorUserId" id="instructorUserId" asp-items="@ViewBag.Instructors">
+                                <option value="">Not selected</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-lg-4 col-12">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-9">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-12 text-right">
+                <button type="submit" class="btn btn-primary">Show</button>
+            </div>
+        </div>
+    </form>
+    
+    <div class="row mt-2">
+        <div class="col-12">
+            
+            @foreach(var course in Model)
+            {
+                num++;
+                string syllabusStatus = "Not Added";
+                string statusColor = "text-danger";
+                string attendanceSpreadsheetExist = "d-none";
+
+                if (course.SyllabusStatus != 0)
+                    syllabusStatus = EnumExtentions.GetDisplayName((enu_SyllabusStatus)@course.SyllabusStatus);
+
+                if (course.SyllabusStatus == (int)enu_SyllabusStatus.Pending)
+                    statusColor = "text-warning";
+                else if (course.SyllabusStatus == (int)enu_SyllabusStatus.Approved)
+                    statusColor = "text-success";
+
+                if (!string.IsNullOrEmpty(course.AttendanceSpreadsheetId))
+                    attendanceSpreadsheetExist = "";
+
+                <div class="row adaptive-row p-1 m-1">
+                    <div class="col-lg-6 col-12"><b>@num. @course.Code</b> @course.Name (@course.Section)</div>
+                    <div class="col-lg-6 col-12">
+                        Id: <b>@course.ImportCode</b>&nbsp&nbsp
+                        Credits: <b>@course.Points</b>&nbsp&nbsp
+                        Places: <b>@course.Places</b>&nbsp&nbsp
+                        Schedule: <b>@course.Schedule</b>
+                        <h6 class="mt-1"><i class="fas fa-circle @statusColor"></i>&nbsp;@syllabusStatus&nbsp;(Syllabus)</h6>
+                    </div>
+                    <div class="col-12 text-right">
+                        <hr class="m-1">
+                        <a asp-controller="Attendance" asp-action="RedirectToAttendanceSpreadsheet"
+                           asp-route-attendanceSpreadsheetId="@course.AttendanceSpreadsheetId"
+                           class="btn btn-outline-primary @attendanceSpreadsheetExist" target="_blank">Attendance Table</a>
+                        <a asp-controller="Attendance" asp-action="Details" asp-route-id="@course.AnnouncementSetcionId"
+                           class="btn btn-outline-primary @attendanceSpreadsheetExist" asp-route-searchSemesterId="@ViewBag.SemesterId">
+                            Attendance
+                        </a>
+                        <a asp-action="InstructorCourseStudents" asp-route-semesterId="@ViewBag.SemesterId"
+                           asp-route-announcementSectionId="@course.AnnouncementSetcionId" asp-route-onlyActiveStudents="true"
+                           class="btn btn-outline-primary">Students (@course.StudentCount)</a>
+                        <a asp-controller="Syllabi" asp-action="Index" asp-route-registrationCourseId="@course.AnnouncementSetcionId"
+                       asp-route-semesterId="@ViewBag.SemesterId" asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                       class="btn btn-outline-primary">Syllabus</a>
+                        <a asp-controller="StudentMidterms" asp-action="Index" asp-route-semesterId="@ViewBag.SemesterId"
+                           asp-route-registrationCourseId="@course.AnnouncementSetcionId"
+                           asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                           class="btn btn-outline-primary">Midterms</a>
+                        <a asp-action="InstructorCourseStudentGrades" asp-route-semesterId="@ViewBag.SemesterId"
+                           asp-route-announcementSectionId="@course.AnnouncementSetcionId"
+                            asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                       class="btn btn-outline-primary">Final Grades</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

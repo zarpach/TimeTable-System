@@ -1,0 +1,88 @@
+﻿@model List<StudentsInSectionViewModel>
+@using iuca.Infrastructure.Identity
+@using iuca.Application.Enums
+
+@inject ApplicationUserManager<ApplicationUser> _userManager;
+
+@{
+    var sections = Model.Select(x => new
+    {
+        Id = x.AnnouncementSectionId,
+        Number = x.AnnouncementSection.Section,
+        Instructor = _userManager.GetUserFullName(x.AnnouncementSection.InstructorUserId)
+    });
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between align-items-end">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" href="@ViewBag.ReturnUrl">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+        <div class="col-auto">
+            <h4><strong>@ViewBag.CourseName</strong></h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @foreach (var sectionWithStudents in Model)
+            {
+                int num = 1;
+                <table class="table tableFixHead mt-4">
+                    <thead class="thead-light bg-gray">
+                        <tr>
+                            <th scope="col" colspan="3">
+                                <strong>@sectionWithStudents.AnnouncementSection.Section SECTION </strong>
+                                <em>(@_userManager.GetUserFullName(sectionWithStudents.AnnouncementSection.InstructorUserId))</em>
+                            </th>
+                            @foreach (var studentSection in sections)
+                            {
+                                <th>@studentSection.Number</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in sectionWithStudents.Students)
+                        {
+                            <tr>
+
+                                <input type="hidden" asp-for="@student.UserId" id="studentUserId">
+                                <input type="hidden" asp-for="@sectionWithStudents.AnnouncementSectionId" id="oldAnnouncementSectionId">
+
+                                <td scope="row" class="col-auto text-nowrap">
+                                    <span class="text-gray">#@(num++)</span> @student.ShortName
+                                </td>
+                                <td class="col-1">@student.StudentId</td>
+                                <td class="col-auto">@student.Group</td>
+
+                                @foreach (var studentSection in sections)
+                                {
+                                    <td class="col-1">
+                                        <div class="form-check" data-toggle="tooltip" title="@studentSection.Instructor">
+                                            <input class="form-check-input big-radio" type="radio"
+                                                   asp-for="@sectionWithStudents.AnnouncementSectionId"
+                                                   value="@studentSection.Id" name="sectionsForStudent@(student.StudentId)"
+                                                   onchange="setStudentSection(this)">
+                                        </div>
+                                    </td>
+
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/announcements-for-assigning.js" asp-append-version="true"></script>
+
+}

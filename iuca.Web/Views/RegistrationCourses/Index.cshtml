@@ -1,0 +1,175 @@
+﻿@model IEnumerable<RegistrationCourseViewModel>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Sections</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" id="importCoursesBtn" class="btn btn-primary mt-1">
+                <i class="fas fa-sync-alt"></i> &nbsp; Обновить курсы
+            </button>
+            <button type="button" id="importInstructorsBtn" class="btn btn-primary mt-1">
+                <i class="fas fa-sync-alt"></i> &nbsp;Обновить преподавателей
+            </button>
+            <button type="button" id="importRegistrationCoursesBtn" class="btn btn-primary mt-1">
+                <i class="fas fa-sync-alt"></i> &nbsp; Обновить курсы на семестр
+            </button>
+        </div>
+    </div>
+    <hr>
+
+    <form method="get" asp-action="Index">
+        <div class="row">
+            <div class="col-lg-8 col-12 mt-2">
+                <div class="row mb-1">
+                    <div class="col-auto">
+                        <select class="form-control shadow-none" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 mt-2">
+                <div class="input-group">
+                    <input type="text" id="searchText" class="form-control zero-border-right shadow-none" />
+                    <div class="input-group-append p-0">
+                        <button type="button" id="clearSearchBtn" class="btn gray-border-top gray-border-bottom text-secondary shadow-none">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="input-group-append col-3 p-0">
+                        <button id="searchBtn" type="button" class="btn btn-primary btn-block shadow-none">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                foreach (var announcementSection in Model)
+                {
+                    num++;
+                    <div class="row adaptive-row search-item @(announcementSection.AnnouncementSection.IsChanged ? "orange-border-left" : "")
+                        @(announcementSection.AnnouncementSection.MarkedDeleted ? "red-row" : "")">
+                        <div class="col-12">
+                            <div class="row p-1">
+                                <div class="col-lg-6 col-12 mt-1">
+                                    <span class="text-gray">#@num</span> <strong>@(announcementSection.AnnouncementSection.Course.Abbreviation + " " + announcementSection.AnnouncementSection.Course.Number)</strong>
+                                    @announcementSection.AnnouncementSection.Course.Name
+                                </div>
+
+                                <div class="col-lg-1 col-4 mt-1">
+                                    ID <strong>@announcementSection.AnnouncementSection.Course.ImportCode</strong>
+                                </div>
+                                <div class="col-lg-1 col-4 mt-1">
+                                    <strong>@announcementSection.AnnouncementSection.Credits</strong> cr.
+                                </div>
+                                <div class="col-lg-1 col-4 mt-1">
+                                    <strong>@announcementSection.AnnouncementSection.Places</strong> pl.
+                                </div>
+                                
+                                <div class="col-lg-3 col-12 mt-1 text-right">
+
+                                    @{
+                                        var allInstructors = new List<string>();
+                                        allInstructors.Add(announcementSection.InstructorName);
+
+                                        if (announcementSection.AnnouncementSection.ExtraInstructorsList != null && announcementSection.AnnouncementSection.ExtraInstructorsList.Any())
+                                        {
+                                            allInstructors.AddRange(announcementSection.AnnouncementSection.ExtraInstructorsList
+                                            .Select(extraInstructor => extraInstructor.FullName));
+                                        }
+                                    }
+                                    <em>@string.Join(", ", allInstructors)</em>
+
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <div class="row p-1">
+                                <div class="col-lg-8 col-12 mt-2">
+                                    <div class="row">
+
+                                        <div class="col-3">
+                                            <strong>@announcementSection.AnnouncementSection.Section section</strong>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label>Schedule:</label>
+                                                    <strong>@announcementSection.AnnouncementSection.Schedule</strong>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>Groups:</label>
+                                                    @if (announcementSection.AnnouncementSection.Groups != null && announcementSection.AnnouncementSection.Groups.Any())
+                                                    {
+                                                        string groups = string.Join(", ", announcementSection.AnnouncementSection.Groups.Select(x => x.Code));
+                                                        <strong>@groups</strong>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-12 text-right">
+                                    <a asp-action="RegistrationCourseDetails" asp-route-registrationCourseId="@announcementSection.AnnouncementSection.Id" class="btn btn-outline-primary shadow-none mt-2">
+                                        <i class="fas fa-users"></i>&nbsp; Students (@announcementSection.StudentsNumber)
+                                    </a>
+                                    <a class="btn btn-outline-primary shadow-none mt-2" data-toggle="collapse" href="#collapse_@(announcementSection.AnnouncementSection.Id)" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+
+                                    </a>
+                                    <div class="collapse mb-2" id="collapse_@(announcementSection.AnnouncementSection.Id)">
+                                        <input type="hidden" name="courseDetId" value="@announcementSection.AnnouncementSection.CourseDetId" />
+                                        <input type="hidden" name="announcementSectionId" value="@announcementSection.AnnouncementSection.Id" />
+                                        <button type="button" name="exportRegistrationCourseBtn" class="btn btn-outline-primary shadow-none mt-2">
+                                            <i class="fas fa-upload"></i>&nbsp; Экспорт
+                                        </button>
+                                        <button type="button" name="importRegistrationCourseBtn" class="btn btn-outline-primary shadow-none mt-2"
+                                                disabled="@(announcementSection.AnnouncementSection.MarkedDeleted)" value="@announcementSection.AnnouncementSection.Announcement.SemesterId">
+                                            <i class="fas fa-download"></i>&nbsp; Импорт
+                                        </button>
+                                    </div>
+                            
+                                    @*<button type="button" name="deleteRegistrationCourseBtn" class="btn btn-outline-danger mt-2"
+                                        style="@(registrationCourse.RegistrationCourse.MarkedDeleted ? "display:none;" : "")">
+                                        <i class="fas fa-trash"></i>&nbsp; Удалить
+                                    </button>*@
+                                   @*<button type="button" name="undeleteRegistrationCourseBtn" class="btn btn-outline-success mt-2"
+                                        style="@(!registrationCourse.RegistrationCourse.MarkedDeleted ? "display:none;" : "")">
+                                        <i class="fas fa-wrench"></i>&nbsp; Восстановить
+                                    </button>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Нет объявленных курсов</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/registration-courses.js" asp-append-version="true"></script>
+}
+
+
+

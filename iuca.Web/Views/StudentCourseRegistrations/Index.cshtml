@@ -1,0 +1,277 @@
+﻿@using iuca.Application.Enums
+@model IEnumerable<StudentCourseRegistrationBriefViewModel>
+
+@{
+    int num = 0;
+    bool onlyActive = (ViewBag.OnlyActive == null || ViewBag.OnlyActive);
+
+    string regStateBgClass = "";
+    string addDropStateBgClass = "";
+
+    int notSentQty = 0;
+    int onApprovalQty = 0;
+    int notApprovedQty = 0;
+    int approvedQty = 0;
+    int submittedQty = 0;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-8">
+            <h3 class="text-uppercase">Student Course Registrations</h3>
+        </div>
+        <div class="col-4 text-right">
+            <button type="submit" class="btn btn-primary" id="addStudentRegistrationBtn">
+                <i class="fas fa-plus"></i> &nbsp; Add registration
+            </button>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-controller="StudentCourseRegistrations" asp-action="Index">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12">
+                        <label>Department:</label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <select class="form-control dropdown" name="departmentId" id="departmentId" asp-items="@ViewBag.Departments">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12">
+                        <label>Registration state:</label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <select class="form-control dropdown" name="registrationState" id="registrationState" asp-items="@ViewBag.RegistrationStates">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12">
+                        <label>Min credits:</label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <input type="number" class="form-control" name="minCredits" id="minCredits" value="@ViewBag.MinCredits" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12">
+                        <label>Student state:</label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <select class="form-control dropdown" name="studentState" id="studentState" asp-items="@ViewBag.StudentStates">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fab fa-sistrix"></i> &nbsp; Show
+                </button>
+            </div>
+        </div>
+    </form>
+    <hr>
+
+    @{
+        notSentQty = Model.Count(x => x.RegistrationState == enu_RegistrationState.NotSpecified || 
+            x.RegistrationState == enu_RegistrationState.NotSent);
+
+        onApprovalQty = Model.Count(x => x.RegistrationState == enu_RegistrationState.OnApproval ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.OnApproval);
+
+        notApprovedQty = Model.Count(x => x.RegistrationState == enu_RegistrationState.NotApproved ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.NotApproved);
+
+        approvedQty = Model.Count(x => x.RegistrationState == enu_RegistrationState.Approved ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.Approved);
+
+        submittedQty = Model.Count(x => x.RegistrationState == enu_RegistrationState.Submitted &&
+            x.AddDropState == enu_RegistrationState.NotSent || x.AddDropState == enu_RegistrationState.Submitted);
+    }
+
+    <div class="row p-2 text-right">
+        <div class="col-lg-2 col-4">
+        </div>
+        <div class="col-lg-2 col-4">
+            <b>Not sent: @notSentQty</b>
+        </div>
+        <div class="col-lg-2 col-4">
+            <b>On approval: @onApprovalQty</b>
+        </div>
+        <div class="col-lg-2 col-4">
+            <b>Not approved: @notApprovedQty</b>
+        </div>
+        <div class="col-lg-2 col-4">
+            <b>Approved: @approvedQty</b>
+        </div>
+        <div class="col-lg-2 col-4">
+            <b>Submitted: @submittedQty/@Model.Count()</b>
+        </div>
+    </div>
+    @foreach(var department in Model.GroupBy(x => x.Department).OrderBy(x => x.Key))
+    {
+        num = 0;
+
+        notSentQty = department.Count(x => x.RegistrationState == enu_RegistrationState.NotSpecified || 
+            x.RegistrationState == enu_RegistrationState.NotSent);
+
+        onApprovalQty = department.Count(x => x.RegistrationState == enu_RegistrationState.OnApproval ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.OnApproval);
+
+        notApprovedQty = department.Count(x => x.RegistrationState == enu_RegistrationState.NotApproved ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.NotApproved);
+
+        approvedQty = department.Count(x => x.RegistrationState == enu_RegistrationState.Approved ||
+            x.RegistrationState == enu_RegistrationState.Submitted && x.AddDropState == enu_RegistrationState.Approved);
+
+        submittedQty = department.Count(x => x.RegistrationState == enu_RegistrationState.Submitted &&
+            x.AddDropState == enu_RegistrationState.NotSent || x.AddDropState == enu_RegistrationState.Submitted);
+
+        <div class="row p-2 bg-dark-lilac font-weight-bold text-right">
+            <div class="col-lg-2 col-4">
+                @department.Key
+            </div>
+            <div class="col-lg-2 col-4">
+                Not sent: @notSentQty
+            </div>
+            <div class="col-lg-2 col-4">
+                On approval: @onApprovalQty
+            </div>
+            <div class="col-lg-2 col-4">
+                Not approved: @notApprovedQty
+            </div>
+            <div class="col-lg-2 col-4">
+                Approved: @approvedQty
+            </div>
+            <div class="col-lg-2 col-4">
+                Submitted: @submittedQty/@department.Count()
+            </div>
+        </div>
+        foreach (var registration in department.OrderBy(x => x.Group).ThenBy(x => x.StudentName))
+        {
+            num++;
+            regStateBgClass = "";
+            addDropStateBgClass = "";
+
+            if (registration.RegistrationState == enu_RegistrationState.NotSent ||
+                registration.RegistrationState == enu_RegistrationState.NotSpecified)
+            {
+                regStateBgClass = "red-bg";
+                addDropStateBgClass = "red-bg";
+            }
+            else if (registration.RegistrationState == enu_RegistrationState.OnApproval)
+            {
+                regStateBgClass = "blue-bg";
+                addDropStateBgClass = "green-bg";
+            }
+            else if (registration.RegistrationState == enu_RegistrationState.NotApproved)
+            {
+                regStateBgClass = "orange-bg";
+                addDropStateBgClass = "green-bg";
+            }
+            else if (registration.RegistrationState == enu_RegistrationState.Approved)
+            {
+                regStateBgClass = "yellow-bg";
+                addDropStateBgClass = "green-bg";
+            }
+            else if (registration.RegistrationState == enu_RegistrationState.Submitted)
+            {
+                regStateBgClass = "green-bg";
+                addDropStateBgClass = "green-bg";
+
+                if (registration.AddDropState == enu_RegistrationState.OnApproval)
+                {
+                    addDropStateBgClass = "blue-bg";
+                }
+                else if (registration.AddDropState == enu_RegistrationState.NotApproved)
+                {
+                    addDropStateBgClass = "orange-bg";
+                }
+                else if (registration.AddDropState == enu_RegistrationState.Approved)
+                {
+                    addDropStateBgClass = "yellow-bg";
+                }
+            }
+
+            <div class="row p-1 border-top striped-row">
+                <div class="col-lg-4 col-8 mt-2">
+                    <b>@num. @registration.StudentName</b>
+                </div>
+                <div class="col-lg-2 col-3 mt-2">
+                    @registration.Group
+                    <span class="@(registration.StudentState != enu_StudentState.Active ? "text-danger" : "")">
+                        (@registration.StudentState)
+                        </span>
+                </div>
+                <div class="col-lg-2 col-6 mt-2 @regStateBgClass">
+                    Registration: <b>@registration.RegistrationState</b>
+                </div>
+                <div class="col-lg-2 col-6 mt-2 @addDropStateBgClass">
+                    Add/Drop: <b>@registration.AddDropState</b>
+                </div>
+                <div class="col-lg-2 col-12 mt-2 text-right">
+                   <a class="btn btn-outline-primary" asp-action="EditRegistration" asp-route-studentCourseRegistrationId=@registration.StudentRegistrationId>
+                       <i class="fas fa-edit"></i> Edit
+                    </a>
+                </div>
+                <div class="col-12">
+                    <hr class="m-1">
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            Date create: @registration.DateCreate
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            Date change: @registration.DateChange
+                        </div>
+                        <div class="col-lg-2 col-6">
+                            Courses: @registration.TotalCourses
+                        </div>
+                        <div class="col-lg-2 col-6">
+                            Credits: <b>@registration.Credits</b>
+                        </div>
+                        <div class="col-lg-2 col-12">
+                            <input type="hidden" name="registrationId" value="@registration.StudentRegistrationId" />
+                            <label>
+                                <input type="checkbox" name="noCreditsLimitation" value="@(registration.NoCreditsLimitation ? "true" : "false")" 
+                                    @(registration.NoCreditsLimitation ? "checked" : "") onchange="this.value = this.checked;" />
+                                <span>Без ограничений по кредитам</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts
+{
+   <script src="~/js/student-course-registrations.js" asp-append-version="true"></script> 
+}

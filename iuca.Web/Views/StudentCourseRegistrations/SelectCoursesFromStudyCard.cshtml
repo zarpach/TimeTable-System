@@ -1,0 +1,218 @@
+﻿@using iuca.Application.Enums
+@model StudyCardCoursesViewModel
+
+@{
+    int num = 0;
+    bool electiveSelected = false;
+    if (Model != null)
+    {
+        electiveSelected = Model.StudyCardCourses.Any(x => x.IsForAll && x.IsSelected);
+        if (!electiveSelected)
+            electiveSelected = Model.ElectiveCourses.Any(x => x.IsSelected);
+    }
+}
+
+<div id="ModalContainer"></div>
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="row pt-2 justify-content-end">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <a asp-controller="StudentCourseRegistrations" asp-action="CourseRegistration" class="btn btn-primary btn-lg btn-block text-uppercase">
+                     Продолжить &nbsp; <i class="fas fa-chevron-right"></i> </a>
+            </div>
+        </div>
+        <hr/>
+        <div class="row pt-2">
+            <div class="col-12 p-0 text-center">
+                <h4 class="text-uppercase">Выбор курсов из Study Card</h4>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h6 class="d-inline-block">Семестр (Semester): <span class="d-inline-block font-weight-bold">@(((enu_Season)Model.Semester.Season).GetDisplayName())</span></h6> 
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 text-xl-center text-lg-center">
+                <h6 class="d-inline-block">Год(Year): <span class="d-inline-block font-weight-bold">@Model.Semester.Year</span></h6> 
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 text-lg-right text-xl-right">
+                <h6 class="d-inline-block">Группа(Group) : <span class="d-inline-block font-weight-bold">@Model.DepartmentGroup.DepartmentCode</span></h6> 
+            </div>
+        </div>
+        <hr>
+        @if (Model.Semester.OrganizationId == 2)
+        {
+            <div class="row my-2">
+                <div class="col-lg-10 col-6">
+                </div>
+                <div class="col-lg-2 col-6 text-center">
+                    <form mehtod="post" asp-action="SelectAllFromStudyCard">
+                        <input type="hidden" name="semesterId" value="@Model.Semester.Id" />
+                        <input type="hidden" name="departmentGroupId" value="@Model.DepartmentGroup.Id" />
+                        <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                        <input type="hidden" name="studyCardId" value="@Model.StudyCardId" />
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Выбрать все</button>
+                    </form>
+                </div>
+            </div>
+        }
+        <div class="row pt-2">
+            <div class="col-12">
+                @if (Model.StudyCardCourses.Count > 0)
+                {
+                    foreach (var course in Model.StudyCardCourses)
+                    {
+                        num++;
+                        <div class="row course-item @(course.IsSelected ? "regular-bg" : "")">
+                            @if (course.IsForAll)
+                            {
+                                <div class="col-12 p-0">
+                                    <div class="alert alert-warning p-0">
+                                        <h6 class="text-uppercase m-1 ml-3">IUCA Elective</h6>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-xl-10 col-lg-10 col-12">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-2">
+                                        <span class="course-item-name">
+                                            <b>@course.AnnouncementSection.Course.Abbreviation @course.AnnouncementSection.Course.Number</b>,
+                                            @course.AnnouncementSection.Course.Name (@course.AnnouncementSection.Section)
+                                            (<b>ID: @course.AnnouncementSection.Course.ImportCode</b>)
+                                        </span>
+                                        <br />
+                                        @course.InstructorName
+                                        <input type="hidden" name="registrationCourseId" value="@course.AnnouncementSection.Id" />
+                                    </div>
+                                    <div class="col-12 col-lg-3 col-xl-3 mt-2">
+                                        Кредитов: <span class="coursePts">@course.AnnouncementSection.Credits</span>
+                                        <br />
+                                        Время: @course.AnnouncementSection.Schedule
+                                        <br />
+                                        Мест осталось: <span class="placesText">@course.RestPlaces</span>
+                                        <span class="queueText text-danger">
+                                            @if (course.Queue > 0)
+                                            {
+                                                @string.Format("(очередь: {0})", course.Queue)
+                                            }
+                                        </span>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        Комментарий:
+                                        <span class="font-italic">@course.Comment</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-12">
+                                <div class="row">
+                                    <div class="col-12 text-right mt-2">
+                                        <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                                        <input type="hidden" name="studyCardCourseId" value="@course.AnnouncementSection.Id" />
+                                        <button name="btnSelect" class="btn btn-outline-primary text-uppercase @(course.IsForAll ? "forAllSelectBtn" : "")"
+                                        @(course.IsSelected ? "hidden" : "") @(course.IsForAll && electiveSelected ? "disabled" : "")>
+                                            Выбрать
+                                        </button>
+                                        <button name="btnRemove" class="btn btn-outline-primary text-uppercase @(course.IsForAll ? "forAllRemoveBtn" : "")"
+                                        @(course.IsSelected ? "" : "hidden")>
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Нет курсов для выбора</p>
+                }
+            </div>
+            <div class="col-12">
+                @if (Model.DisplayIUCAElectives && Model.ElectiveCourses.Count > 0)
+                {
+                    <div class="row mt-3">
+                        <div class="col-12 alert alert-primary text-center">
+                            <h4 class="text-uppercase">IUCA electives</h4>
+                        </div>
+                    </div>
+                    foreach (var course in Model.ElectiveCourses)
+                    {
+                        num++;
+                        <div class="row course-item @(course.IsSelected ? "regular-bg" : "")">
+                            <div class="col-12 p-0">
+                                <div class="alert alert-warning p-0">
+                                    <h6 class="text-uppercase m-1 ml-3">IUCA Elective</h6>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-2">
+                                <span class="course-item-name">
+                                    <b>@course.AnnouncementSection.Course.Abbreviation @course.AnnouncementSection.Course.Number</b>,
+                                    @course.AnnouncementSection.Course.Name (@course.AnnouncementSection.Section)
+                                    (<b>ID: @course.AnnouncementSection.Course.ImportCode</b>)
+                                </span>
+                                <br />
+                                @course.InstructorName
+                                <input type="hidden" name="registrationCourseId" value="@course.AnnouncementSection.Id" />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xl-2 mt-2">
+                                Кредитов: <span class="coursePts">@course.AnnouncementSection.Credits</span>
+                                <br>
+                                Мест осталось: <span class="placesText">@course.RestPlaces</span>
+                                <span class="queueText text-danger">
+                                    @if (course.Queue > 0)
+                                    {
+                                        @string.Format("(очередь: {0})", course.Queue)
+                                    }
+                                </span>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mt-2">
+                                <div class="row">
+                                    <div class="col-lg-0 col-xl-0 col-6"></div>
+                                    <div class="col-lg-12 col-xl-12 col-6">
+                                        <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                                        <input type="hidden" name="studyCardCourseId" value="@course.AnnouncementSection.Id" />
+                                        <button name="btnSelect" class="btn btn-outline-primary btn-block text-uppercase forAllSelectBtn"
+                                        @(course.IsSelected ? "hidden" : "") @(electiveSelected ? "disabled" : "")>
+                                            Выбрать
+                                        </button>
+                                        <button name="btnRemove" class="btn btn-outline-primary btn-block text-uppercase forAllRemoveBtn" 
+                                            @(course.IsSelected ? "" : "hidden")>
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+
+}
+else
+{
+    <div class="container">
+        <div class="row pt-2 justify-content-end">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <a asp-controller="StudentCourseRegistrations" asp-action="CourseRegistration" class="btn btn-primary btn-lg btn-block text-uppercase">
+                     Продолжить &nbsp; <i class="fas fa-chevron-right"></i> </a>
+            </div>
+        </div>
+        <hr/>
+        <div class="row pt-2">
+            <div class="col-12 p-0 text-center">
+                <h4 class="text-uppercase text-danger">Study card не добавлен</h4>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts
+{
+    <script src="~/js/select-courses-from-study-card.js" asp-append-version="true"></script>
+}

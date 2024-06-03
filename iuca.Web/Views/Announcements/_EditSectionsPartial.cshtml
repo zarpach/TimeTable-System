@@ -1,0 +1,69 @@
+﻿@model AnnouncementDTO
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="editSections">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @Model.Course.NameEng
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-header flex-column">
+                <div class="row w-100">
+                    <div class="col-12">
+                        @if (Model.ProposalCourse != null)
+                        {
+                            <div class="row">
+                                <div class="col-1 pt-1">
+                                    <strong>@Model.ProposalCourse.Credits</strong> cr.
+                                </div>
+                                <div class="col-auto pt-1">
+                                    <strong>@Model.ProposalCourse.Schedule</strong>
+                                </div>
+                                <div class="col-auto pt-1">
+                                    <span class="text-gray">* @Model.ProposalCourse.Comment</span>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-12">
+                                    @if (Model.ProposalCourse.Instructors != null && Model.ProposalCourse.Instructors.Any())
+                                    {
+                                        string instructors = string.Join(", ", Model.ProposalCourse.Instructors.Select(x => x.FullName));
+                                        @instructors
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="pt-3 text-danger">No information</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body" id="sectionsModalBody">
+
+                <partial name="_EditSectionsFormPartial" for="@Model" />
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-blue text-white shadow-none" id="addAnnouncementSectionBtn" value="@Model.Id">
+                    <i class="fas fa-plus"></i> Add section
+                </button>
+                <button type="submit" class="btn btn-info shadow-none" form="editAnnouncementForm">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

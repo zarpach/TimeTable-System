@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AnnouncementDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>Assigning students to sections</h2>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <form method="get" asp-action="AnnouncementsForAssigning">
+
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-lg-3 col-12">
+                                <select class="form-control shadow-none" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()"></select>
+                            </div>
+                            <div class="col-lg-4 col-12 pt-lg-0 pt-2">
+                                <input type="text" id="searchText" class="form-control shadow-none" placeholder="Id or name of the course" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var announcement in Model)
+                        {
+                            num++;
+
+                            <li class="list-group-item search-item">
+
+                                <input type="hidden" name="announcementId" value="@announcement.Id" />
+
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 col-12 pt-2">
+                                        <span class="text-gray">#@num</span> <span class="search-name">@announcement.Course.NameEng</span>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="row">
+                                            <div class="col-lg-8 col-12 pt-2">
+                                                <div class="row">
+                                                    <div class="col-4 search-course-id">
+                                                        ID <strong>@announcement.Course.ImportCode</strong>
+                                                    </div>
+                                                    <div class="col-4 search-course-id">
+                                                        <strong>@announcement.Course.Department.Code</strong>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <em>@announcement.AnnouncementSections.Count() sections</em>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-12 text-right pt-2">
+                                                <a asp-action="AssignStudentsToSections" asp-route-announcementId="@announcement.Id" asp-route-searchSemesterId="@announcement.SemesterId" asp-route-courseName="@announcement.Course.NameEng" class="btn bg-blue text-white shadow-none">
+                                                    <i class="fas fa-list-ol"></i>&nbsp; Assign
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No announcements</p>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/announcements-for-assigning.js" asp-append-version="true"></script>
+
+}

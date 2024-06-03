@@ -1,0 +1,57 @@
+﻿@model StudyCardCourseDTO
+
+@{
+    Layout = null;
+}
+
+<li class="list-group-item">
+    @if (!Model.AnnouncementSection.Announcement.IsActivated)
+    {
+        <div class="alert alert-danger">
+            <h6>Deactivated</h6>
+        </div>
+    }
+    <div class="row align-items-center">
+
+        <input type="hidden" asp-for="Id" name="StudyCardCourses[0].Id" />
+        <input type="hidden" asp-for="StudyCardId" name="StudyCardCourses[0].StudyCardId" />
+        <input type="hidden" asp-for="RegistrationCourseId" name="StudyCardCourses[0].RegistrationCourseId" id="studyCardRegistrationCourseId" value="@Model.RegistrationCourseId" />
+
+        <div class="col-lg-8 col-12">
+            <span class="text-gray study-card-num">#1</span>
+            @Model.AnnouncementSection.Course.NameEng | @Model.AnnouncementSection.Course.NameRus (@Model.AnnouncementSection.Section)
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="row justify-content-end pt-4 pt-lg-0">
+                <div class="col-9">
+                    <div class="form-group">
+                        <input class="form-control shadow-none" asp-for="Comment" name="StudyCardCourses[0].Comment" placeholder="Comment" />
+                    </div>
+                </div>
+                <div class="col-3 text-right">
+                    <button type="button" class="btn btn-danger" id="removeStudyCardCourseBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-12 pt-2">
+            <div class="row">
+                <div class="col-4">
+                    <strong>@(Model.AnnouncementSection.Course.Abbreviation + " " + Model.AnnouncementSection.Course.Number)</strong>
+                </div>
+                <div class="col-4">
+                    ID <strong>@Model.AnnouncementSection.Course.ImportCode</strong>
+                </div>
+                <div class="col-4">
+                    <strong>@Model.AnnouncementSection.Credits</strong> credits
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 text-lg-right pt-2">
+            @Model.AnnouncementSection.InstructorUserName
+        </div>
+    </div>
+</li>

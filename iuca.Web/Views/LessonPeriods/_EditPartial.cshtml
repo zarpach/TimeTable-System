@@ -1,0 +1,19 @@
+﻿@using iuca.Application.DTO.Slots;
+
+@model LessonPeriodDTO
+
+<div class="column col-3 pl-0">
+    <div class="form-group">
+        <label asp-for="TimeBegin" class="control-label"></label>
+        <input asp-for="TimeBegin" type="time" class="form-control" step="1"/>
+        <span asp-validation-for="TimeBegin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TimeEnd" class="control-label"></label>
+        <input asp-for="TimeEnd" type="time" class="form-control" step="1"/>
+        <span asp-validation-for="TimeEnd" class="text-danger"></span>
+    </div>
+</div>
+
+
+

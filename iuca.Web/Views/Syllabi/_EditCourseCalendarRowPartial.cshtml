@@ -1,0 +1,36 @@
+﻿@model CourseCalendarRowDTO
+
+@{
+    Layout = null;
+}
+
+<tr>
+
+    <input type="hidden" asp-for="Id" name="CourseCalendar[0].Id" />
+    <input type="hidden" asp-for="SyllabusId" name="CourseCalendar[0].SyllabusId" />
+
+    <td style="width:12%">
+        <input asp-for="Week" name="CourseCalendar[0].Week" class="form-control shadow-none min-width-60">
+        <span asp-validation-for="Week" class="text-danger"></span>
+    </td>
+    <td>
+        <input type="date" asp-for="Date" name="CourseCalendar[0].Date" class="form-control shadow-none">
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </td>
+    <td>
+        <textarea asp-for="Topics" name="CourseCalendar[0].Topics" class="form-control shadow-none min-width-250" rows="2" placeholder="Topics" wrap="hard"></textarea>
+        <span asp-validation-for="Topics" class="text-danger"></span>
+    </td>
+    <td>
+        <textarea asp-for="Assignments" name="CourseCalendar[0].Assignments" class="form-control shadow-none min-width-250" rows="2" placeholder="Assignments" wrap="hard"></textarea>
+        <span asp-validation-for="Assignments" class="text-danger"></span>
+    </td>
+    <td>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-danger" id="removeCourseCalendarRowBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </td>
+
+</tr>

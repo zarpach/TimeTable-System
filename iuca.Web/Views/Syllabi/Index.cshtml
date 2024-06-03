@@ -1,0 +1,265 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+@{
+    string editButton = "disabled";
+    string deleteButton = "disabled";
+    string returnFromApprovalButton = "d-none";
+    string submitForApprovalButton = "d-none";
+    string statusColor = "text-danger";
+    string commentTextarea = "";
+
+    //int policiesCount = 0;
+    int requirementsCount = 0;
+    float pointsSum = 0;
+    //int calendarRowsCount = 0;
+
+    //string policiesColor = "badge-danger";
+    string requirementsColor = "badge-danger";
+    string pointsColor = "badge-danger";
+    //string calendarRowsColor = "badge-danger";
+
+    //int requiredPoliciesCount = 3;
+    int requiredRequirementsCount = 3;
+    float requiredPointsSum = 100;
+    //int requiredCalendarRowsCount = 14;
+
+    if (Model != null)
+    {
+        if (Model.Status == (int)enu_SyllabusStatus.Pending)
+        {
+            returnFromApprovalButton = "";
+            statusColor = "text-warning";
+            commentTextarea = "disabled";
+        }
+        else if (Model.Status == (int)enu_SyllabusStatus.Approved)
+        {
+            statusColor = "text-success";
+            commentTextarea = "disabled";
+        }
+        else if (Model.Status == (int)enu_SyllabusStatus.Draft || Model.Status == (int)enu_SyllabusStatus.Rejected)
+        {
+            submitForApprovalButton = "";
+            deleteButton = "";
+            editButton = "";
+        }
+
+        //policiesCount = @Model.AcademicPolicies.Count();
+        requirementsCount = @Model.CourseRequirements.Count();
+        pointsSum = @Model.CourseRequirements.Select(x => x.Points).Sum();
+        //calendarRowsCount = @Model.CourseCalendar.Count();
+
+        //if (policiesCount >= requiredPoliciesCount)
+        //    policiesColor = "badge-success";
+        if (requirementsCount >= requiredRequirementsCount)
+            requirementsColor = "badge-success";
+        if (pointsSum == requiredPointsSum)
+            pointsColor = "badge-success";
+        //if (calendarRowsCount >= requiredCalendarRowsCount)
+        //   calendarRowsColor = "badge-success";
+    }
+}
+
+<div class="container p-0">
+
+    <div class="row align-items-center">
+        <div class="col-lg-12 col-12 mt-4">
+            <a asp-controller="InstructorCourses" asp-action="Index" asp-route-semesterId="@ViewBag.SemesterId"
+               asp-route-instructorUserId="@ViewBag.InstructorUserId" class="btn bg-gray text-white">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row mt-4">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header bg-gray text-white">
+
+                    <div class="row align-items-end">
+                        <div class="col-12">
+                            <h5 class="m-0">Syllabus</h5>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            @if (Model == null)
+                            {
+                                <div class="row">
+                                    <div class="col-12 text-center">
+
+                                        <h5 class="card-title">No syllabus</h5>
+                                        <p class="card-text">Add one and submit for approval</p>
+                                        <a asp-action="Create" asp-route-registrationCourseId="@ViewBag.RegistrationCourseId" 
+                                        asp-route-language="@((int)enu_SyllabusLanguage.English)"
+                                       asp-route-semesterId="@ViewBag.SemesterId" asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                                       class="btn btn-primary">
+                                            <i class="fas fa-plus"></i>&nbsp; Add EN
+                                        </a>
+                                        <a asp-action="Create" asp-route-registrationCourseId="@ViewBag.RegistrationCourseId" 
+                                        asp-route-language="@((int)enu_SyllabusLanguage.Russian)"
+                                       asp-route-semesterId="@ViewBag.SemesterId" asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                                       class="btn btn-primary">
+                                            <i class="fas fa-plus"></i>&nbsp; Add RU
+                                        </a>
+
+                                    </div>
+                                </div>
+                            } else
+                            {
+                                
+                                <div class="row align-items-end">
+                                    <div class="col-lg-6 col-12">
+                                        <h5><i class="fas fa-circle @statusColor"></i>&nbsp;@(EnumExtentions.GetDisplayName((enu_SyllabusStatus)@Model.Status))</h5>
+                                    </div>
+                                    <div class="col-lg-6 col-12 text-right">
+                                        <a asp-action="Details" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">
+                                            <i class="fas fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a asp-action="Print" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary">
+                                            <i class="fas fa-print"></i>
+                                        </a>
+
+                                        <a asp-action="Edit" asp-route-id="@Model.Id" 
+                                        asp-route-semesterId="@ViewBag.SemesterId" asp-route-instructorUserId="@ViewBag.InstructorUserId"
+                                        class="btn btn-primary ml-4 @editButton">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <input type="hidden" name="syllabusId" value="@Model.Id" />
+                                        <button type="button" name="deleteSyllabusBtn" class="btn btn-danger" @deleteButton>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-12">
+
+                                        <div class="alert bg-gray-light text-black" role="alert">
+                                            <div class="row">
+
+                                                <div class="col-lg-4 col-12">
+                                                    <h5 class="card-title">@Model.SyllabusDetails.CourseCode @Model.SyllabusDetails.CourseNameEng</h5>
+                                                    <hr class="my-1" />
+                                                    <p class="card-text">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                @(EnumExtentions.GetDisplayName((enu_Season)@Model.SyllabusDetails.SemesterSeason)) @Model.SyllabusDetails.SemesterYear<br />
+                                                                <em>@Model.SyllabusDetails.DepartmentNameEng</em><br />
+                                                                @Model.SyllabusDetails.CourseCredits <em>credits</em>
+                                                            </div>
+                                                            <div class="col-12 mt-4">
+                                                                @Model.SyllabusDetails.InstructorName<br />
+                                                                <em>Phone:</em>
+                                                                @if (Model.InstructorPhone == null)
+                                                                {
+                                                                    <span> - </span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@Model.InstructorPhone</span>
+                                                                }
+                                                                <br />
+                                                                <em>Office Hours:</em> @Model.OfficeHours
+                                                            </div>
+                                                            <div class="col-12 mt-4">
+
+                                                                <hr class="my-1" />
+
+                                                                <div class="row">
+                                                                    @*<div class="col-auto my-1">
+                                                                        Policies <span class="badge @policiesColor">@policiesCount</span>
+                                                                    </div>*@
+                                                                    <div class="col-auto my-1">
+                                                                        Grading system items <span class="badge @requirementsColor">@requirementsCount</span>
+                                                                    </div>
+                                                                    <div class="col-auto my-1">
+                                                                        Points <span class="badge @pointsColor">@pointsSum</span>
+                                                                    </div>
+                                                                    @*<div class="col-auto my-1">
+                                                                        Calendar Rows <span class="badge @calendarRowsColor">@calendarRowsCount</span>
+                                                                    </div>*@
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-lg-8 col-12 ">
+
+                                                    <div class="row">
+                                                        <div class="col-12 my-2">
+
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Program head's comment</h5>
+                                                                    <p class="card-text text-muted">
+                                                                        @if (Model.ApproverComment == null)
+                                                                        {
+                                                                            <span class="text-secondary">(no comment)</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>@Model.ApproverComment</span>
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-12 my-2">
+
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Your comment</h5>
+                                                                    <p class="card-text">
+                                                                        <textarea name="instructorComment" class="form-control shadow-none" rows="4" placeholder="Instructor comment" @commentTextarea>@Model.InstructorComment</textarea>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-12 my-2 text-right">
+                                                            <input type="hidden" name="syllabusId" value="@Model.Id" />
+                                                            <button type="button" name="submitForApprovalSyllabusBtn" class="btn btn-info @submitForApprovalButton">
+                                                                <i class="fas fa-check"></i>&nbsp; Submit for approval
+                                                            </button>
+                                                            <button type="button" name="returnFromApprovalSyllabusBtn" class="btn btn-danger @returnFromApprovalButton">
+                                                                <i class="fas fa-times"></i>&nbsp; Return from approval
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/syllabuses.js" asp-append-version="true"></script>
+
+}

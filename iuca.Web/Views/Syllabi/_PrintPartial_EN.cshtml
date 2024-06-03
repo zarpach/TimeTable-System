@@ -1,0 +1,488 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+<div class="syllabus_container">
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="RegistrationCourseId" />
+
+    <div class="syllabus_header">
+
+        <div id="header_title">
+            <hr />
+            <h4>@Model.SyllabusDetails.CourseCode @Model.SyllabusDetails.CourseNameEng</h4>
+            <hr />
+        </div>
+
+        <div id="header_content">
+
+            <div id="instructor_info">
+                <p>@Model.SyllabusDetails.InstructorName</p>
+                <p>@Model.SyllabusDetails.InstructorEmail</p>
+                <p>
+                    <em>Phone:</em>
+                    @if (Model.InstructorPhone == null)
+                    {
+                        <span> - </span>
+                    }
+                    else
+                    {
+                        <span>@Model.InstructorPhone</span>
+                    }
+                </p>
+                <p>
+                    <em>Office Hours:</em>
+                    @Model.OfficeHours
+                 </p>
+            </div>
+
+            <div id="course_info">
+                <p>@(EnumExtentions.GetDisplayName((enu_Season)@Model.SyllabusDetails.SemesterSeason)) @Model.SyllabusDetails.SemesterYear</p>
+                <p><em>@Model.SyllabusDetails.DepartmentNameEng</em></p>
+                <p>@Model.SyllabusDetails.CourseCredits <em>credits</em></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="syllabus_section">
+
+        <div class="syllabus_section_title">
+            <h5>General</h5>
+            <hr />
+        </div>
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h6>Course description</h6>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.CourseDescription</p>
+            </div>
+        </div>
+
+        @*<div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h6>Prerequisites</h6>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@if (Model.SyllabusDetails.CoursePrerequisitesEng != null)
+                    {
+                        @String.Join(", ", Model.SyllabusDetails.CoursePrerequisitesEng)
+                    }
+                    else
+                    {
+                        <span>No prerequisites</span>
+                    }</p>
+            </div>
+        </div>*@
+
+        @*<div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h5>Objectives</h5>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.Objectives</p>
+            </div>
+        </div>
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h5>Teach Methods</h5>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.TeachMethods</p>
+            </div>
+        </div>
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h5>Primary Resources</h5>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.PrimaryResources</p>
+            </div>
+        </div>
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h5>Additional Resources</h5>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.AdditionalResources</p>
+            </div>
+        </div>*@
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+                <h6>Syllabus link</h6>
+            </div>
+            <div class="syllabus_block_content">
+                <p>@Model.Link</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="syllabus_section">
+
+        <div class="syllabus_section_title">
+            <h5>Policies</h5>
+            <hr />
+        </div>
+
+        @if (Model.SyllabusDetails.CoursePolicies != null)
+        {
+            foreach (var policy in Model.SyllabusDetails.CoursePolicies)
+            {
+                <div class="syllabus_section_content">
+                    <div class="syllabus_block_title">
+                        <h6>@policy.NameEng</h6>
+                    </div>
+                    <div class="syllabus_block_content">
+                        <p>@policy.DescriptionEng</p>
+                    </div>
+                </div>
+            }
+        }
+
+        @*@if (Model.AcademicPolicies != null)
+        {
+            foreach (var policy in Model.AcademicPolicies)
+            {
+                <div class="syllabus_section_content">
+                    <div class="syllabus_block_title">
+                        <h5>@policy.Name</h5>
+                    </div>
+                    <div class="syllabus_block_content">
+                        <p>@policy.Description</p>
+                    </div>
+                </div>
+            }
+        }*@
+
+    </div>
+
+    <div class="syllabus_section">
+
+        <div class="syllabus_section_title">
+            <h5>Grading system</h5>
+            <hr />
+        </div>
+
+        @if (Model.CourseRequirements != null)
+        {
+            float totalSum = 0;
+            foreach (var requirement in Model.CourseRequirements)
+            {
+                <div class="syllabus_section_content">
+                    <div class="syllabus_block_title">
+                        <h6>@(EnumExtentions.GetDisplayName((enu_CourseRequirement_EN)@requirement.Name)) - @requirement.Points</h6>
+                    </div>
+                    <div class="syllabus_block_content">
+                        <p>@requirement.Description</p>
+                    </div>
+                </div>
+            }
+
+            <div class="syllabus_section_content">
+                <div class="syllabus_block_title">
+                    <h6>Grade breakdown</h6>
+                </div>
+                <div class="syllabus_block_content">
+                    <div id="grade_breakdown">
+                        @{
+                            var requirements = Model.CourseRequirements.GroupBy(x => x.Name).Select(group => 
+                                new { 
+                                    Name = group.Key,
+                                    Count = group.Count(),
+                                    Points = group.Sum(x => x.Points)
+                                });
+                        }
+                        @foreach (var requirement in requirements)
+                        {
+                            <div class="grade_breakdown_list">
+                                <div class="flex-item">
+                                    <p><em>@(EnumExtentions.GetDisplayName((enu_CourseRequirement_EN)@requirement.Name))@if (@requirement.Count > 1)
+                                            {
+                                                <text> x @requirement.Count</text>
+                                            }</em></p>
+                                </div>
+                                <div class="flex-item">
+                                    <hr id="dashed_border" />
+                                </div>
+                                <div class="flex-item">
+                                    <p><em>@requirement.Points points</em></p>
+                                    @{
+                                        totalSum += requirement.Points;
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <hr id="simple_border" />
+                        <div class="grade_breakdown_list">
+                            <div>
+                                <p><em>Total</em></p>
+                            </div>
+                            <div>
+                                <p><em>@totalSum points</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="syllabus_section_content">
+                <div class="syllabus_block_title">
+                    <h6></h6>
+                </div>
+                <div class="syllabus_block_content">
+                    <p class="text-pre-wrap"><em>Additional: @Model.GradingComment</em></p>
+                </div>
+            </div>
+        }
+
+        <div class="syllabus_section_content">
+
+            <div class="syllabus_block_title">
+                <h6>Grading scale</h6>
+            </div>
+
+            <div class="syllabus_block_content">
+                <table id="grading_table">
+                    <tbody>
+                        <tr>
+                            <td>A</td>
+                            <td>A-</td>
+                            <td>B+</td>
+                            <td>B</td>
+                            <td>B-</td>
+                            <td>C+</td>
+                            <td>C</td>
+                            <td>C-</td>
+                            <td>D+</td>
+                            <td>D</td>
+                            <td>D-</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>100-94</td>
+                            <td>93-90</td>
+                            <td>89-87</td>
+                            <td>86-83</td>
+                            <td>82-80</td>
+                            <td>79-77</td>
+                            <td>76-74</td>
+                            <td>73-70</td>
+                            <td>67-69</td>
+                            <td>66-63</td>
+                            <td>62-60</td>
+                            <td>59-0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    @*<div class="syllabus_section">
+
+        <div class="syllabus_section_title">
+            <h3>Calendar</h3>
+            <hr />
+        </div>
+
+        <div class="syllabus_section_content">
+            <div class="syllabus_block_title">
+            </div>
+            <div class="syllabus_block_content">
+                <table id="calendar_table">
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="active_color_dark"><h5>Course calendar</h5></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><p><em>The class dates are subject to change at the instructor's discretion.</em></p></td>
+                        </tr>
+                        <tr class="active_color_dark">
+                            <td><strong>Week</strong></td>
+                            <td><strong>Date</strong></td>
+                            <td><strong>Topics</strong></td>
+                            <td><strong>Assignments</strong></td>
+                        </tr>
+                        @if (Model.CourseCalendar != null)
+                        {
+                            Model.CourseCalendar = Model.CourseCalendar.OrderBy(x => x.Week).ThenBy(x => x.Date).ToList();
+                            foreach (var calendarRow in Model.CourseCalendar)
+                            {
+                                string date = "--/--";
+                                if (calendarRow.Date.ToString("dd.MM") != "01.01")
+                                    date = calendarRow.Date.ToString("dd") + "/" + calendarRow.Date.ToString("MM");
+                                <tr>
+                                    <td class="active_color">@calendarRow.Week</td>
+                                    <td class="active_color">@date</td>
+                                    <td>@calendarRow.Topics</td>
+                                    <td>@calendarRow.Assignments</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>*@
+
+</div>
+
+<style type="text/css">
+
+    @*-----Text-----*@
+
+    .syllabus_container {
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
+
+    .syllabus_container hr {
+        border: 1px solid #29317D;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .syllabus_container h4 {
+        text-align: center;
+        font-size: 28pt;
+        margin: 5px 0px;
+        padding: 0px;
+        text-transform: uppercase;
+    }
+
+    .syllabus_container h5 {
+        font-size: 26pt;
+        margin: 40px 0px 0px 0px;
+        text-transform: uppercase;
+    }
+
+    .syllabus_container h6 {
+        font-size: 20pt;
+        margin: 30px 0px 0px 0px;
+        font-weight: normal;
+        text-transform: uppercase;
+    }
+
+    .syllabus_container p {
+        font-size: 18pt;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .syllabus_block_content p {
+        margin: 10px 0px 0px 0px;
+        white-space: pre-wrap;
+    }
+
+
+    @*-----Header-----*@
+
+    .syllabus_header {
+        width: auto;
+    }
+
+    #header_content {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0px;
+    }
+
+    #course_info {
+        text-align: right;
+    }
+
+
+    @*-----Tables-----*@
+
+    .syllabus_container table {
+        font-size: 18pt;
+        width: 100%;
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+
+    .syllabus_container table td {
+        border: 1px solid #6c757d;
+        padding: 10px;
+    }
+
+    #grading_table {
+        text-align: center;
+    }
+
+    #calendar_table {
+        margin-top: 40px;
+    }
+
+    #calendar_table td {
+        white-space: pre-wrap;
+    }
+
+    #calendar_table h5 {
+        font-size: 22pt;
+        text-align: center;
+        margin: 10px 0px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    #calendar_table p {
+        text-align: center;
+        margin: 10px 0px;
+    }
+
+    .active_color {
+        background-color: rgba(0,0,0,.075);
+    }
+
+    .active_color_dark {
+        background-color: rgba(0,0,0,.175);
+    }
+
+
+    @*-----Breakdown-----*@
+
+    #grade_breakdown {
+        width: 60%;
+    }
+
+    .grade_breakdown_list {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #grade_breakdown #simple_border {
+        border: 1px solid #6c757d;
+        margin-top: 30px;
+    }
+
+    #grade_breakdown #dashed_border {
+        border: 1px dashed #6c757d;
+        margin-top: 30px;
+    }
+
+    .grade_breakdown_list {
+        display: flex;
+    }
+
+    .flex-item:first-child,
+    .flex-item:last-child {
+        flex: 0 0 auto;
+    }
+
+    .flex-item:nth-child(2) {
+        flex: 1;
+        padding: 0px 20px;
+    }
+   
+</style>

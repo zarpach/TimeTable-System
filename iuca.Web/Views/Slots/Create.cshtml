@@ -1,0 +1,14 @@
+﻿@using iuca.Application.DTO.Slots
+@model SlotDTO
+
+<form id="slotForm">
+    <input type="hidden" id="actionType" name="actionType" value="@ViewData["Action"]" />
+    <div class="col-auto p-0">
+        <partial name="_EditPartial.cshtml" model="Model" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="createButton">
+        <i class="fas fa-plus"></i> &nbsp; Добавить
+    </button>
+    <div class="text-danger" id="formError"></div>
+</form>

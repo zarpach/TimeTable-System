@@ -1,0 +1,113 @@
+﻿@using iuca.Application.Enums
+@model DeanAdviserStudentReportViewModel
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Dean-Adviser-Students Report</h3>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="row">
+        <div class="col-12 p-0">
+            <form method="get" asp-action="DeanAdviserStudentReport">
+                <div class="row">
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <div class="col-lg-6 col-12">
+
+                            <div class="form-group row">
+                                <div class="col-3">
+                                    <label>Dean:</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control dropdown" name="deanUserId" id="deanUserId" asp-items="@ViewBag.Deans">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-lg-6 col-12">
+                        @if (ViewBag.IsAdmin)
+                        {
+                            <div class="form-group row">
+                                <div class="col-3">
+                                    <label>Adviser:</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control dropdown" name="adviserUserId" id="adviserUserId" asp-items="@ViewBag.Advisers">
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+
+                        @if (ViewBag.IsDean)
+                        {
+                            <input type="hidden" name="deanUserId" value="@ViewBag.UserId" />
+                            <div class="form-group row">
+                                <div class="col-3">
+                                    <label>Adviser:</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control dropdown" name="adviserUserId" asp-items="@ViewBag.Advisers">
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+
+                        @if (ViewBag.IsAdviser)
+                        {
+                            <input type="hidden" name="adviserUserId" value="@ViewBag.UserId" />
+                        }
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fab fa-sistrix"></i> &nbsp; Show
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    @foreach (var adviser in Model.AdviserStudents)
+    {
+        num = 0;
+        <div class="row bg-dark-lilac p-2">
+            <div class="col-12">@adviser.Adviser.FullNameEng</div>
+        </div>
+        foreach (var student in adviser.Students.OrderBy(x => x.Student.FullNameEng)) 
+        {
+            num++;
+            <div class="row adaptive-row p-2">
+                <div class="col-1">@num</div>
+                <div class="col-lg-5 col-11">@student.Student.FullNameEng</div>
+                <div class="col-lg-3 col-6">@student.Student.Email</div>
+                <div class="col-lg-3 col-6">
+                    @student.DepartmentGroup 
+                    (<span class="@(student.State != enu_StudentState.Active ? "text-danger" : "")">@student.State</span>)
+                </div>
+            </div>
+        }
+    }
+                
+        
+</div>
+
+@section Scripts{
+    <script src="~/js/dean-adviser-student-report.js" asp-append-version="true"></script>
+}

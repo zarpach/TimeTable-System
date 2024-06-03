@@ -1,0 +1,44 @@
+﻿@model StudentBasicInfoDTO
+
+<form method="post" id="studentBasicInfoForm" name="studentBasicInfoForm" asp-controller="StudentInfo"
+    asp-action="EditStudentBasicInfo" data-ajax="true" data-ajax-update="#studentBasicInfoForm" data-ajax-mode="replace"
+        data-ajax-success="studentBasicInfoUpdated()">
+    <input type="hidden" asp-for="ApplicationUserId" />
+    <input type="hidden" name="Id" value="@(Model == null ? "0" : Model.Id)" id="dbStudentBasicInfoId"/>
+
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <h4 class="text-uppercase">Student Basic Info 
+                <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                <span class="green-colored">@TempData["SuccessMessage"]</span> 
+            </h4>
+        </div>
+        <div class="col-12">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="Toefl"></label>
+                </div>
+                <div class="col-9">
+                    <input class="form-control" asp-for="Toefl" />
+                    <span asp-validation-for="Toefl" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                </div>
+                <div class="col-9">
+                    <input type="checkbox" asp-for="ArmyService" class="big-checkbox"/>
+                    <label asp-for="ArmyService" class="ml-1"></label>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-12 text-right mb-2">
+            <button type="submit" id="saveStudentBasicInfoBtn" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>

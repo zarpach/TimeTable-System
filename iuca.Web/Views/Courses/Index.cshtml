@@ -1,0 +1,203 @@
+﻿@using iuca.Application.Enums;
+@model PagedList<CourseDTO>
+
+@{
+    int num = (Model.Metadata.CurrentPage - 1) * Model.Metadata.PageSize;
+    bool isExportable = false;
+    bool isDeleted = ViewBag.IsDeleted;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-lg-6 col-12">
+            <h3 class="text-uppercase">Courses</h3>
+        </div>
+        <div class="col-lg-6 col-12 text-right">
+            <button type="button" id="importCoursesBtn" class="btn btn-primary">
+                <i class="fas fa-sync-alt"></i> &nbsp; Refresh courses
+            </button>
+            <a asp-controller="Courses" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add Course
+            </a>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="Index">
+        <div class="row">
+            
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-lg-9 col-8">
+                        <div class="row">
+                            <div class="col-lg-8 col-6">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label>Department:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-control dropdown" name="departmentId" asp-items="@ViewBag.Departments">
+                                            <option>Not selected</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-6">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label>&nbsp;</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>
+                                            <input type="checkbox" name="isDeleted" id="isDeleted" value="@(isDeleted ? "true" : "false")" 
+                                                @(isDeleted ? "checked" : "") onchange="this.value = this.checked;"/>
+                                            Deleted courses
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-3 col-4 text-right">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>&nbsp</label>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fab fa-sistrix"></i> &nbsp; Show
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Name:</label>
+                            </div>
+                            <div class="col-12">
+                                <input class="form-control" name="courseName" value="@ViewBag.CourseName"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label>Abbreviation:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="form-control" name="courseAbbr" value="@ViewBag.CourseAbbr"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label>Number:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="form-control" name="courseNum" value="@ViewBag.CourseNum"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label>ID:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="form-control" name="courseId" value="@ViewBag.CourseId"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <hr>
+    <div class="row pt-2">
+        <div class="col-12 text-right p-0">
+            <paging metadata="@Model.Metadata" page-action="Index" page-url-departmentId="@ViewBag.DepartmentId"
+                page-url-courseName="@ViewBag.CourseName"
+                page-url-courseName="@ViewBag.CourseAbbr"
+                page-url-courseName="@ViewBag.CourseNum"
+                page-url-courseName="@ViewBag.CourseId"></paging>
+        </div>
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                
+                @foreach (var course in Model)
+                {
+                    num++;
+                    isExportable = course.IsChanged || course.ImportCode == 0;
+
+                    <div class="row adaptive-row p-2 @(isExportable ? "orange-border-left" : "") @(course.IsDeleted ? "red-bg" : "")">
+                        <div class="col-12">
+                            @num. <b>@course.Abbreviation@course.Number</b> @course.Name
+                        </div>
+                        <div class="col-lg-2 col-3"><b>@course.Department.Code</b></div>
+                        <div class="col-lg-2 col-3"><b>@course.Language.NameEng</b></div>
+                        <div class="col-lg-2 col-3"><b>ID: @course.ImportCode</b></div>
+                        <div class="col-lg-2 col-3"><b>@(EnumExtentions.GetDisplayName((enu_CourseType)course.CourseType))</b></div>
+                        <div class="col-lg-4 col-12 text-right p-2">
+                            <div class="btn-group" role="group">
+                                <input type="hidden" name="courseId" value="@course.Id" />
+                                <a asp-controller="Courses" asp-route-id="@course.Id"
+                                    asp-action="Details" class="btn btn-outline-primary mx-1" title="Details">
+                                    <i class="fas fa-file-alt"></i>
+                                </a>
+                                <a asp-controller="Courses" asp-route-Id="@course.Id" 
+                                    asp-action="Edit" class="btn btn-outline-primary mx-1" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button name="exportCourseBtn" class="btn btn-outline-primary mx-1" title="Export" @(isExportable ? "" : "disabled")>
+                                    <i class="fas fa-upload"></i>
+                                </button>
+                                @if (course.IsDeleted)
+                                {
+                                    <a asp-controller="Courses" asp-route-Id="@course.Id" asp-route-isDelete="false"
+                                        asp-action="Delete" class="btn btn-outline-danger mx-1" title="UnDelete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Courses" asp-route-Id="@course.Id" asp-route-isDelete="true"
+                                        asp-action="Delete" class="btn btn-outline-danger mx-1" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+                    
+            }
+            else
+            {
+                <p>No course exists</p>
+            }
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/js/courses.js" asp-append-version="true"></script>
+
+} 

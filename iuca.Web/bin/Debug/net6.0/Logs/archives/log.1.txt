@@ -1,0 +1,9 @@
+2024-05-29 22:09:49.4858|14|INFO|Microsoft.Hosting.Lifetime|Now listening on: https://localhost:2222 |url: |action: |Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync| body: 
+2024-05-29 22:09:49.5293|14|INFO|Microsoft.Hosting.Lifetime|Now listening on: http://localhost:2221 |url: |action: |Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync| body: 
+2024-05-29 22:09:49.5839|0|INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 
+2024-05-29 22:09:49.5875|0|INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 
+2024-05-29 22:09:49.5901|0|INFO|Microsoft.Hosting.Lifetime|Content root path: /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web |url: |action: |Microsoft.Extensions.Hosting.Internal.ConsoleLifetime.OnApplicationStarted| body: 
+2024-05-29 22:09:50.6931|0|WARN|iuca.Web.Configurations.AttendanceParsingJob|Attendance Parsing Job running. |url: |action: |iuca.Web.Configurations.AttendanceParsingJob.Execute| body: 
+2024-05-29 22:09:50.9630|0|ERROR|iuca.Web.Configurations.AttendanceParsingJob|Attendance Parsing Job failed. System.Exception: Settings not found
+   at iuca.Application.Services.Common.EnvarSettingService.GetCurrentSemester(Int32 organizationId) in /Users/admin/Projects/IUCA.Copy/iuca/iuca.Core/Services/Common/EnvarSettingService.cs:line 129
+   at iuca.Web.Configurations.AttendanceParsingJob.Execute() in /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Configurations/AttendanceParsingJob.cs:line 29|url: |action: |iuca.Web.Configurations.AttendanceParsingJob.Execute| body: 

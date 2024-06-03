@@ -1,0 +1,487 @@
+﻿
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Import data</h3>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Settings
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            Result
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Grades</td>
+                        <td>Import grades from old database</td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importGradesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Languages</td>
+                        <td>Import languages from old database</td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importLanguagesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Departments</td>
+                        <td>Import departments from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importDepartmentsBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Courses</td>
+                        <td>Import courses from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importCoursesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nationalities</td>
+                        <td>Import nationalities from old database</td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importNationalitiesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Countries</td>
+                        <td>Import countries from old database</td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importCountriesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Department groups</td>
+                        <td>Import department groups from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importDepartmentGroupsBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Students</td>
+                        <td>Import students from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importStudentsBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student state</td>
+                        <td>Syncronize students states with old database for <b>selected organization</b></td>
+                        <td>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="syncStudentsStatesBtn">
+                                <span class="btnTitle">
+                                    Syncronize
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Syncronizing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student group</td>
+                        <td>Syncronize students groups with old database for <b>selected organization</b></td>
+                        <td>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="syncStudentsGroupsBtn">
+                                <span class="btnTitle">
+                                    Syncronize
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Syncronizing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Students Grades</td>
+                        <td>Import students grades from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importStudentsGradesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Update Students Emails</td>
+                        <td>Update student emails by csv file for <b>selected organization</b></td>
+                        <td>
+                            <input accept=".csv" type="file"  id="studentsEmailsFile" class="valid" aria-invalid="false">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="updateStudentsEmailsBtn">
+                                <span class="btnTitle">
+                                    Update
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Updating...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Universities</td>
+                        <td>Import universities from old database</td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importUniversitiesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Transfer courses</td>
+                        <td>Import transfer courses from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importTransferCoursesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Education Types</td>
+                        <td>Import education type from old database
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importEducationTypesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Import instructors</td>
+                        <td>Import instructors from old database for <b>selected organization</b></td>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importInstructorsBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Update Instructors Emails</td>
+                        <td>Update instructors emails by csv file for <b>selected organization</b></td>
+                        <td>
+                            <input accept=".csv" type="file"  id="instructorsEmailsFile" class="valid" aria-invalid="false">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="updateInstructorsEmailsBtn">
+                                <span class="btnTitle">
+                                    Update
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Updating...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Registration courses</td>
+                        <td>Import registration courses from old database for <b>selected organization</b>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                            <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importRegistrationCoursesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student courses</td>
+                        <td>Import student courses from old database for <b>selected organization</b>
+                        <td>
+                            <label style="cursor:pointer;">
+                                <input type="checkbox" name="overwriteData" onchange="this.value = this.checked;" />
+                                Перезаписать данные
+                            </label>
+                            <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" id="importStudentCoursesBtn">
+                                <span class="btnTitle">
+                                    Import
+                                </span>
+                                <span class="spinner" hidden>
+                                    <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    &nbsp; Importing...
+                                </span>
+                            </button>
+                        </td>
+                        <td width="15%">
+                            <span class="importResult"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/import-data.js" asp-append-version="true"></script>
+}

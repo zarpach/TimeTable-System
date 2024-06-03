@@ -1,0 +1,64 @@
+﻿@model List<StudentInfoBriefViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Students</h3>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Full Name Eng</th>
+                            <th>Group</th>
+                            <th>State</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var studentInfo in Model)
+                        {
+                            num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>@studentInfo.FullNameEng</td>
+                            <td>@studentInfo.DepartmentGroup</td>
+                            <td>@studentInfo.State</td>
+                            <td class="text-right p-2 align-middle">
+                                <div class="btn-group" role="group">
+                                    <a asp-controller="StudentInfo" asp-route-studentUserId="@studentInfo.StudentUserId"
+                                        asp-action="Details" class="btn btn-primary mx-1" title="Details">
+                                        <i class="fas fa-file-alt"></i>
+                                    </a>
+                                    <a asp-controller="StudentInfo" asp-route-studentUserId="@studentInfo.StudentUserId" asp-action="Edit"
+                                        class="btn btn-primary mx-1" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-controller="StudentInfo" asp-route-studentUserId="@studentInfo.StudentUserId" asp-action="Delete"
+                                       class="btn btn-danger mx-1" title="Clear">
+                                        <i class="fas fa-eraser"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No student exists</p>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿@using iuca.Application.Enums
+@model RegistrationCourseDetailsViewModel
+
+@{
+    int num = 0;
+    Layout = null;
+}
+
+<div class="portraitA4">
+    <div>
+        <div class="inlineBlock">
+            Код:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Course.Abbreviation @Model.RegistrationCourse.Course.Number</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            ID:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Course.ImportCode</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Наименование:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Course.NameEng / @Model.RegistrationCourse.Course.NameRus / 
+            @Model.RegistrationCourse.Course.NameKir</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Кредиты:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Points</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Преподаватель:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.InstructorName</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Время:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Schedule</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Места:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.RegistrationCourse.Places</b>
+        </div>
+    </div>
+    <div>
+        <div class="inlineBlock">
+            Всего студетов:
+        </div>
+        <div class="inlineBlock">
+            <b>@Model.CourseStudents.Count()</b>
+        </div>
+    </div>
+
+    <br/>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Имя</th>
+                <th>Группа</th>
+                <th>Статус</th>
+                <th>Очередь</th>
+                <th>Рег. статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var student in Model.CourseStudents.OrderBy(x => x.Queue).ThenBy(x => x.StudentName))
+            {
+                <tr>
+                    <td>
+                        @(++num)
+                    </td>
+                    <td>
+                        @student.StudentName
+                    </td>
+                    <td>
+                        @student.Group
+                    </td>
+                    <td>
+                        @student.StudentState
+                    </td>
+                    <td>
+                        @student.Queue
+                    </td>
+                    <td>
+                        @if (student.RegistrationState == enu_RegistrationState.Submitted)
+                        {
+                            <text>Ok</text>
+                        }
+                        else
+                        {
+                            <span class="text-danger">@student.RegistrationState</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+</div>
+
+<style type="text/css">
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+table, th, td {
+  border: 1px solid;
+  padding: 5px;
+}    
+
+table {
+    border-collapse: collapse;
+}
+
+.portraitA4 {
+    width: 21cm;
+    height: 29.7cm;
+    margin: 20mm 35mm 20mm 35mm; 
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+</style>

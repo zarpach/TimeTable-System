@@ -1,0 +1,28 @@
+﻿@model AcademicPolicyDTO
+
+@{
+    Layout = null;
+}
+
+<div class="form-group row pt-2">
+
+    <input type="hidden" asp-for="Id" name="AcademicPolicies[0].Id" />
+    <input type="hidden" asp-for="SyllabusId" name="AcademicPolicies[0].SyllabusId" />
+
+    <div class="col-lg-4 col-8">
+        <input asp-for="Name" name="AcademicPolicies[0].Name" class="form-control shadow-none" placeholder="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="col-lg-2 col-4">
+        <button type="button" class="btn btn-danger" id="removeAcademicPolicyBtn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div> 
+
+    <div class="col-lg-12 pt-2">
+        <textarea asp-for="Description" name="AcademicPolicies[0].Description" class="form-control shadow-none tab-available" rows="5" placeholder="Description" wrap="hard"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+</div>

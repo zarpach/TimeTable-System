@@ -1,0 +1,77 @@
+﻿@using iuca.Application.Enums
+
+@model List<SelectStudentViewModel>
+
+@{
+    Layout = null;
+    int num = 0;
+}
+<div class="modal fade" id="selectStudents">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Select students</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div style="max-height: 500px; overflow: auto;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-lg-4 col-12">
+                                        <label>Group: </label>
+                                    </div>
+                                    <div class="col-lg-8 col-12">
+                                       <select class="form-control dropdown" id="departmentGroup" asp-items="@ViewBag.DepartmentGroups">
+                                            <option value="">All</option>
+                                       </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-lg-8 col-12 text-right">
+                                        <label>Select all</label>
+                                    </div>
+                                    <div class="col-lg-4 col-12 text-center">
+                                        <input class="big-checkbox" type="checkbox" id="selectAll" /> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container">
+                        @foreach (var student in Model)
+                        {
+                            <div class="row adaptive-row p-2 student-item">
+                                <div class="col-2 pt-2">@(++num)</div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-12 pt-2"><b>@student.FullNameEng</b></div>
+                                        <div class="col-lg-6 col-12 pt-2">@student.Group 
+                                            (<span class="@(student.State != enu_StudentState.Active ? "text-danger" : "")">@student.State</span>)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 pt-2 text-center">
+                                    <input type="hidden" name="StudentUserId" value="@student.StudentUserId" />
+                                    <input class="big-checkbox" type="checkbox" name="SelectStudent" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="organizationId" value="@ViewData["OrganizationId"]" />
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="AddStudents">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

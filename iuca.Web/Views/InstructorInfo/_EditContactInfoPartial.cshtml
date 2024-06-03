@@ -1,0 +1,298 @@
+﻿@model InstructorContactInfoDTO
+
+<form method="post" id="contactInfoForm" name="contactInfoForm" asp-controller="InstructorInfo"
+    asp-action="EditContactInfo" data-ajax="true" data-ajax-update="#contactInfoForm" data-ajax-mode="replace">
+    <input type="hidden" name="Id" value="@(Model != null ? Model.Id : 0)" />
+    <input type="hidden" asp-for="InstructorBasicInfoId" />
+
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <h4 class="text-uppercase">Instructor Contact Info 
+                <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                <span class="green-colored">@TempData["SuccessMessage"]</span> 
+            </h4>
+        </div>
+        
+        <div class="col-12 font-weight-bold">
+            <span class="pl-3">Actual address</span>
+            <hr class="m-2 mb-3">
+        </div>
+       
+        <div class="col-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group row">
+                        <div class="col-lg-3 col-12 text-lg-right text-left">
+                            <label asp-for="CountryId" class="form-label"></label>
+                        </div>
+                        <div class="col-lg-9 col-12">
+                            <select class="form-control dropdown" asp-for="CountryId" asp-items="@ViewBag.Countries">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="CountryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-lg-6">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CityEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CityEng" class="form-control" />
+                    <span asp-validation-for="CityEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="StreetEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="StreetEng" class="form-control" />
+                    <span asp-validation-for="StreetEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="AddressEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="AddressEng" class="form-control" />
+                    <span asp-validation-for="AddressEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="ZipCode" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="ZipCode" class="form-control" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CityRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CityRus" class="form-control" />
+                    <span asp-validation-for="CityRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="StreetRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="StreetRus" class="form-control" />
+                    <span asp-validation-for="StreetRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="AddressRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="AddressRus" class="form-control" />
+                    <span asp-validation-for="AddressRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="Phone" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 font-weight-bold">
+            <span class="pl-3">Citizenship address</span>
+            <hr class="m-2 mb-3">
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group row">
+                        <div class="col-lg-3 col-12 text-lg-right text-left">
+                            <label asp-for="CitizenshipCountryId" class="form-label"></label>
+                        </div>
+                        <div class="col-lg-9 col-12">
+                            <select class="form-control dropdown" asp-for="CitizenshipCountryId" asp-items="@ViewBag.CitizenshipCountries">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="CitizenshipCountryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipCityEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipCityEng" class="form-control" />
+                    <span asp-validation-for="CitizenshipCityEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipStreetEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipStreetEng" class="form-control" />
+                    <span asp-validation-for="CitizenshipStreetEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipAddressEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipAddressEng" class="form-control" />
+                    <span asp-validation-for="CitizenshipAddressEng" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipZipCode" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipZipCode" class="form-control" />
+                    <span asp-validation-for="CitizenshipZipCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipCityRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipCityRus" class="form-control" />
+                    <span asp-validation-for="CitizenshipCityRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipStreetRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipStreetRus" class="form-control" />
+                    <span asp-validation-for="CitizenshipStreetRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipAddressRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipAddressRus" class="form-control" />
+                    <span asp-validation-for="CitizenshipAddressRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="CitizenshipPhone" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="CitizenshipPhone" class="form-control" />
+                    <span asp-validation-for="CitizenshipPhone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 font-weight-bold">
+            <span class="pl-3">Contact</span>
+            <hr class="m-2 mb-3">
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="ContactNameEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="ContactNameEng" class="form-control" />
+                    <span asp-validation-for="ContactNameEng" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="ContactNameRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="ContactNameRus" class="form-control" />
+                    <span asp-validation-for="ContactNameRus" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="ContactPhone" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="ContactPhone" class="form-control" />
+                    <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="RelationEng" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="RelationEng" class="form-control" />
+                    <span asp-validation-for="RelationEng" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="RelationRus" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="RelationRus" class="form-control" />
+                    <span asp-validation-for="RelationRus" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="RelationKir" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="RelationKir" class="form-control" />
+                    <span asp-validation-for="RelationKir" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right mb-2">
+            <button type="submit" id="saveInstructorOrgInfoBtn" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>
+
+

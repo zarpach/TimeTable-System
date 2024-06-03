@@ -1,0 +1,53 @@
+﻿@using iuca.Application.Enums
+
+@model List<RegistrationCourseStudentViewModel>
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <tr class="@(Model[i].IsDeleted ? "table-danger" : "")">
+        <td>
+            <span class="studentNum">@(++num)</span>
+        </td>
+        <td>
+            @Model[i].StudentName
+        </td>
+        <td>
+            @Model[i].Group
+        </td>
+        <td>
+            <span class="@(Model[i].StudentState != enu_StudentState.Active ? "text-danger" : "")">@Model[i].StudentState</span>
+        </td>
+        <td>
+            @Model[i].Queue
+        </td>
+        <td>
+            @if (Model[i].RegistrationState == enu_RegistrationState.Submitted)
+            {
+                <text>Ok</text>
+            }
+            else
+            {
+                <span class="text-danger">@Model[i].RegistrationState</span>
+            }
+        </td>
+        <td class="text-right">
+            <input type="hidden" name="studentCourseId" value="@Model[i].StudentCourseId" />
+            <input type="hidden" name="studentUserId" value="@Model[i].StudentUserId" />
+            <button type="button" class="btn btn-danger" name="deleteStudentCourseBtn" title="Удалить"
+                style="@(!Model[i].IsDeleted ? "" : "display:none;")">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            <button type="button" class="btn btn-primary" name="undeleteStudentCourseBtn" title="Восстановить"
+                style="@(!Model[i].IsDeleted ? "display:none;" : "")">
+                <i class="fas fa-wrench"></i>
+            </button>
+        </td>
+    </tr>
+  
+}
+

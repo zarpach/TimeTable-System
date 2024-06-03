@@ -1,0 +1,168 @@
+﻿@using iuca.Application.Enums;
+@model CourseRegistrationAdviserReportViewModel
+
+@{
+    var num = 0;
+    bool isDean = ViewBag.IsDean != null && ViewBag.IsDean;
+    bool isAdmin = ViewBag.IsAdmin != null && ViewBag.IsAdmin;
+    bool onlyActiveStudents = ViewBag.OnlyActiveStudents != null && ViewBag.OnlyActiveStudents;
+}
+
+<div class="container p-0">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Course Registration Adviser Report</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <form asp-action="CourseRegistrationAdviserReport" method="get">
+        <div class="row">
+            @if (isDean || isAdmin)
+            {
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-5 col-12">
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label>Adviser:</label>
+                                </div>
+                                <div class="col-12">
+                                    <select class="form-control dropdown" name="adviserUserId" id="adviserSelect" asp-items="@ViewBag.Advisers">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" name="adviserUserId" value="@Model.AdviserUserId" />
+            }
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department Group:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentGroupId" id="departmentGroupSelect"
+                                asp-items="@ViewBag.DepartmentGroups">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <label>
+                            <input type="checkbox" name="onlyActiveStudents" value="@(onlyActiveStudents ? "true" : "false")"
+                            @(onlyActiveStudents ? "checked" : "") onchange="this.value = this.checked;" />
+                            Only active students
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-6 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Show</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div style="width:100%;height:500pt;overflow:auto;">
+        <table class="table table-bordered table-striped table-sm small tableFixHead">
+            <thead>
+                <tr>
+                    <th style="min-width:180pt;"></th>
+                    @foreach (var course in Model.AllCourses)
+                    {
+                        <th class="text-center @(course.IsFromStudyCard ? "correct-bg" : "")" style="min-width:80pt;">
+                            @course.Course.Abbreviation @course.Course.Number,
+                            @if (course.Course.NameEng.Length > 15)
+                            {
+                                <text>@course.Course.NameEng.Substring(0, 15)</text>
+                            }
+                            else
+                            {
+                                <text>@course.Course.NameEng</text>
+                            }
+                            <br>Creds: @course.Credits
+                            <br>ID: @course.Course.ImportCode
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.AllStudents.OrderBy(x => x.StudentInfo.Name))
+                {
+                    num++;
+                    <tr>
+                        <th class="font-weight-normal">
+                            <div class="row">
+                                <div class="col-8">
+                                    @num. <span class="font-weight-bolder">@student.StudentInfo.ShortName</span>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <b>@student.SemesterCredits.ToString("N2")</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    Рег.: <span class="@(student.RegistrationState == enu_RegistrationState.Submitted ? "text-success" : "text-warning")">@student.RegistrationState.GetDisplayName()</span>
+                                </div>
+                                <div class="col-4 text-right">
+                                    (@student.EarnedCredits.ToString("N2"))
+                                </div>
+                            </div>
+                        </th>
+                        @foreach (var course in Model.AllCourses)
+                        {
+                            var key = $"{student.StudentInfo.StudentUserId}_{course.Course.Id}";
+                            <td class="text-center">
+                                <h5>
+                                    @if (Model.AllStudentCourses.ContainsKey(key))
+                                    {
+                                        <i class="fas fa-check-circle text-success"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                    }
+                                </h5>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/course-registration-adviser-rep.js" asp-append-version="true"></script>
+}

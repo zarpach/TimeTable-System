@@ -1,0 +1,82 @@
+﻿@using iuca.Application.Enums;
+@model List<MidtermStatisticsReportViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Midterm statistics</h3>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="MidtermStatisticsReport">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-lg-2 col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-lg-6 col-7">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-5 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fab fa-sistrix"></i> &nbsp; Show
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </form>
+    <hr>
+
+    <div class="row pt-2">
+        <div class="col-lg-6 col-12 p-0">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th class="text-break">Department</th>
+                        <th class="text-break">Total Courses</th>
+                        <th class="text-break">Finished Midterms</th>
+                        <th class="text-break">State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var department in Model.OrderBy(x => x.Department.Code))
+                    {
+                        num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>@department.Department.Code</td>
+                            <td class="text-right">@department.CountCourses</td>
+                            <td class="text-right">@department.CountMidterms</td>
+                            @{
+                                string circleColor = "text-danger";
+                                if ((enu_MidtermReportState)department.State == enu_MidtermReportState.InProgress)
+                                    circleColor = "text-warning";
+                                else if ((enu_MidtermReportState)department.State == enu_MidtermReportState.Submitted)
+                                    circleColor = "text-success";
+
+                            }
+                            <td class="text-nowrap">
+                                <i class="fas fa-circle @circleColor"></i>
+                                @(EnumExtentions.GetDisplayName((enu_MidtermReportState)department.State))
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/dean-adviser-student-report.js" asp-append-version="true"></script>
+}
+

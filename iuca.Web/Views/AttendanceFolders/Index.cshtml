@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AttendanceFolderDTO>
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2 class="text-blue">Attendance folders</h2>
+        </div>
+        <div class="col-auto">
+            <a asp-controller="AttendanceFolders" asp-action="Create" class="btn bg-blue text-white shadow-none">
+                <i class="fas fa-plus"></i> &nbsp; Add attendance folder
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>
+                                Semester
+                            </th>
+                            <th>
+                                FolderId
+                            </th>
+                            <th>
+                                MainSpreadsheetId
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attendanceFolder in Model)
+                        {
+                            num++;
+                            <tr>
+                                <td>@num</td>
+                                <td>@attendanceFolder.Semester.SeasonYear</td>
+                                <td>@attendanceFolder.FolderId</td>
+                                <td>@attendanceFolder.MainSpreadsheetId</td>
+                                <td width="15%" class="text-center p-2">
+                                    <a asp-controller="AttendanceFolders" asp-route-Id="@attendanceFolder.Id" asp-action="Edit" class="btn bg-blue text-white shadow-none mx-1">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a asp-controller="AttendanceFolders" asp-route-Id="@attendanceFolder.Id" asp-action="Delete" class="btn btn-danger shadow-none mx-1">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No attendance folders</p>
+            }
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+﻿
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Add Cycle</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="text-danger">
+        @TempData["Error"]
+    </div>
+    <div class="row pt-2">
+        <div class="col-lg-6 col-12 p-0">
+            <form method="post" asp-action="Create">
+                <div class="row">
+                    <div class="col-12">
+                        <partial name="_EditPartial.cshtml"/>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-12 p-0 row">
+                                <div class="col-12 p-0 text-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> &nbsp; Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

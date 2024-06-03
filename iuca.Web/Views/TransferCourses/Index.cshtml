@@ -1,0 +1,99 @@
+﻿@model List<SelectStudentViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Student transfer courses</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12 p-0">
+            <form method="get" asp-action="Index">
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label>Group:</label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control dropdown" name="departmentGroupId" asp-items="@ViewBag.DepartmentGroups">
+                            <option value="0">Все</option>
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <label>Last name:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="lastName" value="@ViewBag.LastName" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label>Student ID:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="studentId" value="@ViewBag.StudentId" />
+                    </div>
+
+                    <div class="col-2">
+                        <label>First name:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="firstName" value="@ViewBag.FirstName" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fab fa-sistrix"></i> &nbsp; Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Student name</th>
+                        <th>Group</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model)
+                    {
+                        num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>@student.FullNameEng</td>
+                            <td>@student.Group</td>
+                            <td class="text-right">
+                                <a asp-controller="TransferCourses" asp-route-studentUserId="@student.StudentUserId"
+                                    asp-action="EditTransferCourses" class="btn btn-primary mx-1">
+                                    <i class="fas fa-list-ol"></i> &nbsp; Edit courses
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

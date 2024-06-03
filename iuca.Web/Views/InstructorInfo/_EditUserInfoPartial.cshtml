@@ -1,0 +1,57 @@
+﻿@model InstructorUserInfoViewModel
+
+<form method="post" id="userInfoForm" name="userInfoForm" asp-controller="InstructorInfo"
+    asp-action="EditUserInfo" data-ajax="true" data-ajax-update="#userInfoForm" data-ajax-mode="replace">
+    <input type="hidden" asp-for="ApplicationUserId" />
+
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="row border rounded p-2 m-1">
+                <div class="col-12 pt-2">
+                <h4 class="text-uppercase">User Info 
+                    <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                    <span class="green-colored">@TempData["SuccessMessage"]</span> 
+                </h4>
+            </div>
+            <div class="col-12">
+                <hr class="m-2 mb-3">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12 text-lg-right text-left">
+                        <label asp-for="LastNameEng" class="form-label"></label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <input asp-for="LastNameEng" class="form-control" />
+                        <span asp-validation-for="LastNameEng" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr class="m-2 mb-3">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12 text-lg-right text-left">
+                        <label asp-for="FirstNameEng" class="form-label"></label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <input asp-for="FirstNameEng" class="form-control" />
+                        <span asp-validation-for="FirstNameEng" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr class="m-2 mb-3">
+                <div class="form-group row">
+                    <div class="col-lg-3 col-12 text-lg-right text-left">
+                        <label asp-for="MiddleNameEng" class="form-label"></label>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <input asp-for="MiddleNameEng" class="form-control" />
+                        <span asp-validation-for="MiddleNameEng" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-right mb-2">
+                <button type="submit" id="saveUserInfoBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i>&nbsp; Save
+                </button>
+            </div>
+            </div>
+        </div>
+        
+    </div>
+</form>

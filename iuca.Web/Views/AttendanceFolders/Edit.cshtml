@@ -1,0 +1,34 @@
+﻿@model AttendanceFolderDTO
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="Index">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto pb-2">
+            <h2>Attendance folder editing</h2>
+            <span class="text-danger">
+                @TempData["Error"]
+            </span>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <form asp-action="Edit" method="post" id="editAttendanceFolder">
+                <input type="hidden" asp-for="Id" />
+
+                <partial name="_EditPartial.cshtml" />
+            </form>
+        </div>
+    </div>
+
+</div>

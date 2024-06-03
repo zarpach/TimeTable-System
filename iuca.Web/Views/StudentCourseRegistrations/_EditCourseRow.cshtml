@@ -1,0 +1,68 @@
+﻿@model StudentCourseTempDTO
+
+@using Microsoft.AspNetCore.Identity
+@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity.Entities
+@using iuca.Infrastructure.Identity
+
+@inject ApplicationUserManager<ApplicationUser> _userManager;
+
+@{
+    Layout = null;
+    bool isApproved = Model.State != (int)enu_CourseState.Regular ? Model.IsAddDropApproved : Model.IsApproved;
+}
+
+<div class="row adaptive-row p-1 pb-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-lg-5 col-12 mt-2">
+                @if (Model.State == (int)enu_CourseState.Added) 
+                {
+                    <i class="fas fa-plus-circle text-success" title="Added"></i>
+                }
+                else if(Model.State == (int)enu_CourseState.Dropped)
+                {
+                    <i class="fas fa-ban text-danger" title="Dropped"></i>
+                }
+                <span class="num">@ViewData["Index"]</span>. <b>@Model.AnnouncementSection.Course.Abbreviation @Model.AnnouncementSection.Course.Number</b> 
+                    @Model.AnnouncementSection.Course.NameRus / @Model.AnnouncementSection.Course.NameEng (@Model.AnnouncementSection.Section)
+            </div>
+            <div class="col-lg-3 col-4 mt-2"><b>@(_userManager.GetUserFullName(Model.AnnouncementSection.InstructorUserId))</b></div>
+            <div class="col-lg-1 col-2 mt-2">ID: @Model.AnnouncementSection.Course.ImportCode</div>
+            <div class="col-lg-1 col-3 mt-2">
+                Creds:
+                <span class="creds @(Model.State != (int)enu_CourseState.Dropped && !Model.IsAudit ? "countable" : "")">@Model.AnnouncementSection.Credits</span>
+            </div>
+            <div class="col-lg-2 col-3 mt-2 text-right">
+                @if (isApproved)
+                {
+                    <span class="text-success">Approved</span>
+                }
+                else
+                {
+                    <span class="text-danger">Not approved</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <hr class="m-2">
+        <div class="row">
+            <input type="hidden" name="studentCourseId" value="@Model.Id" />
+            <div class="col-6">
+                <label>
+                    <input type="checkbox" name="isAudit" value="@(Model.IsAudit ? "true" : "false")" 
+                    @(Model.IsAudit ? "checked" : "") onchange="this.value = this.checked;" 
+                    @(Model.State == (int)enu_CourseState.Dropped ? "disabled" : "")/>
+                    <span class="font-weight-bold">Audit</span>
+                </label>
+                
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-outline-danger" name="removeCourseBtn">
+                    <i class="fas fa-trash"></i>&nbsp;Remove
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@using iuca.Application.DTO.Slots;
+@using iuca.Application.Enums;
+
+@{
+    ViewData["Title"] = "Create Lesson Room";
+}
+
+@model LessonRoomDTO
+
+<div class="form-group">
+    <label asp-for="RoomName" class="control-label"></label>
+    <input asp-for="RoomName" class="form-control" />
+    <span asp-validation-for="RoomName" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="RoomCapacity" class="control-label"></label>
+    <input asp-for="RoomCapacity" class="form-control" />
+    <span asp-validation-for="RoomCapacity" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Floor" class="control-label">Этаж <label class="text-muted">(необязательно)</label></label>
+    <select asp-for="Floor" class="form-control" asp-items="Html.GetEnumSelectList<enu_Floors>()"></select>
+    <span asp-validation-for="Floor" class="text-danger"></span>
+</div>

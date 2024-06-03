@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using iuca.Infrastructure.Identity.Entities
+@using iuca.Infrastructure.Identity
+@using iuca.Application.Interfaces.Common
+@using iuca.Application.Interfaces.Users
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ApplicationUserManager<ApplicationUser> UserManager
+@inject IOrganizationService organizationService
+@inject IUserTypeOrganizationService userTypeOrganizationService;
+@{
+    string selectedOrganizationName = "Not defined";
+    string UserId = UserManager.GetUserId(User);
+    if (SignInManager.IsSignedIn(User))
+    {
+        OrganizationDTO orgDTO = organizationService.GetUserSelectedOrganization(UserId);
+        if (orgDTO != null)
+            selectedOrganizationName = orgDTO.Name;
+    }
+ }
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> @selectedOrganizationName </a>
+            <ul class="dropdown-menu">
+                @foreach (var org in userTypeOrganizationService.GetUserOrganizations(@UserId))
+                {
+                    <li>
+                        <form method="post" asp-action="ChangeUserOrganization" asp-controller="Organizations">
+                            <input type="hidden" name="userId" value="@UserId" />
+                            <input type="hidden" name="organizationId" value="@org.Id" />
+                            <input type="submit" class="dropdown-item" value="@org.Name" />
+                        </form>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

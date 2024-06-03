@@ -1,0 +1,15 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+<div class="container p-0">
+
+    @if (Model.Language == (int)enu_SyllabusLanguage.Russian)
+    {
+        <partial name="_PrintPartial_RU" />
+    }
+    else
+    {
+        <partial name="_PrintPartial_EN" />
+    }
+    
+</div>

@@ -1,0 +1,35 @@
+﻿
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Student medicine office debts</h3>
+            <h3 class="text-uppercase text-success">@TempData["Success"]</h3>
+            <h3 class="text-uppercase text-danger">@TempData["Fail"]</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <form method="get" asp-action="ManageMedicineOfficeDebts">
+                <partial name="_DebtFiltersPartial" />
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form method="post" asp-action="SetMedicineOfficeDebts">
+                <partial name="_StudentDebtsPartial" />
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script src="~/js/student-debts.js" asp-append-version="true"></script>
+}

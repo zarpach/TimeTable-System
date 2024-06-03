@@ -1,0 +1,38 @@
+﻿@model ProposalDTO
+@using iuca.Application.Enums;
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="ManageProposals" asp-route-searchSemesterId="@ViewBag.SemesterId">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between align-items-end">
+        <div class="col-auto">
+            <h2>Proposal details</h2>
+            <span class="text-danger">
+                @TempData["ProposalError"]
+            </span>
+        </div>
+        <div class="col-auto">
+            <h4><strong>@(Model.Department.Code)</strong> @Model.Semester.SeasonYear</h4>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <partial name="_ManageDetailsPartial.cshtml" />
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/manage-proposal.js" asp-append-version="true"></script>
+
+}

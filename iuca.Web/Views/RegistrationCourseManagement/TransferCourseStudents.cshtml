@@ -1,0 +1,71 @@
+﻿
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h4 class="text-uppercase">Transfer Registration Courses</h4>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-2">
+            Semester:
+        </div>
+        <div class="col-4">
+            <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-8">
+                            <span>Transfer from:</span>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button type="button" id="selectCourseFromBtn" class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <hr>
+                        <div id="studentsFromContainer" class="col-12" style="border-right: 1px #e5e5e5 solid;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-8">
+                            <span>Transfer to:</span>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button type="button" id="selectCourseToBtn" class="btn btn-primary">Select</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div id="studentsToContainer" class="col-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/transfer-course-students.js" asp-append-version="true"></script>
+}

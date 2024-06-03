@@ -1,0 +1,63 @@
+﻿@model ProposalDTO
+@using iuca.Application.Enums;
+
+@{
+    string fieldsStatus = "";
+
+    if (Model.ProposalCourses != null && Model.ProposalCourses.Any())
+        fieldsStatus = "d-none";
+}
+
+<div id="coursesModalContainer"></div>
+<div id="instructorsModalContainer"></div>
+
+<div class="row justify-content-between">
+    <div class="col-auto">
+        <div class="row">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="col-auto">
+                <select class="form-control shadow-none @fieldsStatus" name="SemesterId" asp-items="@ViewBag.Semesters" id="selectSemester"></select>
+                <span asp-validation-for="Semester" class="text-danger"></span>
+            </div>
+
+            <div class="col-auto">
+                <select class="form-control shadow-none @fieldsStatus" asp-for="DepartmentId" asp-items="@ViewBag.Departments"></select>
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn bg-blue text-white shadow-none" id="selectCoursesBtn">
+            <i class="fas fa-plus"></i> Add courses
+        </button>
+    </div>
+</div>
+
+<div class="row pt-4">
+    <div class="col-12">
+
+        <div class="card">
+            <ul class="list-group list-group-flush" id="proposalCourseContainer">
+                @if (Model.ProposalCourses != null && Model.ProposalCourses.Any())
+                {
+                    var proposalCourses = Model.ProposalCourses.ToList();
+
+                    @for (int i = 0; i < proposalCourses.Count; i++)
+                    {
+                        <partial name="_EditProposalsPartial" for="@proposalCourses[i]" />
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <p class="pt-3 text-danger">Courses for the proposal have not been added yet</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>

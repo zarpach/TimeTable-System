@@ -1,0 +1,95 @@
+﻿@model AcademicLeaveOrderDTO
+@using iuca.Application.Enums
+
+<div class="row justify-content-between">
+    <div class="col-lg-6 col-12">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="OrganizationId" />
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Student</label>
+            </div>
+            <div class="col-12">
+                <select class="selectpicker" data-style="border-gray shadow-none" data-width="100%"
+                        data-live-search="true" asp-for="StudentUserId" asp-items="ViewBag.Students"></select>
+                <span asp-validation-for="StudentUserId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Order number</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control shadow-none input-no-spin-button" asp-for="Number" placeholder="Number" />
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Order date</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="date" class="form-control shadow-none" asp-for="Date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>From</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="date" class="form-control shadow-none" asp-for="Start" />
+                        <span asp-validation-for="Start" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>To</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="date" class="form-control shadow-none" asp-for="End" />
+                        <span asp-validation-for="End" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-12">
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Reason</label>
+            </div>
+            <div class="col-12">
+                <select class="form-control shadow-none" asp-items="Html.GetEnumSelectList<enu_ReasonAcadLeave>()" asp-for="Reason"></select>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Comment</label>
+            </div>
+            <div class="col-12">
+                <input class="form-control shadow-none" asp-for="Comment" placeholder="Comment" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

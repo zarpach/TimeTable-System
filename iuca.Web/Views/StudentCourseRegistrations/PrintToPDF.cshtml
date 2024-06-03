@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity.Entities
+@using iuca.Infrastructure.Identity
+
+@model List<StudentCourseTempDTO>
+
+@inject ApplicationUserManager<ApplicationUser> _userManager;
+
+@{
+    int num = 0;
+    Layout = null;
+}
+
+<div class="portraitA4">
+    <h2>Course registration: @ViewBag.Semester</h2>
+    <div style="display: block; width: 100%">
+        <div style="display: inline-block; width: 49%;">
+            <div class="info-row">
+                <b>Student:</b> @ViewBag.StudentName
+            </div>
+            <div class="info-row">
+                <b>ID:</b> @ViewBag.StudentId
+            </div>
+            <div class="info-row">
+                <b>Group:</b> @ViewBag.StudentGroup
+            </div>
+            <div class="info-row">
+                <b>Date:</b> @DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+            </div>
+            <div class="info-row">
+                <b>Credits:</b> @Model.Where(x => x.State != (int)enu_CourseState.Added && !x.IsAudit).Sum(x => x.AnnouncementSection.Credits)
+            </div>
+        </div>
+        <div style="display: inline-block; width: 49%; text-align: right;">
+            <img src="~/img/iuca-logo.png" />
+        </div>
+    </div>
+    
+    <div>
+        <div>
+            @if (Model.Count() > 0)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Course name</th>
+                            <th>Code</th>
+                            <th>ID</th>
+                            <th>Credits</th>
+                            <th>Instructor</th>
+                            <th>Queue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in Model.Where(x => x.State != (int)enu_CourseState.Added))
+                        {
+                            num++;
+                            <tr>
+                                <td>@num</td>
+                                <td>
+                                    @course.AnnouncementSection.Course.NameRus / @course.AnnouncementSection.Course.NameEng
+                                    @if (!course.AnnouncementSection.Announcement.IsActivated)
+                                    {
+                                        <span style="color:red">(Deactivated)</span>
+                                    }
+                                </td>
+                                <td>@course.AnnouncementSection.Course.Abbreviation @course.AnnouncementSection.Course.Number</td>
+                                <td>@course.AnnouncementSection.Course.ImportCode</td>
+                                <td style="text-align:center;">
+                                    @course.AnnouncementSection.Credits 
+                                    @if (course.IsAudit)
+                                    {
+                                        <span>(AU)</span>
+                                    }
+                                </td>
+                                <td>@(_userManager.GetUserFullName(course.AnnouncementSection.InstructorUserId))</td>
+                                <td style="text-align:center;">@course.Queue</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No course exists</p>
+            }
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+table, th, td {
+  border: 1px solid;
+  padding: 5px;
+}    
+
+table {
+    border-collapse: collapse;
+}
+
+.portraitA4 {
+    width: 21cm;
+    height: 29.7cm;
+    margin: 20mm 35mm 20mm 35mm; 
+}
+
+.info-row {
+    margin: 7px 0;
+}
+</style>

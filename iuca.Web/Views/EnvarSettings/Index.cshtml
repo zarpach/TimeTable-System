@@ -1,0 +1,74 @@
+﻿@model EnvarSettingDTO
+
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Environment settings</h3>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="form-group row">
+                <div class="col-12">
+                    <label asp-for="MaxRegistrationCredits" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="MaxRegistrationCredits" class="form-control shadow-none" />
+                    <span asp-validation-for="MaxRegistrationCredits" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <button type="button" id="saveMaxRegistrationCredits" class="btn text-white bg-blue shadow-none" value="@Model.Id">Save</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label asp-for="DefaultInstructor" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                            data-live-search="true" data-actions-box="true"
+                            asp-for="DefaultInstructor" asp-items="@ViewBag.Instructors">
+                        <option value="">Nobody</option>
+                    </select>
+                    <span asp-validation-for="DefaultInstructor" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <button type="button" id="saveDefaultInstructor" class="btn text-white bg-blue shadow-none" value="@Model.Id">Save</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label asp-for="CurrentSemester" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control shadow-none" asp-for="CurrentSemester" asp-items="@ViewBag.Semesters">
+                        <option value="">No semester</option>
+                    </select>
+                    <span asp-validation-for="CurrentSemester" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <button type="button" id="saveCurrentSemester" class="btn text-white bg-blue shadow-none" value="@Model.Id">Save</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label asp-for="UpcomingSemester" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control shadow-none" asp-for="UpcomingSemester" asp-items="@ViewBag.Semesters">
+                        <option value="">No semester</option>
+                    </select>
+                    <span asp-validation-for="UpcomingSemester" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <button type="button" id="saveUpcomingSemester" class="btn text-white bg-blue shadow-none" value="@Model.Id">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/envar-settings.js" asp-append-version="true"></script>
+}

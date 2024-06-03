@@ -1,0 +1,184 @@
+﻿@using iuca.Application.Enums
+
+@model TranscriptViewModel
+
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0 text-center">
+            <h3 class="text-uppercase">Transcript</h3>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-12">
+            <h4>@Model.StudentName</h4>
+        </div>
+    </div>
+    <hr>
+    <div class="row pt-2">
+        <div class="col-lg-3 col-12">
+            <h6><b>Student ID:</b> @Model.StudentId</h6>
+        </div>
+        <div class="col-lg-3 col-12">
+            <h6><b>Date of birth:</b> @Model.DateOfBirth.ToString("dd-MMM-yyyy")</h6>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="row">
+                <div class="col-12">
+                    <h6><b>Major:</b> @Model.Department</h6>
+                </div>
+                @if (Model.StudentMinors != null && Model.StudentMinors.Any())
+                {
+                    <div class="col-12">
+                        @foreach (var studentMinor in Model.StudentMinors)
+                        {
+                            <h6>
+                                <b>Minor:</b>
+                                @studentMinor
+                            </h6>
+                        }
+                    </div>
+                }
+            </div>
+            
+        </div>
+        <div class="col-lg-3 col-12 text-right">
+            <h6><b>GPA:</b> @Model.TotalGPA.ToString("N2")</h6>
+        </div>
+    </div>
+    <hr class="m-0">
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <div class="row pt-2 d-flex justify-content-between">
+            @foreach(var semeter in Model.TranscriptSemesters.OrderBy(x => x.Year).ThenBy(x => x.Order))
+            {
+                <div class="col-lg-6 col-12 mt-5 pr-2">
+                    <div class="alert alert-primary text-center rounded-0">
+                        <b>@semeter.Year @(EnumExtentions.GetDisplayName(semeter.Season))</b>
+                    </div>
+                    
+                    <table class="table table-sm">
+                        <thead class="text-center">
+                            <tr>
+                                <th class="text">Abbr</th>
+                                <th>Number</th>
+                                <th>Course ID</th>
+                                <th>Course name</th>
+                                <th>Grade</th>
+                                <th>Credits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var course in semeter.TranscriptCourses
+                        .OrderBy(x => x.CourseAbbreviation).ThenBy(x => x.CourseNumber))
+                        {
+                            <tr>
+                                <td class="text-center">@course.CourseAbbreviation</td>
+                                <td class="text-center">@course.CourseNumber</td>
+                                <td class="text-center">@course.CourseId</td>
+                                <td>@course.CourseName</td>
+                                <td class="text-center">@course.Grade</td>
+                                <td class="text-center">@course.Credits</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    <hr class="m-0">
+                    <div class="row pr-2" style="font-weight:600;">
+                        <div class="col-lg-10 col-12">
+                            <div class="row">
+                                <div class=col-6>
+                                    <span>GPA Credits</span>
+                                    <span>@semeter.GPACredits.ToString("N2")</span>
+                                </div>
+                                <div class=col-6>
+                                    <span>Earned Credits</span>
+                                    <span>@semeter.EarnedCredits.ToString("N2")</span>
+                                </div>
+                                <div class=col-6>
+                                    <span>Attempted Credits</span>
+                                    <span>@semeter.AttemptedCredits.ToString("N2")</span>
+                                </div>
+                                <div class=col-6>
+                                    <span>Quality Points</span>
+                                    <span>@semeter.QualityPoints.ToString("N2")</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-12 text-right">
+                            <span>GPA</span>
+                            <span>@semeter.SemesterGPA.ToString("N2")</span>
+                        </div>
+                    </div>
+                    <hr class="m-1">
+                </div>
+            }
+
+            @if (Model.TransferCourses.Count > 0)
+            {
+                <div class="col-lg-6 col-12 mt-5 pr-2">
+                    <div class="alert alert-primary text-center rounded-0">
+                        <b><span style="text-decoration:underline">Transfer credits</span></b>
+                    </div>
+                    
+                    <table class="table table-sm">
+                        <thead class="text-center">
+                        </thead>
+                        <tbody>
+                        @foreach (var university in Model.TransferCourses.GroupBy(x => x.UniversityName))
+                        {
+                            <tr>
+                                <td colspan="5" class="font-weight-bold">@university.Key</td>
+                            </tr>
+                            @foreach (var transferCourse in university.OrderBy(x => x.CourseName))
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td style="word-break:break-word;">@transferCourse.CourseName</td>
+                                    <td class="text-center">@transferCourse.Season</td>
+                                    <td class="text-center">@transferCourse.Year</td>
+                                    <td class="text-center">@transferCourse.Credits.ToString("N2")</td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+                    <hr class="m-1">
+                </div>
+            }
+
+            </div>
+
+            <hr class="m-3">
+            <div class="row" style="font-weight:bold;">
+                <div class="col-lg-2 col-12">
+                    <span>Cumulative:</span>
+                </div>
+                <div class="col-lg-10 col-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <span>GPA Credits</span>
+                            <span>@Model.TranscriptSemesters.Sum(x => x.GPACredits).ToString("N2")</span>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <span>Earned Credits</span>
+                            <span>@((Model.TranscriptSemesters.Sum(x => x.EarnedCredits) + 
+                                Model.TransferCourses.Sum(x => x.Credits)).ToString("N2"))</span>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <span>Attempted Credits</span>
+                            <span>@Model.TranscriptSemesters.Sum(x => x.AttemptedCredits).ToString("N2")</span>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <span>Quality Points</span>
+                            <span>@Model.TranscriptSemesters.Sum(x => x.QualityPoints).ToString("N2")</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        
+        </div>
+    </div>
+</div>

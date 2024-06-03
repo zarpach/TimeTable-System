@@ -1,0 +1,169 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity.Entities
+@using iuca.Infrastructure.Identity
+
+@model StudentCourseRegistrationDTO
+
+@inject ApplicationUserManager<ApplicationUser> _userManager;
+
+@{
+    int num = 0;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container" id="creds-container">
+    <h4>Course registration: @ViewBag.Semester</h4>
+    <hr>
+    <div class="row">
+        <div class="col-lg-4 col-12">
+            Student: <b>@ViewBag.StudentName</b> 
+        </div>
+        <div class="col-lg-2 col-12">
+            Student ID: <b>@ViewBag.StudentId</b> 
+        </div>
+        <div class="col-lg-2 col-12">
+            Group: <b>@ViewBag.StudentGroup</b> 
+        </div>
+        <div class="col-lg-4 col-12 text-right">
+            <a asp-action="PrintToPdfById" asp-route-semesterId="@Model.Semester.Id" asp-route-studentUserId="@Model.StudentUserId" 
+                class="btn btn-primary" target="_blank">
+                <i class="fas fa-save"></i> &nbsp;PDF
+            </a>
+            <a asp-action="PrintAddDropToPDFById" asp-route-semesterId="@Model.Semester.Id" asp-route-studentUserId="@Model.StudentUserId"
+               class="btn btn-primary" target="_blank">
+                <i class="fas fa-save"></i> &nbsp;Add/Drop PDF
+            </a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <input type="hidden" id="registrationId" value="@Model.Id" />
+        <input type="hidden" id="semesterId" value="@Model.SemesterId" />
+
+        <div class="col-lg-4 col-12 pb-2">
+            <br>
+            Create date: @Model.DateCreate.ToString("dd.MM.yyyy HH:mm:ss")
+            <br>
+            Change date: @Model.DateChange.ToString("dd.MM.yyyy HH:mm:ss")
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="form-group row">
+                <div class="col-12">
+                    <label>Registration state:</label>
+                </div>
+                <div class="col-8">
+                    <select class="form-control dropdown" name="registrationState" id="registrationState" asp-items="@ViewBag.RegistrationStates">
+                    </select>
+                </div>
+                <div class="col-4 text-right">
+                    <button type="button" class="btn btn-primary" id="saveRegistrationStateBtn">
+                        <i class="fas fa-save"></i>&nbsp;Save
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="form-group row">
+                <div class="col-12">
+                    <label>Add/Drop state:</label>
+                </div>
+                <div class="col-8">
+                    <select class="form-control dropdown" name="addDropState" id="addDropState" asp-items="@ViewBag.AddDropStates">
+                    </select>
+                </div>
+                <div class="col-4 text-right">
+                    <button type="button" class="btn btn-primary" id="saveAddDropStateBtn">
+                        <i class="fas fa-save"></i>&nbsp;Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-8 text-uppercase">
+            <h4>Registration courses:</h4>
+        </div>
+        <div class="col-4 text-right">
+            <button type="button" class="btn btn-primary" id="addRegularCourseBtn">
+                <i class="fas fa-plus"></i>&nbsp;Add course
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12" id="regularCoursesContainer">
+            @foreach (var course in Model.StudentCoursesTemp.Where(x => x.State == (int)enu_CourseState.Regular))
+            {
+                num++;
+                ViewData["Index"] = num;
+                <partial name="_EditCourseRow" model="@course" />
+            }
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+       <div class="col-8 text-uppercase">
+            <h4>Added courses:</h4>
+        </div>
+        <div class="col-4 text-right">
+            <button type="button" class="btn btn-primary" id="addAddedCourseBtn">
+                <i class="fas fa-plus"></i>&nbsp;Add course
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12" id="addedCoursesContainer">
+            @{
+                num = 0;
+            }
+            @foreach (var course in Model.StudentCoursesTemp.Where(x => x.State == (int)enu_CourseState.Added))
+            {
+                num++;
+                ViewData["Index"] = num;
+                <partial name="_EditCourseRow" model="@course" />
+            }
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-8 col-0"></div>
+        <div class="col-lg-4 col-12">
+            <h5 class="text-uppercase">
+                Total credits:
+                <span id="totalCredits">
+                    @Model.StudentCoursesTemp.Where(x => x.State != (int)enu_CourseState.Dropped && !x.IsAudit).Sum(x => x.AnnouncementSection.Credits)
+                </span>
+            </h5> 
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-8 text-uppercase">
+            <h4>Dropped courses:</h4>
+        </div>
+        <div class="col-4 text-right">
+            <button type="button" class="btn btn-primary" id="addDroppedCourseBtn">
+                <i class="fas fa-plus"></i>&nbsp;Add course
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12"  id="droppedCoursesContainer">
+            @{
+                num = 0;
+            }
+            @foreach (var course in Model.StudentCoursesTemp.Where(x => x.State == (int)enu_CourseState.Dropped))
+            {
+                num++;
+                ViewData["Index"] = num;
+                <partial name="_EditCourseRow" model="@course" />
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+   <script src="~/js/edit-student-course-registrations.js" asp-append-version="true"></script> 
+}

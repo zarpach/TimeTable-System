@@ -1,0 +1,61 @@
+﻿@using iuca.Application.Enums
+
+@model InstructorOrgInfoDTO
+
+
+<form method="post" id="orgInfoForm" name="orgInfoForm" asp-controller="InstructorInfo"
+    asp-action="EditInstructorOrgInfo" data-ajax="true" data-ajax-update="#orgInfoForm" data-ajax-mode="replace">
+    <input type="hidden" asp-for="InstructorBasicInfoId" />
+    <input type="hidden" name="OrganizationId" value="@(Model == null ? "0" : Model.OrganizationId)"/>
+    <input type="hidden" name="ImportCode" value="@(Model == null ? "0" : Model.ImportCode)"/>
+
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <h4 class="text-uppercase">Instructor Organization Info 
+                <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                <span class="green-colored">@TempData["SuccessMessage"]</span> 
+            </h4>
+        </div>
+        <div class="col-12">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="Department" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <select class="form-control dropdown" asp-for="DepartmentId" asp-items="@ViewBag.Departments"></select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="State" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <select class="form-control dropdown" name="State" asp-items="@ViewBag.InstructorStates"></select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input type="checkbox" asp-for="PartTime" />
+                    <label asp-for="PartTime" class="form-label"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right mb-2">
+            <button type="submit" id="saveInstructorOrgInfoBtn" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+
+

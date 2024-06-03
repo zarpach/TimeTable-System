@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SemesterDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Semesters</h3>
+        </div>
+    </div>
+    <div class="row pt-4 text-right">
+        <div class="col-12 p-0">
+            <a asp-controller="Semesters" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add Semester
+            </a>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>
+                                Season
+                            </th>
+                            <th>
+                                Year
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var semester in Model)
+                        {
+                            num++;
+                            <tr>
+                                <td>@num</td>
+                                <td>@(EnumExtentions.GetDisplayName((enu_Season)semester.Season))</td>
+                                <td>@semester.Year</td>
+                                <td width="15%" class="text-center p-2">
+                                    <div class="btn-group" role="group">
+                                        <a asp-controller="Semesters" asp-route-id="@semester.Id"
+                                           asp-action="Details" class="btn btn-primary mx-1" title="Details">
+                                            <i class="fas fa-file-alt"></i>
+                                        </a>
+                                        <a asp-controller="Semesters" asp-route-Id="@semester.Id" asp-action="Edit" class="btn btn-primary mx-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="Semesters" asp-route-Id="@semester.Id" asp-action="Delete" class="btn btn-danger mx-1">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No semester exists</p>
+            }
+        </div>
+    </div>
+</div>

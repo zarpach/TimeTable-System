@@ -1,0 +1,36 @@
+﻿@model SemesterPeriodDTO
+@using iuca.Application.Enums
+
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label class="label-info">Semester:</label>
+    </div>
+    <div class="col-9">
+        <label>@Model.Semester.SeasonYear</label>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label class="label-info">Period:</label>
+    </div>
+    <div class="col-9">
+        <label>@(EnumExtentions.GetDisplayName((enu_Period)Model.Period))</label>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label class="label-info">Date begin:</label>
+    </div>
+    <div class="col-9">
+        <label>@Model.DateBegin.ToString("dd.MM.yyyy HH:mm:ss")</label>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label class="label-info">Date end:</label>
+    </div>
+    <div class="col-9">
+        <label>@Model.DateEnd.ToString("dd.MM.yyyy HH:mm:ss")</label>
+    </div>
+</div>
+

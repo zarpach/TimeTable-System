@@ -1,0 +1,59 @@
+﻿@using iuca.Application.Enums
+@model List<StudentInfoBriefViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Students without adviser Report</h3>
+        </div>
+    </div>
+    
+    <hr>
+
+    @if (ViewBag.IsAdmin)
+    {
+        <form method="get" asp-action="StudentsWithoutAdviserReport">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label>Dean:</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control dropdown" name="deanUserId" id="deanUserId" asp-items="@ViewBag.Deans">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 text-right">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fab fa-sistrix"></i> &nbsp; Show
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr>
+    }
+
+    <div class="row pt-2">
+        <div class="col-12">
+            @foreach (var student in Model.OrderBy(x => x.DepartmentGroup).ThenBy(x => x.FullNameEng))
+            {
+                num++;
+                <div class="row adaptive-row p-2">
+                    <div class="col-1">@num</div>
+                    <div class="col-lg-5 col-11"><b>@student.FullNameEng</b></div>
+                    <div class="col-lg-3 col-5">
+                        @student.DepartmentGroup 
+                        (<span class="@(student.State != enu_StudentState.Active ? "text-danger" : "")">@student.State</span>)
+                    </div>
+                    <div class="col-lg-3 col-7">@student.Email</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

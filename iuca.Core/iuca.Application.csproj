@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
+		<PackageReference Include="EPPlus" Version="7.0.3" />
+		<PackageReference Include="Google.Apis.Drive.v3" Version="1.65.0.3296" />
+		<PackageReference Include="Google.Apis.Sheets.v4" Version="1.65.0.3148" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\iuca.Domain\iuca.Domain.csproj" />
+		<ProjectReference Include="..\iuca.Infrastructure\iuca.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="DTO\Slots\" />
+	  <None Remove="Interfaces\Slots\" />
+	  <None Remove="Services\Slots\" />
+	  <None Remove="ViewModels\Slots\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="student-attendance-411304-3ee6b9a7b8cc.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="DTO\Slots\" />
+	  <Folder Include="Interfaces\Slots\" />
+	  <Folder Include="Services\Slots\" />
+	  <Folder Include="ViewModels\Slots\" />
+	</ItemGroup>
+</Project>

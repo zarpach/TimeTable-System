@@ -1,0 +1,30 @@
+﻿
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <button class="btn btn-success" onclick="history.back()"><i class="fas fa-reply"></i> &nbsp; Back</button>
+        </div>
+    </div>
+    <form method="post" asp-action="Create">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h3 class="text-uppercase">Add lesson room</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="text-danger">
+            @TempData["Error"]
+        </div>
+        <div class="row pt-2">
+            <div class="col-4">
+                <partial name="_EditPartial.cshtml" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> &nbsp; Добавить
+        </button>
+
+    </form>
+
+</div>

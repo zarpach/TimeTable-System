@@ -1,0 +1,116 @@
+﻿@model GroupTransferOrderDTO
+@using iuca.Application.Enums
+
+<div class="row justify-content-between">
+    <div class="col-lg-6 col-12">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="OrganizationId" />
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Student</label>
+            </div>
+            <div class="col-12">
+                <select class="selectpicker" data-style="border-gray shadow-none" data-width="100%"
+                        data-live-search="true" asp-for="StudentUserId" asp-items="ViewBag.Students" id="studentSelect"></select>
+                <span asp-validation-for="StudentUserId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Order number</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control shadow-none input-no-spin-button" asp-for="Number" placeholder="Number" />
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Order date</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="date" class="form-control shadow-none" asp-for="Date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control shadow-none" asp-for="SemesterId" asp-items="ViewBag.Semesters"></select>
+                        <span asp-validation-for="SemesterId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>From group</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control shadow-none" id="groupInput" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>To group</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control shadow-none" asp-for="TargetGroupId" asp-items="ViewBag.DepartmentGroups"></select>
+                        <span asp-validation-for="TargetGroupId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-12">
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Old advisers</label>
+            </div>
+            <div class="col-12">
+                <input class="form-control shadow-none" id="advisersInput" readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>New advisers</label>
+            </div>
+            <div class="col-12">
+                <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                        data-live-search="true" data-actions-box="true" asp-for="FutureAdvisorsJson" asp-items="@ViewBag.Advisers">
+                </select>
+                <span asp-validation-for="FutureAdvisorsJson" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <label>Comment</label>
+            </div>
+            <div class="col-12">
+                <input class="form-control shadow-none" asp-for="Comment" placeholder="Comment" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

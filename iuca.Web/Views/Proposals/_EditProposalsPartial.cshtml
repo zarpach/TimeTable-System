@@ -1,0 +1,164 @@
+﻿@model ProposalCourseDTO
+@using Newtonsoft.Json;
+@using iuca.Application.Enums;
+
+@{
+    Layout = null;
+
+    string statusColor = "text-danger";
+
+    if (Model.Status == (int)enu_ProposalCourseStatus.Pending)
+        statusColor = "text-warning";
+    if (Model.Status == (int)enu_ProposalCourseStatus.Approved)
+        statusColor = "text-success";
+
+    bool readonlyControl = Model.Status != (int)enu_ProposalCourseStatus.New && Model.Status != (int)enu_ProposalCourseStatus.Rejected;
+}
+
+<li class="list-group-item striped-row">
+
+    <input type="hidden" asp-for="Id" name="ProposalCourses[0].Id" />
+    <input type="hidden" asp-for="CourseId" name="ProposalCourses[0].CourseId" id="proposalCourseId" value="@Model.CourseId" />
+    <input type="hidden" asp-for="Status" name="ProposalCourses[0].Status" value="@Model.Status" />
+
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="row">
+                <div class="col-lg-3 col-12 pt-2">
+                    <i class="fas fa-circle @statusColor"></i> @EnumExtentions.GetDisplayName((enu_ProposalCourseStatus)Model.Status)
+                </div>
+                <div class="col-lg-9 col-12 pt-2">
+                    <h6>@Model.Course.NameEng <em class="text-gray">(@Model.Course.Language.NameEng)</em></h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-4 pt-2">
+                            <strong>@(Model.Course.Abbreviation + " " + Model.Course.Number)</strong>
+                        </div>
+                        <div class="col-lg-2 col-4 pt-2">
+                            ID <strong>@Model.Course.ImportCode</strong>
+                        </div>
+                        <div class="col-lg-2 col-4 pt-2">
+                            @Model.Course.Department.Code
+                        </div>
+                        <div class="col-lg-5 col-12 text-lg-right pt-2">
+                            <strong>@(EnumExtentions.GetDisplayName((enu_CourseType)Model.Course.CourseType))</strong>
+                            &nbsp;&nbsp;
+                            <label class="cursor-pointer">
+                                <input class="cursor-pointer" type="checkbox" name="ProposalCourses[0].IsForAll" value="@(Model.IsForAll ? "true" : "false")"
+                                @(Model.IsForAll ? "checked" : "") onchange="this.value = this.checked;"
+                                       @(readonlyControl ? "disabled" : "")  />
+                                For all
+                                @if (readonlyControl)
+                                {
+                                    <input type="hidden" asp-for="IsForAll" />
+                                }
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-12 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label>Instructors <span class="instructorsCount badge badge-pill badge-secondary"></span> <span class="text-danger">*</span></label>
+                </div>
+                <div class="col-12">
+                    <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                            data-live-search="true" multiple data-actions-box="true"
+                            asp-for="InstructorsJson" name="ProposalCourses[0].InstructorsJson" asp-items="@ViewBag.Instructors"
+                                disabled="@readonlyControl">
+                    </select>
+                    @if (readonlyControl)
+                    {
+                        <select hidden asp-for="InstructorsJson" name="ProposalCourses[0].InstructorsJson" asp-items="@ViewBag.Instructors"> </select>
+                    }
+                    <span asp-validation-for="InstructorsJson" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-4 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label>Credits<span class="text-danger">*</span></label>
+                </div>
+                <div class="col-12">
+                    <input class="form-control shadow-none min-width-30" asp-for="Credits" name="ProposalCourses[0].Credits"
+                           readonly="@readonlyControl" />
+                    <span asp-validation-for="Credits" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-8 pt-2">
+            <div class="row">
+                <div class="col-10">
+                    <label>Schedule</label>
+                </div>
+                <div class="col-12">
+                    <input class="form-control shadow-none min-width-50" asp-for="Schedule" name="ProposalCourses[0].Schedule"
+                           readonly="@readonlyControl" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-12 pt-2">
+            <div class="row">
+                <div class="col-10">
+                    <label>Year of study</label>
+                </div>
+                <div class="col-12">
+                    <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%" multiple title="No one"
+                            asp-for="YearsOfStudyJson" name="ProposalCourses[0].YearsOfStudyJson" disabled="@readonlyControl">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    @if (readonlyControl)
+                    {
+                        <select hidden asp-for="YearsOfStudyJson" name="ProposalCourses[0].YearsOfStudyJson">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-10 pt-2">
+            <div class="row">
+                <div class="col-10">
+                    <label>Comment</label>
+                </div>
+                <div class="col-12">
+                    <input class="form-control shadow-none min-width-50" asp-for="Comment" name="ProposalCourses[0].Comment"
+                           readonly="@readonlyControl" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-2 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label><br/></label>
+                </div>
+                <div class="col-12">
+                    @if (!readonlyControl)
+                    {
+                        <button type="button" class="btn btn-danger" id="removeProposalCourseBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</li>

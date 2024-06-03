@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap-toggle@2.2.2",
+      "destination": "wwwroot/lib/bootstrap-toggle/"
+    },
+    {
+      "library": "bootstrap4-toggle@3.6.1",
+      "destination": "wwwroot/lib/bootstrap4-toggle/"
+    }
+  ]
+}

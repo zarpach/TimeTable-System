@@ -1,0 +1,126 @@
+﻿@model GradeAdviserReportViewModel
+
+@{
+    Layout = null;
+    var num = 0;
+}
+
+<div class="portraitA4">
+    <table class="table table-bordered table-striped table-sm small tableFixHead">
+        <thead>
+            <tr>
+                <th rowspan="2">
+                    @ViewBag.Semester
+                    <br><br>@ViewBag.DepartmentGroupNames
+                </th>
+                <th rowspan="2" style="writing-mode:vertical-lr;">GPA</th>
+                <th rowspan="2" style="writing-mode:vertical-lr;">Total GPA</th>
+                @foreach (var course in Model.AllCourses)
+                {
+                    <th style="writing-mode:vertical-lr;">
+                        @if (course.NameEng.Length > 15)
+                        {
+                            <text>@course.NameEng.Substring(0, 15)</text>
+                        }
+                        else
+                        {
+                            <text>@course.NameEng</text>
+                        }
+                        <br> @course.Abbreviation @course.Number
+                    </th>
+                }
+            </tr>
+            <tr>
+                @foreach (var course in Model.AllCourses)
+                {
+                    <th>
+                        <br>ID: @course.ImportCode
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.AllStudents)
+            {
+                num++;
+                <tr>
+                    <th style="text-align:left; min-width:250px;">
+                        @num.
+                        <span class="font-weight-bolder">@student.Name</span><br>
+                        @student.Group (@student.State)
+                    </th>
+                    <th>
+                        @student.SemsterGPA.ToString("N2")
+                    </th>
+                    <th>
+                        @student.TotalGPA.ToString("N2")
+                    </th>
+                    @foreach (var course in Model.AllCourses)
+                    {
+                        var key = $"{student.StudentUserId}_{course.Id}";
+                        <td style="text-align:center; font-size:medium;">
+                            
+                                @if (Model.AllStudentCourses.ContainsKey(key))
+                                {
+                                    @if (Model.AllStudentCourses[key].Grade != null)
+                                    {
+                                        <span>@Model.AllStudentCourses[key].Grade.GradeMark</span>
+                                    }
+                                    else
+                                    {
+                                        <span>*</span>
+                                    }
+                                }
+                            
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style type="text/css">
+
+    html {
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    table {
+        page-break-inside: auto;
+        font-size: small;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto
+    }
+
+    thead {
+        display: table-header-group
+    }
+
+    tfoot {
+        display: table-footer-group
+    }
+
+    table, th, td {
+        border: 1px solid;
+        padding: 3px 5px;
+        font-weight: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    .portraitA4 {
+        height: 21cm;
+        width: 29.7cm;
+        margin: 0mm 35mm 0mm 35mm;
+    }
+
+</style>

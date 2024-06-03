@@ -1,0 +1,278 @@
+﻿@using iuca.Application.Enums
+@model AcademicPlanViewModel
+
+@{
+    List<CyclePartCourseDTO> cyclePartCourses = new List<CyclePartCourseDTO>();
+    CyclePartDTO cyclePart = null;
+    var cyclePartIndex = 0;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Редактировать курсы учебного плана</h3>
+            <h4 class="text-uppercase">@Model.AcademicPlan.Department.Code @Model.AcademicPlan.Year</h4>
+        </div>
+    </div>
+    <div class="text-danger">
+        @TempData["Error"]
+    </div>
+    <form method="get" asp-action="FillAcademicPlanByYear">
+        <input type="hidden" name="academicPlanId" value="@Model.AcademicPlan.Id">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-3 text-right">
+                <h6>Заполнить по выбранному году</h6>
+            </div>
+            <div class="col-2 text-right">
+                <input class="form-control" name="Year" id="Year" value="@(Model.AcademicPlan.Year - 1)" />
+            </div>
+            <div class="col-2 text-right p-0">
+                <input type="submit" class="btn btn-primary" value="Заполнить" />
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <form method="post" asp-action="EditAcademicPlanCourses">
+                <input type="hidden" name="academicPlanId" value="@Model.AcademicPlan.Id" />
+                <table class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" rowspan="2"></th>
+                            <th class="text-center" rowspan="2">Код №</th>
+                            <th class="text-center" rowspan="2">Группа</th>
+                            <th class="text-center" rowspan="2"></th>
+                            <th rowspan="2" class="text-center border-right">
+                                Наименование дисциплин по ГОС
+                            </th>
+                            <th rowspan="2" class="text-center border-right">
+                                Кредиты
+                            </th>
+                            <th colspan="2" class="text-center border-right">1 курс</th>
+                            <th colspan="2" class="text-center border-right">2 курс</th>
+                            <th colspan="2" class="text-center border-right">3 курс</th>
+                            <th colspan="2" class="text-center border-right">4 курс</th>
+                            <th class="text-center"></th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">1 сем.</th>
+                            <th class="text-center border-right">2 сем.</th>
+                            <th class="text-center">1 сем.</th>
+                            <th class="text-center border-right">2 сем.</th>
+                            <th class="text-center">1 сем.</th>
+                            <th class="text-center border-right">2 сем.</th>
+                            <th class="text-center">1 сем.</th>
+                            <th class="text-center border-right">2 сем.</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cycle in Model.Cycles)
+                        {
+                            <tr class="font-weight-bold text-uppercase text-center bg-dark-lilac">
+                                <td colspan="15">
+                                    @cycle.NameRus / @cycle.NameEng
+                                </td>
+                            </tr>
+                            @foreach (var part in Model.Parts)
+                            {
+                                cyclePart = Model.AcademicPlan.CycleParts.FirstOrDefault(x => x.CycleId == cycle.Id && x.AcademicPlanPart == (int)part);
+
+                    <tr id="@("row_" + cycle.Id + "_" + (int)part)" class="font-weight-bold bg-light-orange highlighted-row">
+                        <td>
+                            <button type="button" class="btn btn-success mt-1" name="groupRowBtn.@("row_" + cycle.Id + "_" + (int)part)" title="Объединить" style="display:none;">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </td>
+                        <td class="border-right" colspan="4">@EnumExtentions.GetDisplayName(part)</td>
+                        <td class="border-right">
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPts" value="@(cyclePart != null ? cyclePart.ReqPts : 0)" />
+                        </td>
+                        <td>
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs1Sem1" value="@(cyclePart != null ? cyclePart.ReqPtsCrs1Sem1 : 0)" />
+                        </td>
+                        <td class="border-right">
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs1Sem2" value="@(cyclePart != null ? cyclePart.ReqPtsCrs1Sem2 : 0)" />
+                        </td>
+                        <td>
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs2Sem1" value="@(cyclePart != null ? cyclePart.ReqPtsCrs2Sem1 : 0)" />
+                        </td>
+                        <td class="border-right">
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs2Sem2" value="@(cyclePart != null ? cyclePart.ReqPtsCrs2Sem2 : 0)" />
+                        </td>
+                        <td>
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs3Sem1" value="@(cyclePart != null ? cyclePart.ReqPtsCrs3Sem1 : 0)" />
+                        </td>
+                        <td class="border-right">
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs3Sem2" value="@(cyclePart != null ? cyclePart.ReqPtsCrs3Sem2 : 0)" />
+                        </td>
+                        <td>
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs4Sem1" value="@(cyclePart != null ? cyclePart.ReqPtsCrs4Sem1 : 0)" />
+                        </td>
+                        <td class="border-right">
+                            <input class="form-control text-center font-weight-bold integer-only" name="[@cyclePartIndex].ReqPtsCrs4Sem2" value="@(cyclePart != null ? cyclePart.ReqPtsCrs4Sem2 : 0)" />
+                        </td>
+                        <td class="text-right">
+                            <input type="hidden" name="cyclePartIndex" value="@cyclePartIndex" />
+                            <input type="hidden" name="cycleName" value="@(cycle.NameRus + " / " + cycle.NameEng)" />
+                            <input type="hidden" name="partName" value="@(EnumExtentions.GetDisplayName(part))" />
+
+                            <input type="hidden" name="[@cyclePartIndex].AcademicPlanId" value="@Model.AcademicPlan.Id" />
+                            <input type="hidden" name="[@cyclePartIndex].CycleId" value="@cycle.Id" />
+                            <input type="hidden" name="[@cyclePartIndex].AcademicPlanPart" value="@((int)part)" />
+
+                            <button type="button" class="btn btn-primary" name="selectCoursesBtn" data-toggle="ajax-modal" data-target="#selectCourses" title="Добавить курсы">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                                cyclePartCourses = Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id
+                                                && x.AcademicPlanPart == (int)part).SelectMany(x => x.CyclePartCourses).ToList();
+
+                                ViewData["NumId"] = $"num_{cycle.Id}_{(int)part}";
+                                ViewData["CycleId"] = cycle.Id;
+                                ViewData["Part"] = (int)part;
+                                ViewData["CyclePartIndex"] = cyclePartIndex;
+
+                                <partial name="_CourseRow" for="@cyclePartCourses" view-data="ViewData" />
+                                cyclePartIndex++;
+                            }
+                    <tr class="font-weight-bold highlighted-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="border-right">Итого по циклу @cycle.Code</td>
+                        <td class="text-center border-right">
+                            <span id="@("cycle_ReqPts_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPts)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="@("cycle_ReqPtsCrs1Sem1_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs1Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="@("cycle_ReqPtsCrs1Sem2_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs1Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="@("cycle_ReqPtsCrs2Sem1_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs2Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="@("cycle_ReqPtsCrs2Sem2_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs2Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="@("cycle_ReqPtsCrs3Sem1_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs3Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="@("cycle_ReqPtsCrs3Sem2_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs3Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="@("cycle_ReqPtsCrs4Sem1_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs4Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="@("cycle_ReqPtsCrs4Sem2_" + cycle.Id)">
+                                @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs4Sem2)
+                            </span>
+                        </td>
+                        <td></td>
+                    </tr>
+                        }
+                    <tr class="font-weight-bold highlighted-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="border-right">Итого за 4 года</td>
+                        <td class="text-center border-right">
+                            <span id="total_ReqPts">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPts)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="total_ReqPtsCrs1Sem1">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs1Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="total_ReqPtsCrs1Sem2">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs1Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="total_ReqPtsCrs2Sem1">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs2Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="total_ReqPtsCrs2Sem2">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs2Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="total_ReqPtsCrs3Sem1">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs3Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="total_ReqPtsCrs3Sem2">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs3Sem2)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span id="total_ReqPtsCrs4Sem1">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs4Sem1)
+                            </span>
+                        </td>
+                        <td class="text-center border-right">
+                            <span id="total_ReqPtsCrs4Sem2">
+                                @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs4Sem2)
+                            </span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-group row mb-0">
+                    <div class="col-12 p-0 row">
+                        <div class="col-12 p-0 text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> &nbsp; Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/extensions.js" asp-append-version="true"></script>
+    <script src="~/js/edit-academic-plan.js" asp-append-version="true"></script>
+} 

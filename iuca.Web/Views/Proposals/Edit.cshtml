@@ -1,0 +1,50 @@
+﻿@model ProposalDTO
+@using iuca.Application.Enums;
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="Index" asp-route-searchSemesterId="@ViewBag.SemesterId">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto pb-2">
+            <h2>Proposal editing</h2>
+            <span class="text-danger">
+                @TempData["ProposalError"]
+            </span>
+            <span class="text-danger">
+                @TempData["ProposalErrorMessage"]
+            </span>
+            <span class="text-success">
+                @TempData["ProposalSuccessMessage"]
+            </span>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn bg-blue text-white shadow-none" form="editProposal">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <form asp-action="Edit" method="post" id="editProposal" asp-route-searchSemesterId="@ViewBag.SemesterId">
+                <partial name="_EditPartial.cshtml" />
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/edit-proposal.js" asp-append-version="true"></script>
+
+}

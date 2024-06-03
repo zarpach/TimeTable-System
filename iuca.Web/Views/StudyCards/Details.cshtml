@@ -1,0 +1,29 @@
+﻿@model StudyCardDTO
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="Index"
+               asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between align-items-end">
+        <div class="col-auto">
+            <h2>Study card details</h2>
+        </div>
+        <div class="col-auto">
+            <h4><strong>@(Model.DepartmentGroup.Department.Code + "-" + Model.DepartmentGroup.Code)</strong> @Model.Semester.SeasonYear</h4>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <partial name="_DetailsPartial.cshtml" />
+        </div>
+    </div>
+
+</div>

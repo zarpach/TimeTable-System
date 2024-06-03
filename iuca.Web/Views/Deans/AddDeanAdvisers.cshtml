@@ -1,0 +1,57 @@
+﻿@model List<DeanAdviserViewModel>
+
+@{
+    int num = 0;
+    bool onlyActive = (ViewBag.OnlyActive == null || ViewBag.OnlyActive);
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <a asp-action="DeanAdvisers" asp-route-deanUserId="@ViewBag.DeanUserId" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-lg-9 col-12">
+            <h4 class="text-uppercase">Add advisers to dean: <b>@ViewBag.DeanName</b></h4>
+        </div>
+        <div class="col-lg-3 col-12 text-right">
+            <form method="post" asp-action="AddDeanAdvisers">
+                <input type="hidden" name="deanUserId" value="@ViewBag.DeanUserId" />
+                <label style="cursor: pointer;">
+                    <input type="checkbox" name="onlyActive"
+                        value="@(onlyActive ? "true" : "false")" @(onlyActive ? "checked" : "") onchange="this.value = this.checked; this.form.submit();"/>
+                    <span>Only active instructors</span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row pt-2">
+        <div class="col-12">
+            <input type="hidden" id="deanUserId" value="@ViewBag.DeanUserId" />
+                @foreach (var instructor in Model)
+                {
+                    num++;
+                    <div class="row adaptive-row p-2">
+                        <div class="col-1 pt-2"><span class="num">@num</span></div>
+                        <div class="col-lg-5 col-11 pt-2"><b>@instructor.Instructor.FullNameEng</b></div>
+                        <div class="col-lg-4 col-10 text-right pt-2">@instructor.Instructor.Email (@instructor.State)</div>
+                        <div class="col-2 text-right pt-2">
+                            <input type="hidden" name="instructorUserId" value="@instructor.Instructor.Id"  />
+                            <button type="button" class="btn btn-primary" name="addAdviser">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/add-dean-advisers.js" asp-append-version="true"></script>
+}

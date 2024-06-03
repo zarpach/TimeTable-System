@@ -1,0 +1,17 @@
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Infrastructure.deps.json
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Infrastructure.runtimeconfig.json
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Infrastructure.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Infrastructure.pdb
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Domain.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/bin/Debug/net6.0/iuca.Domain.pdb
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.csproj.AssemblyReference.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.AssemblyInfoInputs.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.AssemblyInfo.cs
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.csproj.CopyComplete
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/refint/iuca.Infrastructure.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.pdb
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/iuca.Infrastructure.genruntimeconfig.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Infrastructure/obj/Debug/net6.0/ref/iuca.Infrastructure.dll

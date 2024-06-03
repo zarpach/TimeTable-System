@@ -1,0 +1,161 @@
+﻿@model IEnumerable<GroupTransferOrderDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>Group transfer orders</h2>
+            <div class="alert p-1 alert-danger @if(TempData["GroupTransferOrdersError"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["GroupTransferOrdersError"]
+            </div>
+            <div class="alert p-1 alert-danger @if(TempData["GroupTransferOrdersErrorMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["GroupTransferOrdersErrorMessage"]
+            </div>
+            <div class="alert p-1 alert-warning @if(TempData["GroupTransferOrdersSuccessMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["GroupTransferOrdersSuccessMessage"]
+            </div>
+        </div>
+        <div class="col-auto">
+            <a class="btn bg-blue text-white shadow-none" asp-action="Create">
+                <i class="fas fa-plus"></i> Group transfer
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <form method="get" asp-action="Index">
+                        <div class="row align-items-center justify-content-between">
+
+                            <div class="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-lg-auto col-12">
+                                        <select class="form-control shadow-none" name="searchIsApplied" asp-items="@ViewBag.ApplicationStatuses" onchange="this.form.submit()">
+                                            <option value="0">All statuses</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 pt-lg-0 pt-2">
+                                <div class="input-group">
+                                    <input type="text" id="searchText" class="form-control zero-border-right shadow-none" />
+                                    <div class="input-group-append p-0">
+                                        <button type="button" id="clearSearchBtn" class="btn gray-border-top gray-border-bottom bg-white text-gray shadow-none">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button id="searchBtn" type="button" class="btn btn-block bg-blue text-white shadow-none">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    @if (Model.Any())
+                    {
+                        @foreach (var order in Model)
+                        {
+                            num++;
+
+                            string isAppliedColor = "";
+
+                            string editButton = "disabled";
+                            string deleteButton = "disabled";
+                            string applyButton = "d-none";
+                            string cancelButton = "d-none";
+
+                            @if (order.IsApplied == true)
+                            {
+                                isAppliedColor = "text-success";
+                                cancelButton = "";
+                            }
+                            if (order.IsApplied == false)
+                            {
+                                isAppliedColor = "text-danger";
+                                editButton = "";
+                                deleteButton = "";
+                                applyButton = "";
+                            }
+
+                            <li class="list-group-item search-item">
+                                <div class="row">
+                                    <div class="col-lg-7 col-12">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-3 col-6">
+                                                <i class="fas fa-circle @isAppliedColor"></i> <strong>№ @order.Number</strong>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                @order.Date.Date.ToString("dd.MM.yyyy")
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <em>@order.StudentInfo.FullNameEng</em>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-12 text-right">
+                                        <strong>From</strong> @order.SourceGroup.DepartmentCode <strong>to</strong> @order.TargetGroup.DepartmentCode
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9 col-12 pt-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @if (order.FutureAdvisors != null && order.FutureAdvisors.Any())
+                                                {
+                                                    string advisers = string.Join(", ", order.FutureAdvisors.Select(x => x.FullName));
+                                                    <small class="text-gray">@advisers</small>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-12 text-right pt-3">
+                                        <button type="button" class="btn btn-success shadow-none @applyButton" name="applyGroupTransferOrderBtn" value="@order.Id">
+                                            <i class="fas fa-check"></i> Apply
+                                        </button>
+                                        <button type="button" class="btn btn-danger shadow-none @cancelButton" name="cancelGroupTransferOrderBtn" value="@order.Id">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
+                                        <a asp-action="Edit" class="btn bg-blue text-white @editButton" asp-route-id="@order.Id">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-danger shadow-none" name="deleteGroupTransferOrderBtn" value="@order.Id" @deleteButton>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No orders</p>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/group-transfer-orders.js" sp-append-version="true"></script>
+
+}

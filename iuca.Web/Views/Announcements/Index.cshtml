@@ -1,0 +1,344 @@
+﻿@model IEnumerable<AnnouncementForAnnouncementInfoDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<style> 
+    .nav-item.nav-link.active {
+        background-color: #ffffff !important;
+    }
+
+    .nav-item.nav-link {
+        border-bottom: none;
+        outline: none;
+    }
+
+    .nav-tabs {
+        justify-content: flex-end;
+        border: none;
+    }
+
+    .tab-content {
+        background-color: #ffffff !important;
+        border: 1px solid #dee2e6;
+    }
+
+</style>
+
+<div id="sectionsModalContainer"></div>
+<div id="instructorsModalContainer"></div>
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2 class="text-blue">Announcements</h2>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn bg-blue-light text-white shadow-none" onclick="exportAnnouncementSections()">
+                <i class="fas fa-file-export"></i> Export announcements
+            </button>
+            <button type="button" class="btn btn-success shadow-none" onclick="activateAllAnnouncement(this)" value="@Model.Select(x => x.Id).ToArray()">
+                <i class="fas fa-check"></i> Activate all
+            </button>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <form method="get" asp-action="Index">
+
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-lg-3 col-12">
+                                <select class="form-control shadow-none" id="searchSemesterId" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()"></select>
+                            </div>
+                            <div class="col-lg-3 col-12 pt-lg-0 pt-2">
+                                <select class="form-control shadow-none" name="searchDepartmentId" asp-items="@ViewBag.Departments" onchange="this.form.submit()">
+                                    <option value="-1">All departments</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-12 pt-lg-0 pt-2">
+                                <select class="form-control shadow-none" name="searchCourseType" asp-items="@ViewBag.CourseTypes" onchange="this.form.submit()"></select>
+                            </div>
+                            <div class="col-lg-2 col-6 pt-lg-0 pt-2">
+                                <select class="form-control shadow-none" name="searchIsForAll" asp-items="@ViewBag.IsForAllStatuses" onchange="this.form.submit()"></select>
+                            </div>
+                            <div class="col-lg-2 col-6 pt-lg-0 pt-2">
+                                <select class="form-control shadow-none" name="searchIsActivated" asp-items="@ViewBag.IsActivatedStatuses" onchange="this.form.submit()"></select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <div class="row justify-content-end">
+                                <div class="col-lg-4 col-12 pt-lg-0 pt-2">
+                                    <input type="text" id="searchText" class="form-control shadow-none" placeholder="Id, name, instructor or group" />
+                                </div>
+                            </div>
+
+                            <hr class="my-4" />
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            @if (Model.Count() > 0)
+                            {
+                                @foreach (var announcement in Model)
+                                {
+                                    num++;
+
+                                    string statusColor = "text-danger";
+                                    string typeText = enu_CourseType.Standart.GetDisplayName();
+                                    string typeColor = "bg-transparent-secondary text-secondary";
+
+                                    if (announcement.IsActivated)
+                                        statusColor = "text-success";
+
+                                    switch ((enu_CourseType)announcement.Course.CourseType)
+                                    {
+                                        case enu_CourseType.General:
+                                            typeText = enu_CourseType.General.GetDisplayName();
+                                            typeColor = "bg-transparent-dark text-dark";
+                                            break;
+                                        case enu_CourseType.TermPaper:
+                                            typeText = enu_CourseType.TermPaper.GetDisplayName();
+                                            typeColor = "bg-transparent-info text-info";
+                                            break;
+                                        case enu_CourseType.PhysEd:
+                                            typeText = enu_CourseType.PhysEd.GetDisplayName();
+                                            typeColor = "bg-transparent-warning text-warning";
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    <div class="alert bg-gray-light p-3 search-item" id="container-@(announcement.Id)" role="alert">
+
+                                        <input type="hidden" name="announcementId" value="@announcement.Id" />
+
+                                        <div class="row">
+                                            <div class="col-lg-5 col-8">
+
+                                                <h6 class="p-1">
+                                                    <i class="fas fa-circle @statusColor" id="statusIcon"></i> <strong class="px-2">@(announcement.Course.Abbreviation + " " + announcement.Course.Number)</strong>
+                                                    <span class="badge badge-pill @typeColor">@typeText</span>
+                                                    @if (announcement.IsForAll)
+                                                    {
+                                                        <span class="badge badge-pill bg-transparent-primary text-primary">For all</span>
+                                                    }
+                                                </h6>
+
+                                            </div>
+                                            <div class="col-lg-2 col-4 text-center">
+
+                                                <small class="text-gray">@num of @Model.Count()</small>
+
+                                            </div>
+                                            <div class="col-lg-5 col-12 text-right">
+
+                                                <nav>
+                                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                        <button class="nav-item nav-link active" data-toggle="tab" href="#nav-info-@(announcement.Id)">Info</button>
+                                                        <button class="nav-item nav-link" data-toggle="tab" href="#nav-controls-@(announcement.Id)" onclick="getControls(this)" value="@announcement.Id">Controls</button>
+                                                    </div>
+                                                </nav>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-content px-3 py-2" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="nav-info-@(announcement.Id)">
+
+                                                <div class="row">
+                                                    <div class="col-lg-7 col-12">
+
+                                                        <div class="row py-1">
+                                                            <div class="col-12">
+                                                                <small class="text-gray">Name</small>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <span class="search-name">@announcement.Course.NameEng</span>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <span class="search-name">@announcement.Course.NameRus</span>
+                                                            </div>
+                                                        </div>
+
+                                                        @if (announcement.Instructors != null && announcement.Instructors.Any())
+                                                        {
+                                                            string instructors = string.Join(", ", announcement.Instructors.Select(x => x.FullName));
+
+                                                            <div class="row py-1">
+                                                                <div class="col-12">
+                                                                    <small class="text-gray">Instructors</small>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <span class="search-instructor">@instructors</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                        @if (announcement.Groups != null && announcement.Groups.Any())
+                                                        {
+                                                            string groups = string.Join(", ", announcement.Groups.Select(x => x.Code));
+
+                                                            <div class="row py-1">
+                                                                <div class="col-12">
+                                                                    <small class="text-gray">Groups</small>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <span class="search-group">@groups</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                    </div>
+                                                    <div class="col-lg-5 col-12">
+
+                                                        <div class="row">
+                                                            <div class="col-4">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <small class="text-gray">Id</small>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <span class="search-course-id">@announcement.Course.ImportCode</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-4">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <small class="text-gray">Department</small>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <span>@announcement.Course.Department.Code</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-4">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <small class="text-gray">Language</small>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <span>@announcement.Course.Language.NameEng</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row py-2">
+                                                            <div class="col-4">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <small class="text-gray">Sections</small>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <span>@announcement.AnnouncementSections.Count()</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            @if (announcement.ProposalCourse != null)
+                                                            {
+                                                                if (!string.IsNullOrEmpty(announcement.ProposalCourse.Schedule))
+                                                                {
+                                                                    <div class="col-8">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <small class="text-gray">Shedule</small>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <span>@announcement.ProposalCourse.Schedule</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                if (announcement.ProposalCourse.YearsOfStudyJson != null && announcement.ProposalCourse.YearsOfStudyJson.Any())
+                                                                {
+                                                                    string years = string.Join(", ", announcement.ProposalCourse.YearsOfStudyJson);
+
+                                                                    <div class="row py-1">
+                                                                        <div class="col-12">
+                                                                            <small class="text-gray">Year of study</small>
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <span>@years</span>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                if (!string.IsNullOrEmpty(announcement.ProposalCourse.Comment))
+                                                                {
+                                                                    <div class="col-12">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <small class="text-gray">Comment</small>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <span>@announcement.ProposalCourse.Comment</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-controls-@(announcement.Id)">
+
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                }
+                            }
+                            else
+                            {
+                                <p class="pt-3">No announcements</p>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/announcements.js" asp-append-version="true"></script>
+    <script src="~/js/edit-announcements.js" asp-append-version="true"></script>
+    <script src="~/js/attendance-generating.js" asp-append-version="true"></script>
+
+}

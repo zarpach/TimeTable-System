@@ -1,0 +1,218 @@
+﻿@using iuca.Application.Enums 
+@model List<AdviserStudentRegistrationViewModel>
+
+@{
+    int num = 0;
+    bool activeOnly = (ViewBag.ActiveOnly == null || ViewBag.ActiveOnly);
+    bool withDebtsOnly = (ViewBag.WithDebtsOnly == null || ViewBag.WithDebtsOnly);
+    bool incompleteRegistration = (ViewBag.IncompleteRegistration == null || ViewBag.IncompleteRegistration);
+
+    Func<string, bool, string> GenerateDebtMark = (label, hasDebt) =>
+    {
+        string iconClass = hasDebt ? "fas fa-times-circle text-danger" : "fas fa-check-circle text-success";
+        return $@"<div class=""col-2""><div class=""row""><div class=""col-12"">{label}:</div><div class=""col-12 d-flex mt-1 justify-content-center""><i class=""{iconClass}""></i></div></div></div>";
+    };
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h4 class="text-uppercase">Информация о регистрации студентов</h4>
+        </div>
+    </div>
+
+    <hr>
+    <form asp-action="StudentRegistrations" method="get">
+         <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label>Группа:</label>
+                    </div>
+                    <div class="col-9">
+                        <select class="form-control dropdown" name="departmentGroupId" asp-items="@ViewBag.DepartmentGroups">
+                            <option>Все</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <div class="col-12 col-lg-4">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label>Семестр:</label>
+                    </div>
+                    <div class="col-9">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="form-group row">
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fab fa-sistrix"></i> &nbsp; Показать
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="row">
+                    <div class="col-4">
+                        <label>
+                            <input type="checkbox" name="activeOnly" id="activeOnly" value="@(activeOnly ? "true" : "false")"
+                            @(activeOnly ? "checked" : "") onchange="this.value = this.checked;" />
+                            Active only
+                        </label>
+                    </div>
+                    <div class="col-4">
+                        <label>
+                            <input type="checkbox" name="withDebtsOnly" id="withDebtsOnly" value="@(withDebtsOnly ? "true" : "false")"
+                            @(withDebtsOnly ? "checked" : "") onchange="this.value = this.checked;" />
+                            With debts only
+                        </label>
+                    </div>
+                    <div class="col-4">
+                        <label>
+                            <input type="checkbox" name="incompleteRegistration" id="incompleteRegistration" value="@(incompleteRegistration ? "true" : "false")"
+                            @(incompleteRegistration ? "checked" : "") onchange="this.value = this.checked;" />
+                            Incomplete registration
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                @foreach (var registration in Model)
+                {
+                    num++;
+                    var rowClass = "";
+                    if (registration.RegistrationState == 0 || registration.RegistrationState == enu_RegistrationState.NotSent)
+                        rowClass = "red-row";
+                    else if (registration.RegistrationState == enu_RegistrationState.OnApproval)
+                        rowClass = "blue-row";
+                    else if (registration.RegistrationState == enu_RegistrationState.NotApproved)
+                        rowClass = "orange-row";
+                    else if (registration.RegistrationState == enu_RegistrationState.Approved)
+                        rowClass = "yellow-row";
+                    else if (registration.RegistrationState == enu_RegistrationState.Submitted)
+                    {
+                        if (registration.RegistrationAddDropState == 0 ||
+                        registration.RegistrationAddDropState == enu_RegistrationState.NotSent ||
+                        registration.RegistrationAddDropState == enu_RegistrationState.Submitted)
+                            rowClass = "green-row";
+                        else if (registration.RegistrationAddDropState == enu_RegistrationState.OnApproval)
+                            rowClass = "blue-row";
+                        else if (registration.RegistrationAddDropState == enu_RegistrationState.NotApproved)
+                            rowClass = "orange-row";
+                        else if (registration.RegistrationAddDropState == enu_RegistrationState.Approved)
+                            rowClass = "yellow-row";
+                    }
+
+                    <div class="@rowClass row">
+
+                        <div class="col-lg-4 col-12">
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+                                    <span>#@num</span> <b>@registration.StudentName</b>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    @registration.StudentGroup
+                                    <span class="@(registration.StudentState != enu_StudentState.Active ? "text-danger" : "")">
+                                        (@registration.StudentState)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <div class="row">
+                                @{
+                                    @Html.Raw(GenerateDebtMark("Acc", registration.DebtMarks.Accounting))
+                                    @Html.Raw(GenerateDebtMark("Lib", registration.DebtMarks.Library))
+                                    @Html.Raw(GenerateDebtMark("Dorm", registration.DebtMarks.Dormitory))
+                                    @Html.Raw(GenerateDebtMark("Med", registration.DebtMarks.MedicineOffice))
+                                    @Html.Raw(GenerateDebtMark("Reg", registration.DebtMarks.RegistarOffice))
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <div class="row">
+                                <div class="col-5">
+                                    Регистрация: <b>@registration.RegistrationStateDesc</b>
+                                </div>
+                                <div class="col-5">
+                                    Add/Drop: <b>@registration.RegistrationAddDropStateDesc</b>
+                                </div>
+                                <div class="col-2 text-right">
+                                    <div class="btn-group">
+                                        @if (registration.StudentCourseRegistrationId != 0)
+                                        {
+                                            if (registration.RegistrationState != enu_RegistrationState.Submitted)
+                                            {
+                                                if (registration.RegistrationState == enu_RegistrationState.OnApproval)
+                                                {
+                                                    <a asp-controller="AdviserStudents" asp-route-studentCourseRegistrationId="@registration.StudentCourseRegistrationId"
+                                                       asp-action="CheckStudentCourses" class="btn btn-primary mx-1">
+                                                        <i class="fas fa-list-ol"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="AdviserStudents" asp-route-studentCourseRegistrationId="@registration.StudentCourseRegistrationId"
+                                                       asp-action="ViewStudentCourses" class="btn btn-primary mx-1">
+                                                        <i class="fas fa-search"></i>
+                                                    </a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (registration.RegistrationAddDropState == 0 ||
+                                                registration.RegistrationAddDropState == enu_RegistrationState.NotSent)
+                                                {
+                                                    <a asp-controller="AdviserStudents" asp-route-studentCourseRegistrationId="@registration.StudentCourseRegistrationId"
+                                                       asp-action="ViewStudentCourses" class="btn btn-primary mx-1">
+                                                        <i class="fas fa-search"></i>
+                                                    </a>
+                                                }
+                                                else if (registration.RegistrationAddDropState == enu_RegistrationState.OnApproval)
+                                                {
+                                                    <a asp-controller="AdviserStudents" asp-route-studentCourseRegistrationId="@registration.StudentCourseRegistrationId"
+                                                       asp-action="CheckStudentAddDropCourses" class="btn btn-primary mx-1">
+                                                        <i class="fas fa-list-ol"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="AdviserStudents" asp-route-studentCourseRegistrationId="@registration.StudentCourseRegistrationId"
+                                                       asp-action="ViewStudentAddDropCourses" class="btn btn-primary mx-1">
+                                                        <i class="fas fa-search"></i>
+                                                    </a>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Нет студентов для эдвайзера</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+

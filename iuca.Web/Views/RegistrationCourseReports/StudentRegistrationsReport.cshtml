@@ -1,0 +1,98 @@
+﻿@model StudentRegistrationReportViewModel
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Student Registrations report - @ViewBag.DeanName</h3>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="StudentRegistrationsReport">
+        <div class="row">
+            @if (ViewBag.IsAdmin)
+            {
+                <div class="col-lg-5 col-12">
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label>Dean:</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control dropdown" name="deanUserId" id="deanUserId" asp-items="@ViewBag.Deans">
+                                <option value="">Not selected</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" name="deanUserId" value="@ViewBag.DeanUserId" />
+            }
+            <div class="col-lg-5 col-12">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-9">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-12 text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fab fa-sistrix"></i> &nbsp; Show
+                </button>
+            </div>
+        </div>
+    </form>
+    <hr>
+
+    <div class="row pt-2">
+        <div class="col-lg-9 col-12 p-0">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="col-1">№</th>
+                        <th class="text-break col-2">Department</th>
+                        <th class="text-break col-3">Active students</th>
+                        <th class="text-break col-2">Not sent</th>
+                        <th class="text-break col-2">Submitted</th>
+                        <th class="text-break col-2">Not submitted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var department in Model.DepartmentRegistrations.OrderBy(x => x.Department.Code))
+                    {
+                        num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>@department.Department.Code</td>
+                            <td class="text-right">@department.TotalActiveStudents</td>
+                            <td class="text-right">@department.NotSentRegistrtations <span class="text-gray">(@(Math.Round(100 * (float)department.NotSentRegistrtations / department.TotalActiveStudents, 1))%)</span></td>
+                            <td class="text-right">@department.SubmittedRegistrations <span class="text-gray">(@(Math.Round(100 * (float)department.SubmittedRegistrations / department.TotalActiveStudents, 1))%)</span></td>
+                            <td class="text-right">@department.NotSubmittedRegistrtations <span class="text-gray">(@(Math.Round(100 * (float)department.NotSubmittedRegistrtations / department.TotalActiveStudents, 1))%)</span></td>
+                        </tr>
+                    }
+                    <tr class="font-weight-bold">
+                        <td></td>
+                        <td class="text-right">Total:</td>
+                        <td class="text-right">@Model.DepartmentRegistrations.Sum(x => x.TotalActiveStudents)</td>
+                        <td class="text-right">@Model.DepartmentRegistrations.Sum(x => x.NotSentRegistrtations) <span class="text-gray">(@(Math.Round(100 * (float)Model.DepartmentRegistrations.Sum(x => x.NotSentRegistrtations) / Model.DepartmentRegistrations.Sum(x => x.TotalActiveStudents), 1))%)</span></td>
+                        <td class="text-right">@Model.DepartmentRegistrations.Sum(x => x.SubmittedRegistrations) <span class="text-gray">(@(Math.Round(100 * (float)Model.DepartmentRegistrations.Sum(x => x.SubmittedRegistrations) / Model.DepartmentRegistrations.Sum(x => x.TotalActiveStudents), 1))%)</span></td>
+                        <td class="text-right">@Model.DepartmentRegistrations.Sum(x => x.NotSubmittedRegistrtations) <span class="text-gray">(@(Math.Round(100 * (float)Model.DepartmentRegistrations.Sum(x => x.NotSubmittedRegistrtations) / Model.DepartmentRegistrations.Sum(x => x.TotalActiveStudents), 1))%)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/dean-adviser-student-report.js" asp-append-version="true"></script>
+}
+

@@ -1,0 +1,67 @@
+﻿@model StaffInfoDetailsViewModel
+
+<div class="container p3">
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Edit Staff</h3>
+        </div>
+    </div>
+    <div class="text-danger">
+        @TempData["Error"]
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <form method="post" asp-action="Edit">
+                <div class="p-3">
+                    <input type="hidden" asp-for="IsReadOnly" />
+
+                    @if (Model.StaffBasicInfo != null)
+                    {
+                        <input type="hidden" asp-for="StaffBasicInfo.IsMainOrganization" />
+                        <input type="hidden" asp-for="StaffBasicInfo.Id" />
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="StaffBasicInfo.IsMainOrganization" value="false" />
+                    }
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row form-group font-weight-bold pl-3">
+                                Basic Information
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group row">
+                                <div class="col-3 text-right">
+                                    <label>User:</label>
+                                </div>
+                                <div class="col-9">
+                                    <input asp-for="FullNameEng" class="form-control" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <partial name="_EditPartial" />
+
+                    <div class="form-group row mb-0">
+                        <div class="col-12 p-0 text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-edit"></i>&nbsp; Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

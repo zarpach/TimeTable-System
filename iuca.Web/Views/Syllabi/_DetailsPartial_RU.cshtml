@@ -1,0 +1,316 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+@{
+    Dictionary<string, string> grades = new Dictionary<string, string>
+{
+        { "A", "100-94" },
+        { "A-", "93-90" },
+        { "B+", "89-87" },
+        { "B", "86-83" },
+        { "B-", "82-80" },
+        { "C+", "79-77" },
+        { "C", "76-74" },
+        { "C-", "73-70" },
+        { "D+", "69-67" },
+        { "D", "66-63" },
+        { "D-", "62-60" },
+        { "F", "59-0" }
+    };
+}
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="row">
+
+            <div class="col-12">
+                <hr class="m-0 blue-border" />
+                <h4 class="text-uppercase text-center pt-1"><strong>@Model.SyllabusDetails.CourseCode @Model.SyllabusDetails.CourseNameRus</strong></h4>
+                <hr class="m-0 blue-border" />
+            </div>
+
+            <div class="col-12">
+                <div class="row justify-content-between">
+
+                    <div class="col-lg-6 col-12 mt-2">
+                        @Model.SyllabusDetails.InstructorName<br />
+                        @Model.SyllabusDetails.InstructorEmail<br />
+                        <em>Телефон:</em>
+                        @if (Model.InstructorPhone == null)
+                        {
+                            <span> - </span>
+                        }
+                        else
+                        {
+                            <span>@Model.InstructorPhone</span>
+                        }
+                        <br />
+                        <em>Консультации:</em> @Model.OfficeHours
+                    </div>
+
+                    <div class="col-lg-6 col-12 text-left text-lg-right mt-2">
+                        @(EnumExtentions.GetDisplayName((enu_Season)@Model.SyllabusDetails.SemesterSeason)) @Model.SyllabusDetails.SemesterYear<br />
+                        <em>@Model.SyllabusDetails.DepartmentNameRus</em><br />
+                        @Model.SyllabusDetails.CourseCredits <em>кредита</em>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-12" id="General">
+        <div class="row">
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-4"><strong>Общее</strong></h5>
+                <hr class="mt-0 blue-border" />
+            </div>
+
+            <div class="col-12">
+                <h6 class="text-uppercase mt-2">Описание курса</h6>
+                <p class="text-pre-wrap">@Model.CourseDescription</p>
+            </div>
+
+            @*<div class="col-12">
+                <h6 class="text-uppercase mt-2">Пререквизиты</h6>
+                @if (Model.SyllabusDetails.CoursePrerequisitesRus != null)
+                {
+                    <p class="text-pre-wrap">@String.Join(", ", Model.SyllabusDetails.CoursePrerequisitesRus)</p>
+                }
+                else
+                {
+                    <p class="text-pre-wrap">Нет пререквизитов</p>
+                }
+            </div>*@
+
+            @*<div class="col-12">
+                <h5 class="text-uppercase mt-2">Цели курса</h5>
+                <p class="text-pre-wrap">@Model.Objectives</p>
+            </div>
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-2">Методы обучения</h5>
+                <p class="text-pre-wrap">@Model.TeachMethods</p>
+            </div>
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-2">Основные ресурсы</h5>
+                <p class="text-pre-wrap">@Model.PrimaryResources</p>
+            </div>
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-2">Дополнительные ресурсы</h5>
+                <p class="text-pre-wrap">@Model.AdditionalResources</p>
+            </div>*@
+
+            <div class="col-12">
+                <h6 class="text-uppercase mt-2">Ссылка на силлабус</h6>
+                <a href="@Model.Link" target="_blank" class="text-break-word">@Model.Link</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-12" id="Policies">
+        <div class="row">
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-4"><strong>Политика курса</strong></h5>
+                <hr class="mt-0 blue-border" />
+            </div>
+
+            @if (Model.SyllabusDetails.CoursePolicies != null)
+            {
+                foreach (var policy in Model.SyllabusDetails.CoursePolicies)
+                {
+                    <div class="col-12">
+                        <h6 class="text-uppercase mt-2">@policy.NameRus</h6>
+                        <p class="text-pre-wrap">@policy.DescriptionRus</p>
+                    </div>
+                }
+            }
+
+            @*@if (Model.AcademicPolicies != null)
+            {
+                foreach (var policy in Model.AcademicPolicies)
+                {
+                    <div class="col-12">
+                        <h5 class="text-uppercase mt-2">@policy.Name</h5>
+                        <p class="text-pre-wrap">@policy.Description</p>
+                    </div>
+                }
+            }*@
+
+        </div>
+    </div>
+
+    <div class="col-12" id="Requirements">
+        <div class="row">
+
+            <div class="col-12">
+                <h5 class="text-uppercase mt-4"><strong>Система оценивания</strong></h5>
+                <hr class="mt-0 blue-border" />
+            </div>
+
+            @if (Model.CourseRequirements != null)
+            {
+                float totalSum = 0;
+                foreach (var requirement in Model.CourseRequirements)
+                {
+                    <div class="col-12">
+                        <h6 class="text-uppercase mt-2">@(EnumExtentions.GetDisplayName((enu_CourseRequirement_RU)@requirement.Name)) - @requirement.Points</h6>
+                        <p class="text-pre-wrap">@requirement.Description</p>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <h6 class="text-uppercase mt-2">Распределение баллов</h6>
+
+                    <div class="row mt-2">
+                        <div class="col-lg-7 col-12">
+                            @{
+                                var requirements = Model.CourseRequirements.GroupBy(x => x.Name).Select(group => 
+                                    new { 
+                                        Name = group.Key,
+                                        Count = group.Count(),
+                                        Points = group.Sum(x => x.Points)
+                                    });
+                            }
+                            @foreach (var requirement in requirements)
+                            {
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <em>@(EnumExtentions.GetDisplayName((enu_CourseRequirement_RU)@requirement.Name))
+                                            @if (@requirement.Count > 1)
+                                            {
+                                                <text> x @requirement.Count</text>
+                                            }
+                                        </em>
+                                    </div>
+                                    <div class="col px-0">
+                                        <hr class="dashed-border" />
+                                    </div>
+                                    <div class="col-auto text-right">
+                                        <em>@requirement.Points баллов</em>
+                                        @{
+                                            totalSum += requirement.Points;
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <hr class="mb-1 mt-2" />
+                            <div class="row pb-3">
+                                <div class="col-auto">
+                                    <em>Всего</em>
+                                </div>
+                                <div class="col px-0">
+                                </div>
+                                <div class="col-auto text-right">
+                                    <em>@totalSum баллов</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                @if (Model.GradingComment != null)
+                {
+                    <div class="col-12">
+                        <p class="text-pre-wrap"><em>Дополнительно: @Model.GradingComment</em></p>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <h6 class="text-uppercase mt-2">Шкала оценок</h6>
+
+                    <div class="row mt-2">
+                        <div class="col-12 table-responsive text-nowrap">
+
+                            <table class="table table-bordered text-center pb-3">
+                                <tbody>
+                                    <tr>
+                                        @foreach (var key in grades.Keys)
+                                        {
+                                            <td><em>@key</em></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var value in grades.Values)
+                                        {
+                                            <td><em>@value</em></td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+    @*<div class="col-12" id="Calendar">
+        <div class="row">
+
+            <div class="col-12">
+                <h3 class="text-uppercase mt-4"><strong>Календарь</strong></h3>
+                <hr class="mt-0 blue-border" />
+            </div>
+
+            <div class="col-12">
+                <div class="row mt-2">
+
+                    <div class="col-12 table-responsive">
+
+                        <table class="table table-bordered pb-3">
+                            <thead>
+                                <tr class="table-active text-center text-uppercase">
+                                    <th colspan="4"><h5 class="text-uppercase m-0 p-0"><strong>Календарь курса</strong></h5></th>
+                                </tr>
+                                <tr class="table-light text-center">
+                                    <td colspan="4"><em>Даты занятий могут измениться по усмотрению преподавателя.</em></td>
+                                </tr>
+                                <tr class="table-active">
+                                    <th scope="col">Неделя</th>
+                                    <th scope="col">Дата</th>
+                                    <th scope="col">Темы</th>
+                                    <th scope="col">Задания</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.CourseCalendar != null)
+                                {
+                                    Model.CourseCalendar = Model.CourseCalendar.OrderBy(x => x.Week).ThenBy(x => x.Date).ToList();
+                                    foreach (var calendarRow in Model.CourseCalendar)
+                                    {
+                                        string date = "--/--";
+                                        if (calendarRow.Date.ToString("dd.MM") != "01.01")
+                                            date = calendarRow.Date.ToString("dd") + "/" + calendarRow.Date.ToString("MM");
+                                        <tr>
+                                            <td scope="row" class="table-active">@calendarRow.Week</td>
+                                            <td class="table-active">@date</td>
+                                            <td class="table-light text-pre-wrap">@calendarRow.Topics</td>
+                                            <td class="table-light text-pre-wrap">@calendarRow.Assignments</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+</div>

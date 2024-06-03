@@ -1,0 +1,50 @@
+﻿
+<div class="container p-0">
+    <input type="hidden" id="organizationId" value="@ViewBag.OrganizationId" />
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="Index"
+               asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>Study card editing</h2>
+            <span class="text-danger">
+                @TempData["StudyCardError"]
+            </span>
+            <span class="text-danger">
+                @TempData["StudyCardErrorMessage"]
+            </span>
+            <span class="text-success">
+                @TempData["StudyCardSuccessMessage"]
+            </span>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn bg-blue text-white shadow-none" form="editStudyCard">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <form asp-action="Edit" method="post" id="editStudyCard"
+                  asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                <partial name="_EditPartial.cshtml" />
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/edit-study-card.js" asp-append-version="true"></script>
+
+}

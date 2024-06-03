@@ -1,0 +1,75 @@
+﻿@model ReinstatementExpulsionOrderDTO
+@using iuca.Application.Enums
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-auto">
+            <a class="btn bg-gray text-white shadow-none" asp-action="Index">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>
+                @if (Model.Type == (int)enu_OrderType.Reinstatement)
+                {
+                    <text>Reinstatement</text>
+                }
+                else if (Model.Type == (int)enu_OrderType.Expulsion)
+                {
+                    <text>Expulsion</text>
+                }
+                order editing
+            </h2>
+            <span class="text-danger">
+                @TempData["StudentOrdersError"]
+            </span>
+            <span class="text-danger">
+                @TempData["StudentOrdersErrorMessage"]
+            </span>
+            <span class="text-success">
+                @TempData["StudentOrdersSuccessMessage"]
+            </span>
+        </div>
+        <div class="col-auto">
+            @{
+                string applyButton = "d-none";
+                string cancelButton = "d-none";
+
+                @if (Model.IsApplied == true)
+                    cancelButton = "";
+                if (Model.IsApplied == false)
+                    applyButton = "";
+            }
+            <button type="button" class="btn btn-success shadow-none @applyButton" name="applyReinstatementExpulsionOrderBtn" value="@Model.Id">
+                <i class="fas fa-check"></i> Apply
+            </button>
+            <button type="button" class="btn btn-danger shadow-none @cancelButton" name="cancelReinstatementExpulsionOrderBtn" value="@Model.Id">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="btn bg-blue text-white shadow-none" form="editOrder">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <form asp-action="EditReinstatementExpulsionOrder" method="post" id="editOrder">
+                <partial name="_EditReinstatementExpulsionOrderPartial.cshtml" />
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/reinstatement-expulsion-order.js" asp-append-version="true"></script>
+
+}

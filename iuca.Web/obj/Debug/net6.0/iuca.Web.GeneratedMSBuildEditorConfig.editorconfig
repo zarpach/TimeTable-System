@@ -1,0 +1,1401 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = iuca.Web
+build_property.RootNamespace = iuca.Web
+build_property.ProjectDir = /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/EditAcademicPlanCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9FZGl0QWNhZGVtaWNQbGFuQ291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/_CourseRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9fQ291cnNlUm93LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AcademicPlans/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNhZGVtaWNQbGFucy9fU2VsZWN0Q291cnNlc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9BY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Account/AccountInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9BY2NvdW50SW5mby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/CheckStudentAddDropCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL0NoZWNrU3R1ZGVudEFkZERyb3BDb3Vyc2VzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/CheckStudentCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL0NoZWNrU3R1ZGVudENvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/EditAdviserStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL0VkaXRBZHZpc2VyU3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/StudentRegistrations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL1N0dWRlbnRSZWdpc3RyYXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/ViewStudentAddDropCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL1ZpZXdTdHVkZW50QWRkRHJvcENvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/ViewStudentCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL1ZpZXdTdHVkZW50Q291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/_SelectStudentsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL19TZWxlY3RTdHVkZW50c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AdviserStudents/_StudentRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWR2aXNlclN0dWRlbnRzL19TdHVkZW50Um93LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_ControlsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fQ29udHJvbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditAnnouncementSectionPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdEFubm91bmNlbWVudFNlY3Rpb25QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditInstructorPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdEluc3RydWN0b3JQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditInstructorsFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdEluc3RydWN0b3JzRm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditInstructorsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdEluc3RydWN0b3JzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditSectionsFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdFNlY3Rpb25zRm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_EditSectionsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fRWRpdFNlY3Rpb25zUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Announcements/_ReplaceInstructorPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQW5ub3VuY2VtZW50cy9fUmVwbGFjZUluc3RydWN0b3JQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Attendance/AdviserStudentsAttendanceReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZS9BZHZpc2VyU3R1ZGVudHNBdHRlbmRhbmNlUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Attendance/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZS9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Attendance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Attendance/_AttendanceTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZS9fQXR0ZW5kYW5jZVRhYmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Attendance/_StudentCoursesAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZS9fU3R1ZGVudENvdXJzZXNBdHRlbmRhbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AttendanceFolders/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZUZvbGRlcnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AttendanceFolders/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZUZvbGRlcnMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AttendanceFolders/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZUZvbGRlcnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/AttendanceFolders/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXR0ZW5kYW5jZUZvbGRlcnMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Countries/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291bnRyaWVzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/_EditCoursePrerequsitePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9fRWRpdENvdXJzZVByZXJlcXVzaXRlUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Courses/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlcy9fU2VsZWN0Q291cnNlc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/CoursesReport/AcademicPlanReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlc1JlcG9ydC9BY2FkZW1pY1BsYW5SZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Cycles/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3ljbGVzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Deans/AddDeanAdvisers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVhbnMvQWRkRGVhbkFkdmlzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Deans/DeanAdvisers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVhbnMvRGVhbkFkdmlzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Deans/EditDeanDepartments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVhbnMvRWRpdERlYW5EZXBhcnRtZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Deans/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVhbnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Deans/_EditDeanDepartmentsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVhbnMvX0VkaXREZWFuRGVwYXJ0bWVudHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/DepartmentGroups/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudEdyb3Vwcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Departments/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudHMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EducationTypes/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWR1Y2F0aW9uVHlwZXMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/EnvarSettings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW52YXJTZXR0aW5ncy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/ExportData/ExportStudentCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwb3J0RGF0YS9FeHBvcnRTdHVkZW50Q291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GradeManagement/DepartmentGradeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVNYW5hZ2VtZW50L0RlcGFydG1lbnRHcmFkZVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GradeManagement/FFXXReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVNYW5hZ2VtZW50L0ZGWFhSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GradeManagement/GradeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVNYW5hZ2VtZW50L0dyYWRlUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GradeManagement/StudentGradesAdviserReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVNYW5hZ2VtZW50L1N0dWRlbnRHcmFkZXNBZHZpc2VyUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GradeManagement/StudentGradesAdviserReportPrint.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVNYW5hZ2VtZW50L1N0dWRlbnRHcmFkZXNBZHZpc2VyUmVwb3J0UHJpbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Grades/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GroupTransferOrders/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JvdXBUcmFuc2Zlck9yZGVycy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GroupTransferOrders/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JvdXBUcmFuc2Zlck9yZGVycy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GroupTransferOrders/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JvdXBUcmFuc2Zlck9yZGVycy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/GroupTransferOrders/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JvdXBUcmFuc2Zlck9yZGVycy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Home/InstructorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbnN0cnVjdG9yUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Home/StaffPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TdGFmZlBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Home/StudentPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TdHVkZW50UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/ImportData/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW1wb3J0RGF0YS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorCourses/GradeSheet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckNvdXJzZXMvR3JhZGVTaGVldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorCourses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckNvdXJzZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorCourses/InstructorCourseStudentGrades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckNvdXJzZXMvSW5zdHJ1Y3RvckNvdXJzZVN0dWRlbnRHcmFkZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorCourses/InstructorCourseStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckNvdXJzZXMvSW5zdHJ1Y3RvckNvdXJzZVN0dWRlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorCourses/InstructorCourseStudentsPrint.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckNvdXJzZXMvSW5zdHJ1Y3RvckNvdXJzZVN0dWRlbnRzUHJpbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditContactInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRDb250YWN0SW5mb1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditEducationInfoContainerPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRFZHVjYXRpb25JbmZvQ29udGFpbmVyUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditEducationInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRFZHVjYXRpb25JbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditInstructorBasicInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRJbnN0cnVjdG9yQmFzaWNJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditOrgInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRPcmdJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditOtherJobInfoContainerPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRPdGhlckpvYkluZm9Db250YWluZXJQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditOtherJobInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRPdGhlckpvYkluZm9QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditUserBasicInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRVc2VyQmFzaWNJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/InstructorInfo/_EditUserInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdHJ1Y3RvckluZm8vX0VkaXRVc2VySW5mb1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Languages/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGFuZ3VhZ2VzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonPeriods/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUGVyaW9kcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonPeriods/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUGVyaW9kcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonPeriods/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUGVyaW9kcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonRooms/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUm9vbXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonRooms/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUm9vbXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/LessonRooms/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGVzc29uUm9vbXMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Nationalities/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmF0aW9uYWxpdGllcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/EditStudyCardCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9FZGl0U3R1ZHlDYXJkQ291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/SetStudyCardPlaces.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9TZXRTdHVkeUNhcmRQbGFjZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/_CourseRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9fQ291cnNlUm93LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/OldStudyCards/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT2xkU3R1ZHlDYXJkcy9fU2VsZWN0Q291cnNlc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Permissions/Organizations/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGVybWlzc2lvbnMvT3JnYW5pemF0aW9ucy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Policies/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9saWNpZXMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/ManageDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL01hbmFnZURldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/ManageProposals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL01hbmFnZVByb3Bvc2Fscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/_EditProposalsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL19FZGl0UHJvcG9zYWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/_ManageDetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL19NYW5hZ2VEZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Proposals/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvcG9zYWxzL19TZWxlY3RDb3Vyc2VzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseManagement/AnnouncementsForAssigning.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlTWFuYWdlbWVudC9Bbm5vdW5jZW1lbnRzRm9yQXNzaWduaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseManagement/AssignStudentsToSections.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlTWFuYWdlbWVudC9Bc3NpZ25TdHVkZW50c1RvU2VjdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseManagement/TransferCourseStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlTWFuYWdlbWVudC9UcmFuc2ZlckNvdXJzZVN0dWRlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseManagement/_CourseStudentRows.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlTWFuYWdlbWVudC9fQ291cnNlU3R1ZGVudFJvd3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseManagement/_SelectRegistrationCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlTWFuYWdlbWVudC9fU2VsZWN0UmVnaXN0cmF0aW9uQ291cnNlc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/CourseRegistrationAdviserReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9Db3Vyc2VSZWdpc3RyYXRpb25BZHZpc2VyUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/DeanAdviserStudentReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9EZWFuQWR2aXNlclN0dWRlbnRSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/PrintRegistrationCoursesReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9QcmludFJlZ2lzdHJhdGlvbkNvdXJzZXNSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/RegistrationCoursesReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9SZWdpc3RyYXRpb25Db3Vyc2VzUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/StudentRegistrationsDetailedReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9TdHVkZW50UmVnaXN0cmF0aW9uc0RldGFpbGVkUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/StudentRegistrationsReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9TdHVkZW50UmVnaXN0cmF0aW9uc1JlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourseReports/StudentsWithoutAdviserReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlUmVwb3J0cy9TdHVkZW50c1dpdGhvdXRBZHZpc2VyUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourses/PrintRegistrationCourseDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlcy9QcmludFJlZ2lzdHJhdGlvbkNvdXJzZURldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourses/RegistrationCourseDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlcy9SZWdpc3RyYXRpb25Db3Vyc2VEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourses/_SelectStudentsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlcy9fU2VsZWN0U3R1ZGVudHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/RegistrationCourses/_StudentRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVnaXN0cmF0aW9uQ291cnNlcy9fU3R1ZGVudFJvdy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Roles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Roles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZXMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Roles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Roles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/SemesterPeriods/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJQZXJpb2RzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Semesters/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2VtZXN0ZXJzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL05vdEZvdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/_OrganizationsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Pcmdhbml6YXRpb25zUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/_PopupModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Qb3B1cE1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/_PrintOptionsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvX1ByaW50T3B0aW9uc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Slots/_SlotsTablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2xvdHMvX1Nsb3RzVGFibGVQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StaffInfo/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhZmZJbmZvL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/AddDropCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvQWRkRHJvcENvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/AddDropSelectCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvQWRkRHJvcFNlbGVjdENvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/AddDropSelectCoursesFromStudyCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvQWRkRHJvcFNlbGVjdENvdXJzZXNGcm9tU3R1ZHlDYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/CourseRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvQ291cnNlUmVnaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/EditRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvRWRpdFJlZ2lzdHJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/GetStudentCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvR2V0U3R1ZGVudENvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/PrintAddDropToPDF.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvUHJpbnRBZGREcm9wVG9QREYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/PrintToPDF.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvUHJpbnRUb1BERi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/SelectCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvU2VsZWN0Q291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/SelectCoursesFromStudyCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvU2VsZWN0Q291cnNlc0Zyb21TdHVkeUNhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/_AddStudentRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvX0FkZFN0dWRlbnRSZWdpc3RyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/_CourseRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvX0NvdXJzZVJvdy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/_EditCourseRow.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvX0VkaXRDb3Vyc2VSb3cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/_SelectRegistrationCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvX1NlbGVjdFJlZ2lzdHJhdGlvbkNvdXJzZXNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentCourseRegistrations/_Syllabus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudENvdXJzZVJlZ2lzdHJhdGlvbnMvX1N5bGxhYnVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/ManageAccountingDebts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL01hbmFnZUFjY291bnRpbmdEZWJ0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/ManageDormitoryDebts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL01hbmFnZURvcm1pdG9yeURlYnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/ManageLibraryDebts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL01hbmFnZUxpYnJhcnlEZWJ0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/ManageMedicineOfficeDebts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL01hbmFnZU1lZGljaW5lT2ZmaWNlRGVidHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/ManageRegistarOfficeDebts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL01hbmFnZVJlZ2lzdGFyT2ZmaWNlRGVidHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/_DebtFiltersPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL19EZWJ0RmlsdGVyc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentDebts/_StudentDebtsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERlYnRzL19TdHVkZW50RGVidHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/PrepStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vUHJlcFN0dWRlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditContactInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRDb250YWN0SW5mb1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditLanguagesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRMYW5ndWFnZXNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditMinorInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRNaW5vckluZm9QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditOrgInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRPcmdJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditParentsInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRQYXJlbnRzSW5mb1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditStudentBasicInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRTdHVkZW50QmFzaWNJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentInfo/_EditUserBasicInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudEluZm8vX0VkaXRVc2VyQmFzaWNJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/MidtermAdviserReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL01pZHRlcm1BZHZpc2VyUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/MidtermStatisticsDetailedReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL01pZHRlcm1TdGF0aXN0aWNzRGV0YWlsZWRSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/MidtermStatisticsReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL01pZHRlcm1TdGF0aXN0aWNzUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/MidtermStudentReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL01pZHRlcm1TdHVkZW50UmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentMidterms/_EditStudentMidtermPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1pZHRlcm1zL19FZGl0U3R1ZGVudE1pZHRlcm1QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/CreateAcademicLeaveOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9DcmVhdGVBY2FkZW1pY0xlYXZlT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/CreateReinstatementExpulsionOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9DcmVhdGVSZWluc3RhdGVtZW50RXhwdWxzaW9uT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/EditAcademicLeaveOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9FZGl0QWNhZGVtaWNMZWF2ZU9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/EditReinstatementExpulsionOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9FZGl0UmVpbnN0YXRlbWVudEV4cHVsc2lvbk9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/_EditAcademicLeaveOrderPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9fRWRpdEFjYWRlbWljTGVhdmVPcmRlclBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentOrders/_EditReinstatementExpulsionOrderPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE9yZGVycy9fRWRpdFJlaW5zdGF0ZW1lbnRFeHB1bHNpb25PcmRlclBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/GetStudentTranscript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL0dldFN0dWRlbnRUcmFuc2NyaXB0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/GetStudentTranscriptForAdviser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL0dldFN0dWRlbnRUcmFuc2NyaXB0Rm9yQWR2aXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/GetStudentTranscriptForDean.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL0dldFN0dWRlbnRUcmFuc2NyaXB0Rm9yRGVhbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/GPAReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL0dQQVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/StudentTranscript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL1N0dWRlbnRUcmFuc2NyaXB0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/StudentTranscriptsForAdviser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL1N0dWRlbnRUcmFuc2NyaXB0c0ZvckFkdmlzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/StudentTranscriptsForDean.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL1N0dWRlbnRUcmFuc2NyaXB0c0ZvckRlYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudentTranscripts/_StudentTranscriptPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudFRyYW5zY3JpcHRzL19TdHVkZW50VHJhbnNjcmlwdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9fRGV0YWlsc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/_EditStudyCardCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9fRWRpdFN0dWR5Q2FyZENvdXJzZXNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/StudyCards/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZHlDYXJkcy9fU2VsZWN0Q291cnNlc1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/ManageSyllabi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9NYW5hZ2VTeWxsYWJpLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/Print.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9QcmludC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_DetailsPartial_EN.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRGV0YWlsc1BhcnRpYWxfRU4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_DetailsPartial_RU.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRGV0YWlsc1BhcnRpYWxfUlUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_EditAcademicPolicyPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRWRpdEFjYWRlbWljUG9saWN5UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_EditCourseCalendarRowPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRWRpdENvdXJzZUNhbGVuZGFyUm93UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_EditCourseRequirementPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRWRpdENvdXJzZVJlcXVpcmVtZW50UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fRWRpdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_PrintPartial_EN.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fUHJpbnRQYXJ0aWFsX0VOLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Syllabi/_PrintPartial_RU.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3lsbGFiaS9fUHJpbnRQYXJ0aWFsX1JVLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/TransferCourses/EditTransferCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXJDb3Vyc2VzL0VkaXRUcmFuc2ZlckNvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/TransferCourses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXJDb3Vyc2VzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/TransferCourses/_EditRowPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXJDb3Vyc2VzL19FZGl0Um93UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/TransferCourses/_SelectCoursesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXJDb3Vyc2VzL19TZWxlY3RDb3Vyc2VzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL19EZXRhaWxzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/Universities/_EditPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVW5pdmVyc2l0aWVzL19FZGl0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/_DetailsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vX0RldGFpbHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserInfo/_UserInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlckluZm8vX1VzZXJJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserRoles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclJvbGVzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/UserRoles/ManageRoles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlclJvbGVzL01hbmFnZVJvbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

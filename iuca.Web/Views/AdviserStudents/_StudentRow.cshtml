@@ -1,0 +1,27 @@
+﻿@using iuca.Application.Enums
+
+@model List<AdviserStudentViewModel>
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+@for (int i = 0; i < Model.Count; i++)
+{
+<div class="row adaptive-row p-2">
+    <div class="col-1 pt-2"><span class="studentNum">@(++num)</span></div>
+    <div class="col-5 pt-2"><b>@Model[i].Name</b></div>
+    <div class="col-3 pt-2">@Model[i].Group 
+        (<span class="@(Model[i].State != enu_StudentState.Active ? "text-danger" : "")">@Model[i].State</span>)
+    </div>
+
+    <div class="col-3 pt-2 text-right">
+        <input type="hidden" name="studentUserIds" value="@Model[i].StudentUserId" />
+        <button type="button" class="btn btn-danger" name="removeStudentBtn" title="Удалить">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+}
+

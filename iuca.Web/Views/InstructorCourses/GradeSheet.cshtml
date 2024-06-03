@@ -1,0 +1,123 @@
+﻿@model List<InstructorCourseStudentGradeViewModel>
+
+@{
+    int num = 0;
+    Layout = null;
+    InstructorCourseViewModel course = ViewBag.Course;
+    string imgPath = ViewBag.OrganizationId == 1 ? "/img/iuca-logo.png" : "/img/htc-logo.jpg";
+}
+
+<div class="portraitA4">
+    <div style="display: block; width: 100%">
+        <div style="display: inline-block; width: 25%;">
+            <img src="@imgPath" />
+        </div>
+        <div style="display: inline-block; width: 74%; text-align:center;">
+            <h2>@ViewBag.OrganizationTitle</h2>
+            <hr/>
+            <h3>Grade report _____</h3>
+            <h4>@ViewBag.Semester</h4>
+        </div>
+    </div>
+    <div style="display: block; width: 100%">
+        <div class="info-row">
+            <b>Course:</b> @course.Name
+        </div>
+        <div class="info-row">
+            <b>Course ID:</b> @course.ImportCode
+        </div>
+        <div class="info-row">
+            <b>Abbrev Num:</b> @course.Code
+        </div>
+        <div class="info-row">
+            <b>Instructor:</b> @course.InstructorName
+        </div>
+    </div>
+    <div class="container p3">
+
+        <div class="row pt-4">
+            <div class="col-12">
+                <h3 class="text-uppercase">@ViewBag.CourseName</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Status</th>
+                            <th>Major</th>
+                            <th>Group</th>
+                            <th>Grade</th>
+                            <th>Signature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var student in Model)
+                        {
+                            num++;
+                            <tr>
+                                <td style="text-align: right;">@num</td>
+                                <td style="text-align: right;">@student.StudentId</td>
+                                <td>@student.StudentName</td>
+                                <td>@student.StudentStatus</td>
+                                <td style="text-align: center;">@student.StudentMajor</td>
+                                <td style="text-align: center;">@student.StudentGroup</td>
+                                <td style="text-align: center;">@student.Grade?.GradeMark</td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr style="font-weight: bold;">
+                            <td colspan="2">Total:</td>
+                            <td colspan="6">
+                                @string.Join(" , ", Model.GroupBy(x => x.Grade?.GradeMark)
+                                    .OrderBy(x => x.Key)
+                                    .Select(x =>  x.Key + ":" + x.Count()).ToList())
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style type="text/css">
+
+    html {
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+
+    table, th, td {
+      border: 1px solid;
+      padding: 5px 10px;
+    }    
+
+    table {
+        border-collapse: collapse;
+    }
+
+    .portraitA4 {
+        width: 21cm;
+        height: 29.7cm;
+        margin: 0mm 35mm 0mm 35mm; 
+    }
+
+    .info-row {
+        margin: 7px 0;
+    }
+
+</style>

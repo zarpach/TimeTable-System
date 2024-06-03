@@ -1,0 +1,43 @@
+﻿@model CourseRequirementDTO
+@using iuca.Application.Enums
+
+@{
+    Layout = null;
+
+    var selectListEN = Html.GetEnumSelectList<enu_CourseRequirement_EN>();
+    var selectListRU = Html.GetEnumSelectList<enu_CourseRequirement_RU>();
+
+    var selectList = selectListEN;
+    if ((int)ViewData["language"] == (int)enu_SyllabusLanguage.Russian)
+        selectList = selectListRU;
+}
+
+<div class="form-group row">
+
+    <input type="hidden" asp-for="Id" name="CourseRequirements[0].Id" />
+    <input type="hidden" asp-for="SyllabusId" name="CourseRequirements[0].SyllabusId" />
+
+    <div class="col-lg-4 col-12 pt-2">
+        <select asp-for="Name" name="CourseRequirements[0].Name" class="form-control shadow-none" placeholder="Name"
+                asp-items="@selectList">
+        </select>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="col-lg-1 col-2 pt-2">
+        <input asp-for="Points" name="CourseRequirements[0].Points" class="form-control shadow-none min-width-50">
+        <span asp-validation-for="Points" class="text-danger"></span>
+    </div>
+
+    <div class="col-lg-1 col-2 pt-2">
+        <button type="button" class="btn btn-danger" id="removeCourseRequirementBtn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="col-lg-12 pt-2">
+        <textarea asp-for="Description" name="CourseRequirements[0].Description" class="form-control shadow-none" rows="5" placeholder="Description" wrap="hard"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+</div>

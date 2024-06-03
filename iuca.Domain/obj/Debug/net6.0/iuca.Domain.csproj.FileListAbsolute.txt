@@ -1,0 +1,12 @@
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/bin/Debug/net6.0/iuca.Domain.deps.json
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/bin/Debug/net6.0/iuca.Domain.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/bin/Debug/net6.0/iuca.Domain.pdb
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.AssemblyInfoInputs.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.AssemblyInfo.cs
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.csproj.CoreCompileInputs.cache
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/refint/iuca.Domain.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.pdb
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/ref/iuca.Domain.dll
+/Users/admin/Projects/IUCA.Copy/iuca/iuca.Domain/obj/Debug/net6.0/iuca.Domain.csproj.AssemblyReference.cache

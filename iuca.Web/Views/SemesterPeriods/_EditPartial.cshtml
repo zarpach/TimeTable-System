@@ -1,0 +1,39 @@
+﻿@model SemesterPeriodDTO
+@using iuca.Application.Enums
+
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label>Semester:</label>
+    </div>
+    <div class="col-9">
+        <select class="form-control dropdown" asp-for="SemesterId" asp-items="@ViewBag.Semesters"></select>
+        <span asp-validation-for="Semester" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label>Period:</label>
+    </div>
+    <div class="col-9">
+        <select class="form-control dropdown" asp-for="Period" asp-items="Html.GetEnumSelectList<enu_Period>()"></select>
+        <span asp-validation-for="Period" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label>Date begin:</label>
+    </div>
+    <div class="col-9">
+        <input asp-for="DateBegin" class="form-control"/>
+        <span asp-validation-for="DateBegin" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label>Date end:</label>
+    </div>
+    <div class="col-9">
+        <input asp-for="DateEnd" class="form-control" />
+        <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
+</div>

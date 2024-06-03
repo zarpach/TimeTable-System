@@ -1,0 +1,160 @@
+﻿@using System.Globalization;
+@model List<StudentGPAViewModel>
+
+@{
+    int num = 0;
+    bool onlyActiveStudents = ViewBag.OnlyActiveStudents != null && ViewBag.OnlyActiveStudents;
+    float minGPA = ViewBag.MinGPA;
+    float maxGPA = ViewBag.MaxGPA;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">GPA Report - @ViewBag.Semester</h3>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="GPAReport">
+        <div class="row">
+            <div class="col-lg-3 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentId" id="departmentId" asp-items="@ViewBag.Departments">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department group:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentGroupId" asp-items="@ViewBag.DepartmentGroups">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <label>
+                            <input type="checkbox" name="onlyActiveStudents" value="@(onlyActiveStudents ? "true" : "false")"
+                            @(onlyActiveStudents ? "checked" : "") onchange="this.value = this.checked;" />
+                            Только активные
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Min GPA:</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="minGPA" value="@minGPA.ToString("N2", CultureInfo.InvariantCulture)" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Max GPA:</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="maxGPA" value="@maxGPA.ToString("N2", CultureInfo.InvariantCulture)" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fab fa-sistrix"></i> &nbsp; Show
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-12 text-right p-3">
+            <b>Total students: @Model.Count()</b>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Semester GPA</th>
+                <th>Total GPA</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var department in Model.GroupBy(x => x.Department.Code).OrderBy(x => x.Key))
+            {
+                <tr class="table-active">
+                    <td colspan="4"><b>@department.Key (@department.Count())</b></td>
+                </tr>
+                @foreach (var departmentGroup in department.GroupBy(x => x.DepartmentGroup.DepartmentCode).OrderBy(x => x.Key))
+                {
+                    <tr class="table-warning">
+                        <td></td>
+                        <td colspan="3">@departmentGroup.Key (<b>@departmentGroup.Count()</b>)</td>
+                    </tr>
+                    num = 0;
+                    @foreach (var student in departmentGroup.OrderBy(x => x.StudentName))
+                    {
+                        num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>
+                                @student.StudentName (@student.StudentState) @if (student.IsPrep) { <b>PREP</b>}
+                            </td>
+                            <td>
+                                @student.SemesterGPA.ToString("N2")
+                            </td>
+                            <td>
+                                @student.TotalGPA
+                            </td>
+                        </tr>    
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    
+   
+
+</div>
+
+

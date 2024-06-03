@@ -1,0 +1,71 @@
+﻿@using iuca.Application.Enums
+
+@model UserInfoViewModel
+
+<div class="row">
+    <div class="col-lg-6 col-12">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label>Last Name Eng:</label>
+            </div>
+            <div class="col-9">
+                <input asp-for="ApplicationUser.LastNameEng" class="form-control" />
+                <span asp-validation-for="ApplicationUser.LastNameEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label>First Name Eng:</label>
+            </div>
+            <div class="col-9">
+                <input asp-for="ApplicationUser.FirstNameEng" class="form-control" />
+                <span asp-validation-for="ApplicationUser.FirstNameEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label>Middle Name Eng:</label>
+            </div>
+            <div class="col-9">
+                <input asp-for="ApplicationUser.MiddleNameEng" class="form-control" />
+                <span asp-validation-for="ApplicationUser.MiddleNameEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label>Email:</label>
+            </div>
+            <div class="col-9">
+                <input asp-for="ApplicationUser.Email" class="form-control" />
+                <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-lg-6 col-12">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+            </div>
+            <div class="col-9">
+                <input type="checkbox" asp-for="IsStudent" class="checkbox-1x" />
+                <label class="ml-1">Student</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+            </div>
+            <div class="col-9">
+                <input type="checkbox" asp-for="IsInstructor" class="checkbox-1x" />
+                <label class="ml-1">Instructor</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+            </div>
+            <div class="col-9">
+                <input type="checkbox" asp-for="IsStaff" class="checkbox-1x" />
+                <label class="ml-1">Staff</label>
+            </div>
+        </div>
+    </div>
+</div>

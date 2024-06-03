@@ -1,0 +1,214 @@
+﻿@using iuca.Application.Enums
+@model CheckRegistrationViewModel
+
+@{
+    int num = 0;
+    var totalCredits = Model.StudentCourses.Where(x => !x.IsAudit && !x.NoCreditsCount).Sum(x => x.Points);
+    var noCountCredits = Model.StudentCourses.Where(x => !x.IsAudit && x.NoCreditsCount).Sum(x => x.Points);
+}
+
+<div class="container p3">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-success" onclick="history.back()">
+                <i class="fas fa-reply"></i> &nbsp; Назад
+            </button>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+            <h4 class="text-uppercase">Выбранные курсы</h4>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-lg-6 col-12">
+            <h5><span class="text-uppercase">Студент:</span> <b>@Model.StudentName</b></h5>
+        </div>
+        <div class="col-lg-6 col-12 text-lg-right">
+            <h5><span class="text-uppercase">Статус регистрации:</span> <b>@Model.RegistrationState</b></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h5>@TempData["Error"]</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 p-0">
+            @if (Model.StudentCourses.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-12 p-3 text-right">
+                        <button type="button" id="btnApproveAll" class="btn btn-outline-success">
+                            <span style="white-space:nowrap"><i class="fas fa-check"></i>&nbsp;Одобрить все</span>
+                        </button>
+                        <button type="button" id="btnDisapproveAll" class="btn btn-outline-danger">
+                            <span style="white-space:nowrap"><i class="fas fa-times"></i>&nbsp;Отклонить все</span>
+                        </button>
+                    </div>
+                </div>
+                <form method="post" asp-action="CheckStudentCourses" onsubmit="return isValidForm()">
+                    <input type="hidden" name="StudentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                    <input type="hidden" name="SemesterID" value="@Model.SemesterId" />
+                        @foreach (var course in Model.StudentCourses)
+                        {
+                            num++;
+                            <div class="row border-top-2 p-2 course-row @(course.IsProcessed ? "processed" : "") 
+                                    @(course.IsProcessed ? (course.IsApproved ? "green-row" : "red-row") : "")">
+                                <div class="col-lg-6 col-12 text-break mt-2">
+                                    @if (course.IsFromStudyCard)
+                                    {
+                                        <i class="fas fa-file-signature text-success" title="Курс из study card"></i>
+                                    }
+                                    <b>@num. @course.Code, @course.Name (ID: @course.ImportCode)</b><br>
+                                    кредиты: <b>@course.Points</b> 
+                                    @if (course.IsAudit)
+                                    {
+                                        <span class="text-primary"><b>(Аудит)</b></span>
+                                    }
+                                    <br>
+                                    преподаватель: <b>@course.InstructorName</b>
+                                    
+                                
+                                <input type="hidden" name="StudentCourses[@(num-1)].StudentCourseId" value="@course.StudentCourseId" />
+                                </div>
+                                
+                                <div class="col-lg-4 col-12 mt-2">
+                                    <span>Комментарий:</span>
+                                    <textarea name="StudentCourses[@(num-1)].Comment" class="form-control" @(course.IsApproved ? "disabled" : "")>@course.Comment</textarea>
+                                    <span class="text-danger" name="CommentError" hidden>Комментарий должен быть указан</span>
+                                </div>
+                                
+                                <div class="col-lg-2 col-12 text-right mt-2">
+                                    <input type="hidden" name="StudentCourses[@(num-1)].IsApproved" value="@(course.IsApproved ? "true" : "false")" />
+                                    <button type="button" name="btnApprove" class="btn mt-2
+                                            @(course.IsProcessed ? (course.IsApproved ? "btn-success" : "btn-outline-success") : "btn-outline-success")"
+                                            @(course.IsProcessed ? (course.IsApproved ? "disabled" : "") : "")>
+                                        <span style="white-space:nowrap"><i class="fas fa-check"></i>&nbsp;Одобрить</span>
+                                    </button>
+                                    <button type="button" name="btnDisapprove" class="btn mt-2 
+                                            @(course.IsProcessed ? (!course.IsApproved ? "btn-danger" : "btn-outline-danger") : "btn-outline-danger")"
+                                            @(course.IsProcessed ? (course.IsApproved ? "" : "disabled") : "")>
+                                        <span style="white-space:nowrap"><i class="fas fa-times"></i>&nbsp;Отклонить</span>
+                                    </button>
+                                </div>
+                                <div class="col-12 text-break mt-2">
+                                    @if (course.Queue > 0)
+                                    {
+                                        <h6 class="text-danger">Запись в очереди: @course.Queue</h6>
+                                    }
+                                    @if (!course.PassedPrerequisite)
+                                    {
+                                        <h6 class="text-danger">Не пройдены курсы-пререквизиты</h6>
+                                    }
+                                    @foreach (var prerequisite in course.CoursePrerequisites)
+                                    {
+                                        <span class="@(!prerequisite.Passed ? "text-danger" : "")">
+                                            @prerequisite.Name (@prerequisite.Grade)
+                                        </span>
+                                        <br/>
+                                    }
+                                </div>
+                                @if (course.IsFromStudyCard)
+                                {
+                                    <div class="col-12">
+                                        Комментарий из study card: @course.StudyCardComment
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <hr>
+                        <div class="row font-weight-bold">
+                            <input type="hidden" id="totalCredits" value="@totalCredits" />
+                            <input type="hidden" id="maxCredits" value="@Model.MaxRegistrationCredits" />
+                            <input type="hidden" id="noCreditsLimitation" value="@Model.NoCreditsLimitation.ToString()" />
+                            <div class="col-12 text-right text-uppercase">
+                                Всего кредитов: 
+                                <span class="@(totalCredits > Model.MaxRegistrationCredits ? "text-danger" : "")">@totalCredits</span>
+                            @if (noCountCredits > 0)
+                            {
+                                <span class="text-secondary">(+@noCountCredits)</span>
+                            }
+                            @if (!Model.NoCreditsLimitation)
+                            {
+                                <span>(Максимально: @Model.MaxRegistrationCredits)</span>
+                            }
+                            </div>
+                        </div>
+                        
+                    <hr/>
+                    <div class="row mt-3">
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    Комментарий студента:
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <textarea name="StudentComment" class="form-control" disabled> @Model.StudentComment </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    Комментарий эдвайзера:
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <textarea @(Model.Disaprove ? "" : "disabled") name="AdviserComment" id="adviserComment" class="form-control">@Model.AdviserComment</textarea>
+                                    <span class="text-danger" id="adviserCommentError" hidden>Комментарий должен быть указан</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    Нажмите на <b>"Отправить на доработку"</b>, если студенту нужно исправить регистрацию и снова отправить Вам на доработку
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="col-12 text-right mt-2">
+                                <input type="hidden" asp-for="Disaprove" id="disapprove" />
+                                <button type="submit" id="cancelBtn" class="btn btn-danger btn-block btn-lg text-uppercase">
+                                     Отправить на доработку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-6 col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    Нажмите на <b>"Завершить проверку"</b>, если окончательно одобряете регистрацию студента
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="col-12 text-right mt-2">
+                                <button type="submit" id="sendBtn" class="btn btn-success btn-block btn-lg text-uppercase">
+                                     Завершить проверку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <p>Нет выбранных курсов</p>
+            }
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/check-student-courses.js" asp-append-version="true"></script>
+}
+

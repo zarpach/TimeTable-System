@@ -1,0 +1,127 @@
+﻿@using iuca.Application.Enums
+@model RegistrationCourseDetailsViewModel
+
+@{
+    int num = 0;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <input type="hidden" id="registrationCourseId" value="@Model.RegistrationCourse.Id" />
+    <input type="hidden" id="semesterId" value="@ViewBag.SemesterId" />
+    <div class="row pt-4">
+        <div class="col-12">
+            <a class="btn bg-gray text-white shadow-none" href="@ViewBag.ReturnUrl">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-2 col-12">
+            Код:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Course.Abbreviation @Model.RegistrationCourse.Course.Number
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            ID:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Course.ImportCode
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Наименование:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Course.NameEng / @Model.RegistrationCourse.Course.NameRus / 
+            @Model.RegistrationCourse.Course.NameKir
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Кредиты:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Points
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Преподаватель:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.InstructorName
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Расписание:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Schedule
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Места:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.RegistrationCourse.Places
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            Всего студетов:
+        </div>
+        <div class="col-lg-10 col-12 font-weight-bold">
+            @Model.CourseStudents.Count()
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-12 text-right">
+            <button class="btn btn-primary mt-2" name="exportRegistrationCoursesBtn">
+                <i class="fas fa-upload"></i>&nbsp; Экспортировать изменения
+            </button>
+            <a asp-action="PrintRegistrationCourseDetails" asp-route-registrationCourseId="@Model.RegistrationCourse.Id"
+                class="btn btn-primary mt-2" target="_blank">
+                <i class="fas fa-print"></i>&nbsp; Печатная версия
+            </a>
+
+            <button class="btn btn-primary mt-2" id="selectStudentsBtn">
+                <i class="fas fa-plus"></i>&nbsp; Добавить студентов
+            </button>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="text-break">Имя</th>
+                <th class="text-break">Группа</th>
+                <th class="text-break">Статус</th>
+                <th class="text-break">Очередь</th>
+                <th class="text-break">Рег. статус</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="studentsContainer">
+
+            @if (Model != null && Model.CourseStudents.Count() > 0)
+            {
+                var courseStudents = Model.CourseStudents.OrderBy(x => x.Queue).ThenBy(x => x.StudentName).ToList();
+                <partial name="_StudentRow" for="@courseStudents" />
+            }
+        </tbody>
+    </table>
+    
+</div>
+
+@section Scripts
+{
+    <script src="~/js/registration-course-details.js" asp-append-version="true"></script>
+}

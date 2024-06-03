@@ -1,0 +1,90 @@
+﻿@using iuca.Application.DTO.Slots;
+@using iuca.Application.Enums;
+@model IEnumerable<IGrouping<string, SlotDTO>>
+
+<style>
+    .course-info:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+
+    .course-info {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+    }
+
+        .course-info .course-title,
+        .course-info .course-instructor,
+        .course-info .course-room {
+            flex-grow: 1;
+        }
+
+    .slot-td {
+        border: 2px dotted #666;
+    }
+</style>
+
+@if (Model.Any())
+{
+    IEnumerable<DepartmentGroupDTO> departmentGroups = ViewBag.DepartmentGroupsByDepartment;
+    <div style="page-break-after: always">
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Время</th>
+                    @foreach (var group in departmentGroups)
+                    {
+                        <th class="text-center" scope="col">@group.Department.Code-@group.Code</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lessonPeriod in ViewBag.AllLessonPeriods)
+                {
+                    <tr>
+                        <td class="align-middle text-center" style="width: 180px">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    @lessonPeriod.Name
+                                </li>
+                            </ul>
+
+                        </td>
+                        @foreach (var groupCode in departmentGroups.Select(g => $"{g.Department.Code}{g.Code}"))
+                        {
+                            var slot = Model
+                                .FirstOrDefault(groupedSlot => groupedSlot.Key == lessonPeriod.Name)
+                                ?.FirstOrDefault(s => $"{s.Group.Department.Code}{s.Group.Code}" == groupCode);
+
+                            <td draggable="@(slot == null)" class="@(slot != null ? "p-0" : "align-middle text-muted") slot h-100" style="max-width: 250px">
+                                @if (slot != null)
+                                {
+                                    <a asp-controller="Slots" asp-action="Edit" data-day="@slot.DayOfWeek" asp-route-Id="@slot.Id" class="text-black slot-cell" data-id="@slot.Id">
+                                        <div class="course-info p-3">
+                                            <h5 class="course-title">@slot.AnnouncementSection.Course.NameEng</h5>
+                                            <div class="align-self-start">
+                                                <p class="font-italic course-instructor mb-0">@(EnumExtentions.GetDisplayName((enu_SlotDayOfWeek)slot.DayOfWeek))</p>
+                                                <p class="course-room mb-0">@slot.LessonRoom.RoomName</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <p class="text-center my-2">Пусто</p>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="border text-center">
+        <p class="">No slots found...</p>
+    </div>
+}

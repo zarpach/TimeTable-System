@@ -1,0 +1,40 @@
+﻿@model List<InstructorEducationInfoDTO>
+
+<form method="post" id="educationInfoForm" name="educationInfoForm" asp-controller="InstructorInfo"
+    asp-action="EditEducationInfo" data-ajax="true" data-ajax-update="#educationInfoForm" data-ajax-mode="replace">
+    <input type="hidden" name="InstructorBasicInfoId" value="@ViewBag.InstructorBasicInfoId" />
+        
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <h4 class="text-uppercase">Education Info 
+                        <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                        <span class="green-colored">@TempData["SuccessMessage"]</span> 
+                    </h4>
+                </div>
+                <div class="col-lg-4 col-12 text-right">
+                    <button type="button" class="btn btn-primary" id="addEducationBtn" title="Add education info">
+                        <i class="fas fa-plus"></i> &nbsp; Add education info
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" id="educationContainer">
+            @if (Model != null && Model.Count > 0)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    ViewData["Index"] = i;
+                    <partial name="_EditEducationInfoPartial" for="@Model[i]" view-data="@ViewData"/>
+                }
+            }
+        </div>
+
+        <div class="col-12 text-right mb-2 mt-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>

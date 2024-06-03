@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{2312B6EE-703F-4F00-8E07-01DFFF32C655}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="iuca.Web/Startup.cs">
+    <Files>
+      <File FileName="iuca.Core/DTO/Slots/SlotDTO.cs" />
+      <File FileName="iuca.Web/Controllers/SlotsController.cs" />
+      <File FileName="iuca.Web/Views/Slots/_SlotsTablePartial.cshtml" />
+      <File FileName="iuca.Web/Views/Slots/Index.cshtml" />
+      <File FileName="iuca.Web/Views/Slots/_EditPartial.cshtml" />
+      <File FileName="iuca.Core/Services/Slots/SlotService.cs" />
+      <File FileName="iuca.Web/wwwroot/js/slots-form.js" />
+      <File FileName="iuca.Web/wwwroot/js/slot-drag-and-drop.js" />
+      <File FileName="iuca.Web/Program.cs" />
+      <File FileName="iuca.Web/Startup.cs" Line="48" Column="1" />
+      <File FileName="iuca.Core/Enums/EnumExtentions.cs" />
+      <File FileName="iuca.Core/Enums/enu_SlotDayOfWeek.cs" />
+      <File FileName="iuca.Core/Services/ImportData/ImportStudentService.cs" />
+      <File FileName="iuca.Web/Controllers/InstructorCoursesController.cs" />
+      <File FileName="iuca.Core/ViewModels/Slots/SlotViewModel.cs" />
+      <File FileName="iuca.Web/Views/Slots/_PrintOptionsPartial.cshtml" />
+      <File FileName="iuca.Web/wwwroot/js/slot-operations.js" />
+      <File FileName="iuca.Web/Extensions/ControllerExtensions.cs" />
+      <File FileName="iuca.Web/appsettings.json" />
+      <File FileName="docker-compose.yml" />
+      <File FileName="entrypoint.sh" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="iuca" selected="True">
+            <Node name="src" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.src.iuca.Web PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+</Properties>

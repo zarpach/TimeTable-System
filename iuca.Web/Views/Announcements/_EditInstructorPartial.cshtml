@@ -1,0 +1,48 @@
+﻿@model UserDTO
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-12 replace-container">
+
+        @if (Model.Id != null && Model.FullName != null)
+        {
+            <div class="row py-2">
+                <div class="col-8">
+
+                    <input type="hidden" name="Instructors[0].Id" value="@Model.Id" />
+                    <input class="form-control shadow-none" name="Instructors[0].FullName" value="@Model.FullName" readonly />
+
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-danger shadow-none" id="removeProposalInstructorBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button type="button" class="btn text-white bg-blue shadow-none" onclick="replace(this)">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row py-2">
+                <div class="col-8">
+
+                    <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                            data-live-search="true" data-actions-box="true" data-container="body"
+                            asp-for="Id" name="Instructors[0].Id" asp-items="@ViewBag.InstructorIds">
+                    </select>
+
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-danger shadow-none" id="removeProposalInstructorBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

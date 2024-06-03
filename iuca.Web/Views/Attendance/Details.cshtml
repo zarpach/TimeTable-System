@@ -1,0 +1,102 @@
+﻿@model IEnumerable<AttendanceDTO>
+@using iuca.Application.Enums;
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-2">
+        <div class="col-6">
+            <a class="btn bg-gray text-white shadow-none" href="@ViewBag.ReturnUrl">
+                <i class="fas fa-reply"></i> &nbsp; Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4 justify-content-between align-items-end">
+        <div class="col-auto">
+            <h2>Attendance details</h2>
+        </div>
+        <div class="col-auto">
+            @if (Model.Any())
+            {
+                var firstAttendance = Model.First();
+                <h4><strong>@firstAttendance.AnnouncementSection.Course.NameEng</strong> (<strong>@firstAttendance.AnnouncementSection.Section</strong> section)</h4>
+            }
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12 table-responsive">
+
+            @if (Model.Any())
+            {
+                var firstAttendance = Model.First();
+
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-light bg-gray">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th>ID</th>
+                            <th>Имя студента</th>
+                            <th>Группа</th>
+
+                            @if (firstAttendance.AttendanceClasses != null && firstAttendance.AttendanceClasses.Any())
+                            {
+                                var uniqueDates = firstAttendance.AttendanceClasses.Select(ac => ac.Date.Date).Distinct();
+                                foreach (var uniqueDate in uniqueDates)
+                                {
+                                    <th>@uniqueDate.ToString("dd.MM, ddd")</th>
+                                }
+                            }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attendance in Model)
+                        {
+                            <tr>
+                                <th scope="row" class="col-auto">@(++num)</th>
+                                <td class="col-auto">@attendance.Student.StudentId</td>
+                                <td class="col-auto text-nowrap">@attendance.Student.ShortNameEng</td>
+                                <td class="col-auto">@attendance.Student.Group</td>
+                                @if (attendance.AttendanceClasses != null && attendance.AttendanceClasses.Any())
+                                {
+                                    var attendanceByDate = attendance.AttendanceClasses.GroupBy(x => x.Date.Date);
+                                    foreach (var uniqueDateGroup in attendanceByDate)
+                                    {
+                                        <td class="col-auto">
+                                            @foreach (var mark in uniqueDateGroup)
+                                            {
+                                                var markColor = "text-warning";
+
+                                                if (mark.Mark == (int)enu_AttendanceMark.blank)
+                                                    markColor = "text-success";
+
+                                                if (mark.Mark == (int)enu_AttendanceMark.abs)
+                                                    markColor = "text-danger";
+
+                                                if (mark.Mark == (int)enu_AttendanceMark.na || mark.Mark == (int)enu_AttendanceMark.undefined)
+                                                    markColor = "text-secondary";
+
+
+                                                <span class="@markColor">@(EnumExtentions.GetDisplayName((enu_AttendanceMark)mark.Mark))<br /></span>
+                                            }
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            } else
+            {
+                <p class="pt-3">No attendance</p>
+            }
+
+        </div>
+    </div>
+
+</div>

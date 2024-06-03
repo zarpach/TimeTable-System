@@ -1,0 +1,106 @@
+﻿@model InstructorOtherJobInfoDTO
+@{
+    Layout = null;
+}
+
+<div class="row mb-3">
+    <div class="col-12">
+        <hr>
+    </div>
+    <input type="hidden" name="[@ViewData["Index"]].Id" value="@Model.Id" />
+    <input type="hidden" name="[@ViewData["Index"]].InstructorBasicInfoId" value="@Model.InstructorBasicInfoId" />
+    <div class="col-lg-6 col-12">
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PlaceNameEng" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PlaceNameEng"
+                       value="@Model.PlaceNameEng" class="form-control" />
+                <span asp-validation-for="PlaceNameEng" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PlaceNameRus" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PlaceNameRus"
+                       value="@Model.PlaceNameRus" class="form-control" />
+                <span asp-validation-for="PlaceNameRus" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PlaceNameKir" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PlaceNameKir"
+                       value="@Model.PlaceNameKir" class="form-control" />
+                <span asp-validation-for="PlaceNameKir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PositionEng" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PositionEng"
+                       value="@Model.PositionEng" class="form-control" />
+                <span asp-validation-for="PositionEng" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PositionRus" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PositionRus"
+                       value="@Model.PositionRus" class="form-control" />
+                <span asp-validation-for="PositionRus" class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="PositionKir" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].PositionKir"
+                       value="@Model.PositionKir" class="form-control" />
+                <span asp-validation-for="PositionKir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+        <hr class="m-2 mb-3">
+        <div class="form-group row">
+            <div class="col-lg-3 col-12 text-lg-right text-left">
+                <label asp-for="Phone" class="form-label"></label>
+            </div>
+            <div class="col-lg-9 col-12">
+                <input name="[@ViewData["Index"]].Phone"
+                       value="@Model.Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12 text-right">
+        <div class="form-group row">
+            <div class="col-6"></div>
+            <div class="col-6">
+                <button type="button" class="btn btn-block btn-danger" id="removeOtherJobBtn" title="Remove">
+                    <i class="fas fa-times"></i> &nbsp; Remove other job info
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,63 @@
+﻿@using iuca.Application.Enums;
+@model List<FFXXReportViewModel>
+
+@{
+    int num = 0;
+    bool onlyActiveStudents = ViewBag.OnlyActiveStudents != null && ViewBag.OnlyActiveStudents;
+}
+
+<div class="container p-0 mt-4">
+    <div class="row">
+        <div class="col-6">
+            <h4>FFXX Report</h4>
+        </div>
+        <div class="col-6 text-right">
+            <form method="get" action="FFXXReport">
+                <label>
+                    <input type="checkbox" name="onlyActiveStudents" value="@(onlyActiveStudents ? "true" : "false")"
+                    @(onlyActiveStudents ? "checked" : "") onchange="this.value = this.checked; this.form.submit();" />
+                    Только активные
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <hr />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Course</th>
+                    <th>Semester</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.GroupBy(x => new { x.StudentId, x.StudentName, x.StudentGroup})
+                    .OrderBy(x => x.Key.StudentName))
+                {
+                    num++;
+                    <tr class="bg-light-gray">
+                        <td colspan="4"><b>@num. @student.Key.StudentName (@student.Key.StudentId) @student.Key.StudentGroup</b></td>
+                    </tr>
+                    foreach (var course in student.OrderBy(x => x.Course.NameEng)
+                        .ThenBy(x => x.Semester.Year).ThenBy(x => x.Semester.Season))
+                    {
+                        <tr class="@(course.IsClosed ? "table-info" : "")">
+                            <td colspan="2">@($"{course.Course.Abbreviation}{course.Course.Number} {course.Course.NameEng} ID: {course.Course.ImportCode}") </td>
+                            <td>@course.Semester.SeasonYear</td>
+                            <td>@course.GradeMark</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No students</p>
+    }
+
+</div>

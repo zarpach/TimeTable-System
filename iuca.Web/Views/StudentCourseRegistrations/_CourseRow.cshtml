@@ -1,0 +1,35 @@
+﻿@model List<StudentCourseDTO>
+
+@using iuca.Infrastructure.Identity
+@inject ApplicationUserManager<ApplicationUser> _userManager;
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+@for (int i = 0; i < Model.Count; i++)
+{
+<tr>
+    <td><span class="courseNum">@(++num)</span></td>
+    <td>@Model[i].StudyCardCourse.CyclePartCourse.Course.Name</td>
+    <td>@Model[i].StudyCardCourse.CyclePartCourse.Course.Number</td>
+    <td><span class="pts">@Model[i].StudyCardCourse.CyclePartCourse.Points</span></td>
+    <td>
+        @(_userManager.GetUserFullName(Model[i].StudyCardCourse.InstructorUserId))
+    </td>
+    <td>
+        @Model[i].IsApproved
+    </td>
+    <td>
+        @Model[i].Comment
+    </td>
+    <td class="text-right">
+        <input type="hidden" name="[@i].CourseId" value="@Model[i].StudyCardCourse.CyclePartCourse.CourseId" />
+        <button type="button" class="btn btn-danger" name="removeCoursesBtn" title="Удалить курс">
+            <i class="fas fa-times"></i>
+        </button>
+    </td>
+</tr>
+}
+

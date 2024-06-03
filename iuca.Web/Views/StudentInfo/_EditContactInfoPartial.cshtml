@@ -1,0 +1,246 @@
+﻿@model StudentInfoDetailsViewModel
+
+<div class="row">
+    <div class="col-12">
+        <div class="row form-group font-weight-bold pl-3">
+            Contact Information
+        </div>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row form-group font-weight-bold pl-3">
+             Actual address
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CountryId"></label>
+            </div>
+            <div class="col-9">
+                <select class="form-control dropdown" asp-for="StudentBasicInfo.StudentContactInfo.CountryId" asp-items="@ViewBag.Countries"></select>
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CountryId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CityEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CityEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CityEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.StreetEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.StreetEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.StreetEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.Zip"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.Zip" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.Zip" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CityRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CityRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CityRus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.StreetRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.StreetRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.StreetRus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.Phone"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.Phone" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.Phone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row form-group font-weight-bold pl-3">
+            Citizenship address
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCountryId"></label>
+            </div>
+            <div class="col-9">
+                <select class="form-control dropdown" asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCountryId" asp-items="@ViewBag.CitizenshipCountries"></select>
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipCountryId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipZip"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipZip" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipZip" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipCityRus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipStreetRus" class="text-danger"></span>
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipPhone"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.CitizenshipPhone" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.CitizenshipPhone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row form-group font-weight-bold pl-3">
+            Contact
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.ContactNameEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.ContactNameEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.ContactNameEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.ContactNameRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.ContactNameRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.ContactNameRus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.ContactPhone"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.ContactPhone" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.ContactPhone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.RelationEng"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.RelationEng" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.RelationEng" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.RelationRus"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.RelationRus" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.RelationRus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="StudentBasicInfo.StudentContactInfo.RelationKir"></label>
+            </div>
+            <div class="col-9">
+                <input asp-for="StudentBasicInfo.StudentContactInfo.RelationKir" class="form-control" />
+                <span asp-validation-for="StudentBasicInfo.StudentContactInfo.RelationKir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>

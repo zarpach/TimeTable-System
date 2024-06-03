@@ -1,0 +1,52 @@
+﻿@model ProposalCourseDTO
+
+@{
+    Layout = null;
+}
+
+<form asp-controller="Announcements" asp-action="EditInstructors" method="post" id="editProposalForm" name="editProposalForm"
+      data-ajax="true" data-ajax-update="#editProposalForm" data-ajax-mode="replace" data-ajax-success="saveInstructors()">
+
+    <div class="row">
+        <div class="col-12 pb-2">
+
+            <div class="alert p-1 alert-danger d-none" role="alert" id="AnnouncementErrorMessage"></div>
+            <div class="alert p-1 alert-success d-none" role="alert" id="AnnouncementSuccessMessage"></div>
+
+            <div class="alert p-1 alert-danger @if(TempData["AnnouncementError"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementError"]
+            </div>
+            <div class="alert p-1 alert-danger @if(TempData["AnnouncementErrorMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementErrorMessage"]
+            </div>
+            <div class="alert p-1 alert-success @if(TempData["AnnouncementSuccessMessage"] == null) {<text>d-none</text>}" role="alert">
+                @TempData["AnnouncementSuccessMessage"]
+            </div>
+
+        </div>
+        <div class="col-12" id="proposalInstructorContainer">
+
+            <input type="hidden" asp-for="Id" id="proposalCourseId"/>
+            <input type="hidden" asp-for="Credits" />
+            <input type="hidden" asp-for="InstructorsJson" />
+
+            @if (Model.Instructors != null && Model.Instructors.Any())
+            {
+                var Instructors = Model.Instructors.ToList();
+
+                @for (int i = 0; i < Instructors.Count; i++)
+                {
+                    <partial name="_EditInstructorPartial" for="@Instructors[i]" />
+                }
+            }
+            else
+            {
+                <li class="list-group-item">
+                    <p class="pt-3 text-danger">No sections</p>
+                </li>
+            }
+
+        </div>
+    </div>
+
+</form>

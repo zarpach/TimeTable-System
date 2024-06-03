@@ -1,0 +1,477 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity
+@using iuca.Infrastructure.Identity.Claims
+@using iuca.Application.Interfaces.Roles
+@using iuca.Application.Interfaces.Common
+@using Microsoft.AspNetCore.Authorization
+@using iuca.Application.Constants
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IAuthorizationService AuthorizationService
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IUCA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-multiselect.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-blue text-white mb-3">
+            <div class="container-fluid">
+                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MY IUCA</a>*@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuSettings.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Settings</a>
+                                    <ul class="dropdown-menu">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.EnvarSettings.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="EnvarSettings" asp-action="Index">Environment Settings</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.ImportData.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="ImportData" asp-action="Index">Import data</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.ImportData.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="RegistrationCourseManagement" asp-action="TransferCourseStudents">Transfer course students</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuCommon.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Common  </a>
+                                    <ul class="dropdown-menu">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Organizations.View).Result.Succeeded))
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Organizations" asp-action="Index">Organizations</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Nationalities.View)).Result.Succeeded)
+                                        {
+                                             <li><a class="dropdown-item" asp-controller="Nationalities" asp-action="Index">Nationalities</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Countries.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Countries" asp-action="Index">Countries</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Departments.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Departments" asp-action="Index">Departments</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Universities.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Universities" asp-action="Index">Universities</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.EducationTypes.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="EducationTypes" asp-action="Index">Education types</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Semesters.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Semesters" asp-action="Index">Semesters</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.SemesterPeriods.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="SemesterPeriods" asp-action="Index">Semester Periods</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Languages.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Languages" asp-action="Index">Languages</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DepartmentGroups.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="DepartmentGroups" asp-action="Index">Department Groups</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Grades.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Grades" asp-action="Index">Grades</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Policies.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Policies" asp-action="Index">Policies</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.AttendanceFolders.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="AttendanceFolders" asp-action="Index">Attendance folders</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuCourses.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Courses  </a>
+                                    <ul class="dropdown-menu">
+                                        
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Courses.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TransferCourses.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="TransferCourses" asp-action="Index">Transfer courses</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Proposals.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Proposals" asp-action="Index" asp-route-searchSemesterId="-1">Proposals</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Announcements.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Proposals" asp-action="ManageProposals" asp-route-searchSemesterId="-1">Proposal management</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Announcements" asp-action="Index" asp-route-searchSemesterId="-1" asp-route-searchDepartmentId="-1" asp-route-searchCourseType="-1">Announcements</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudyCardPlaces.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="RegistrationCourses" asp-action="Index" asp-route-searchSemesterId="-1">Sections</a></li>
+                                            <li><a class="dropdown-item" asp-controller="ExportData" asp-action="ExportStudentCourses">Synchronize sections</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudyCards.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudyCards" asp-action="Index" asp-route-searchSemesterId="-1">Study cards</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentsInSections.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="RegistrationCourseManagement" asp-action="AnnouncementsForAssigning" asp-route-searchSemesterId="-1">Assigning students to sections</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.SyllabiApprover.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Syllabi" asp-action="ManageSyllabi">Syllabus management</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Attendance.Edit)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Attendance" asp-action="Index" asp-route-searchSemesterId="-1">Attendance</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.InstructorCourses.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="InstructorCourses" asp-action="Index">Instructor courses</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentCourseRegistrationsManagement.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentCourseRegistrations" asp-action="Index">Student registrations for Registrar</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentCourseRegistrations.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="AdviserStudents" asp-action="StudentRegistrations" asp-route-activeOnly="true">Student registrations for Advisers</a></li>
+                                        }
+                                        
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Cycles.View)).Result.Succeeded)
+                                        {
+                                            <hr class="m-1"/>
+                                            <li><a class="dropdown-item" asp-controller="Cycles" asp-action="Index">Cycles</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.AcademicPlans.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="AcademicPlans" asp-action="Index">Academic Plans</a></li>
+                                            <li><a class="dropdown-item" asp-controller="OldStudyCards" asp-action="Index">Old Study Cards</a></li>
+                                            <li><a class="dropdown-item" asp-controller="StudyCards" asp-action="SetStudyCardPlaces">Study Card Places</a></li>
+                                        }
+                                        <!--<li><a class="dropdown-item" asp-controller="StudentCourseRegistrations" asp-action="Index">Course Registration</a></li>-->
+                                    </ul>
+                                </li>
+                            }
+
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuUsers.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Users  </a>
+                                    <ul class="dropdown-menu">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Roles.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.UserRoles.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Users.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="UserInfo" asp-action="Index">Users</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Instructors.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="InstructorInfo" asp-action="Index" 
+                                                asp-route-state="@enu_InstructorState.Active">Instructors</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Students.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentInfo" asp-action="Index">Students</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Students.Edit)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentInfo" asp-action="PrepStudents" asp-route-activeOnly="true">PREP Students</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Staff.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StaffInfo" asp-action="Index">Staff</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Advisers.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Deans" asp-action="DeanAdvisers">Dean Advisers</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Deans.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Deans" asp-action="Index">Deans</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentOrders.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentOrders" asp-action="Index">State change orders</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentOrders.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="GroupTransferOrders" asp-action="Index">Group transfer orders</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuStudentDebts.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Student debts  </a>
+                                    <ul class="dropdown-menu">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsAccounting.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageAccountingDebts" 
+                                                asp-route-activeOnly="true">Manage accounting debts</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsLibrary.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageLibraryDebts" 
+                                                asp-route-activeOnly="true">Manage library debts</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsDormitory.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageDormitoryDebts" 
+                                                asp-route-activeOnly="true">Manage dormitory debts</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsRegistarOffice.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageRegistarOfficeDebts" 
+                                                asp-route-activeOnly="true">Manage registar office debts</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsMedicineOffice.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageMedicineOfficeDebts" 
+                                                asp-route-activeOnly="true">Manage medicine office debts</a></li>
+                                        }
+                                    </ul>
+
+                                </li>
+                            }
+
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuTranscripts.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Transcripts  </a>
+                                    <ul class="dropdown-menu">
+                                        <!--Admin -->
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsAdmin.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentTranscripts" asp-action="Index">Transcripts for Admin</a></li>
+                                        }
+                                        <!--Student -->
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsStudent.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="StudentTranscripts" asp-action="StudentTranscript">Transcript</a></li>
+                                            <li><a class="dropdown-item" asp-controller="StudentCourseRegistrations" asp-action="GetStudentCourses">Courses per semester</a></li>
+                                        }
+                                        <!--Dean -->
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsDean.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentTranscripts" 
+                                                    asp-action="StudentTranscriptsForDean" asp-route-onlyActive="true">
+                                                    Student Transcripts for Deans
+                                                </a>
+                                            </li>
+                                        }
+                                        <!--Adviser -->
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsAdviser.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentTranscripts" 
+                                                    asp-action="StudentTranscriptsForAdviser" asp-route-onlyActive="true">
+                                                    Student Transcripts for Advisers
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </li>
+                            }
+                            if ((AuthorizationService.AuthorizeAsync(User, Permissions.MenuReports.View)).Result.Succeeded)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Reports  </a>
+                                    <ul class="dropdown-menu">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.RegistrationCoursesReport.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="RegistrationCourseReports" asp-action="StudentRegistrationsReport">Student Registrations Report</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.RegistrationCoursesDetailedReport.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="RegistrationCourseReports" asp-action="StudentRegistrationsDetailedReport">Student Registrations Detailed Report</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.GradeManagement.View)).Result.Succeeded)
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="GradeManagement" asp-action="GradeReport">Grade Report</a></li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.FFXXReport.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="GradeManagement"
+                                                   asp-action="FFXXReport" asp-route-onlyActiveStudents="true">
+                                                    FFXX Report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.StudentMidterms.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentMidterms"
+                                                   asp-action="MidtermStatisticsReport">
+                                                    Midterm Statistics Report
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentMidterms"
+                                                   asp-action="MidtermStatisticsDetailedReport">
+                                                    Midterm Statistics Detailed Report
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentMidterms"
+                                                   asp-action="MidtermAdviserReport" asp-route-onlyActiveStudents="true">
+                                                    Midterm Adviser Report
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentMidterms"
+                                                   asp-action="MidtermStudentReport">
+                                                    Midterm Student Report
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="RegistrationCourseReports"
+                                                   asp-action="CourseRegistrationAdviserReport" asp-route-onlyActiveStudents="true">
+                                                    Course Registration Adviser Report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.RegistrationCoursesReport.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="RegistrationCourseReports"
+                                                   asp-action="RegistrationCoursesReport" asp-route-maxQty="-1">
+                                                    Registration Courses Report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.GradeReport.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="GradeManagement"
+                                                   asp-action="StudentGradesAdviserReport" asp-route-onlyActiveStudents="true">
+                                                    Student Grades Adviser Report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsAdmin.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentTranscripts"
+                                                   asp-action="GPAReport" asp-route-onlyActiveStudents="true">
+                                                    GPA Report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.GradeManagement.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="GradeManagement"
+                                                   asp-action="DepartmentGradeReport" asp-route-onlyActiveStudents="true">
+                                                    Department grade report
+                                                </a>
+                                            </li>
+                                        }
+                                        @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Attendance.View)).Result.Succeeded)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="Attendance"
+                                                   asp-action="AdviserStudentsAttendanceReport" asp-route-semesterId="-1">
+                                                    Students attendance Report
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Schedule</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Slots" asp-action="Index">Schedule Table</a></li>
+                            <hr class="m-1"/>
+                            <li><a class="dropdown-item" asp-controller="LessonPeriods" asp-action="Index">Lesson periods</a></li>
+                            <li><a class="dropdown-item" asp-controller="LessonRooms" asp-action="Index">Lesson rooms</a></li>
+                        </ul>
+                    </li>
+                         }    
+                    </ul>
+                    <partial name="_OrganizationsPartial" />
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+        <partial name="_PopupModal" />
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - IUCA
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-multiselect.min.js"></script>
+    <script src="~/lib/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.js"></script>
+    <script src="~/lib/google-charts/loader.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/consts.js" asp-append-version="true"></script>
+    <script src="~/js/popupModal.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+ 

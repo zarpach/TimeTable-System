@@ -1,0 +1,74 @@
+﻿@model List<PrepStudentViewModel>
+
+@{
+    int num = 0;
+    bool activeOnly = (ViewBag.ActiveOnly == null || ViewBag.ActiveOnly);
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h4 class="text-uppercase">PREP Students</h4>
+        </div>
+        <div class="col-6 text-right">
+             <form method="post" asp-action="PrepStudents">
+                <label style="cursor: pointer;">
+                    <input type="checkbox" name="activeOnly"
+                        value="@(activeOnly ? "true" : "false")" @(activeOnly ? "checked" : "") onchange="this.value = this.checked; this.form.submit();"/>
+                    <span>Only active students</span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Deparmtent Group</th>
+                            <th>Prep Department group</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var studentInfo in Model.OrderBy(x => x.DepartmentGroup).ThenBy(x => x.StudentName))
+                        {
+                            num++;
+                        <tr>
+                            <td>@num</td>
+                            <td>@studentInfo.StudentName</td>
+                            <td>@studentInfo.StudentState</td>
+                            <td>@studentInfo.DepartmentGroup</td>
+                            <td>
+                                <select class="form-control dropdown" asp-for="@studentInfo.PrepDepartmentGroupId" asp-items="@ViewBag.DepartmentGroups">
+                                    <option></option>
+                                </select>
+                            </td>
+                            <td class="text-right p-2 align-middle">
+                                <input type="hidden" name="organizationId" value="@studentInfo.OrganizationId" />
+                                <input type="hidden" name="studentBasicInfoId" value="@studentInfo.StudentBasicInfoId" />
+                                <button type="button" class="btn btn-primary" name="saveBtn">Save</button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No student exists</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/prep-students.js" asp-append-version="true"></script>
+}

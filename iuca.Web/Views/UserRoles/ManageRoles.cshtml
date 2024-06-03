@@ -1,0 +1,106 @@
+﻿@model UserRolesViewModel
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Manage Roles</h3>
+        </div>
+    </div>
+    <div class="row pt-2 border">
+        <div class="col-sm">
+            <div class="row form-group font-weight-bold pl-3">
+                User Information
+            </div>
+            <hr />
+            <input type="hidden" id="userId" value="@Model.ApplicationUserId" />
+            <div class="row form-group">
+                <div class="col-4 text-right">
+                    <label class="label-info">Full Name Eng:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.FullNameEng</label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-4 text-right">
+                    <label class="label-info">Email:</label>
+                </div>
+                <div class="col-8">
+                    <label>@Model.Email</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm">
+            <div class="row form-group font-weight-bold pl-3">
+                Roles (@Model.Organization.Name)
+            </div>
+            <hr />
+            <div class="form-group">
+                <input type="hidden" name="organizationId" value="@Model.Organization.Id" />
+                @foreach (SelectedRole selectedRole in Model.SelectedRoles)
+                {
+                    <div class="col-12">
+                        <input type="hidden" name="roleName" value="@selectedRole.RoleName" />
+                        <input name="roleInput" type="checkbox" class="checkbox-1x" 
+                                @(selectedRole.IsSelected ? "checked" : "") @(selectedRole.IsReadonly ? "disabled" : "")/>
+                        <label class="ml-1">@selectedRole.RoleName</label>
+                    </div>
+                }
+
+            </div>
+        </div>
+        
+
+    </div>
+    
+</div>
+
+@section Scripts
+{
+
+<script type="text/javascript">
+
+    $('input[name="roleInput"]').click(function () {
+        if (confirm('The role will be changed!')) {
+            var _userId = $("#userId").val();
+            var _organizationId = $(this).parent().parent().find('input[name="organizationId"]').val();
+            var _roleName = $(this).parent().find('input[name="roleName"]').val();
+            var _isActive = $(this).prop('checked');
+
+            $.ajax({
+                type: "POST",
+                url: "/UserRoles/SetRole",
+                data: {
+                    userId: _userId,
+                    organizationId: _organizationId,
+                    roleName: _roleName,
+                    isActive: _isActive
+                },
+                success: function (response) {
+                    console.log("success");
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        } else {
+            $(this).prop('checked', !$(this).prop('checked'));
+        } 
+    });
+
+    function setRole() {
+        
+    }
+
+</script>
+
+}

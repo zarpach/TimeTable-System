@@ -1,0 +1,75 @@
+﻿@using iuca.Application.Enums
+
+@model IEnumerable<TransferCourseDTO> 
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Edit transfer courses</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 p-0">
+            <h5>@ViewBag.StudentName</h5>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-12 p-0 text-right">
+            <button type="button" class="btn btn-primary" id="addTransferCourseBtn">
+                <i class="fas fa-plus"></i> &nbsp; Add course
+            </button>
+        </div>
+    </div>
+ 
+    <form method="post" asp-action="EditTransferCourses">
+        <div class="row pt-2">
+            <div class="col-12 p-0">
+                <input type="hidden" name="StudentUserId" value="@ViewBag.StudentUserId" />
+                <input type="hidden" id="lastSelectedDepartmentId" value="@ViewBag.DepartmentId" />
+                <input type="hidden" id="lastSelectedYear" value="@ViewBag.Year" />
+                <input type="hidden" id="lastSelectedUniversityId" value="0" />
+                <input type="hidden" id="lastSelectedCourseYear" value="0" />
+                <table class="table table-bordered table-striped table-sm" style="width:100%">
+                    <thead>
+                        <tr class="text-center">
+                            <th>№</th>
+                            <th>University</th>
+                            <th>Year</th>
+                            <th>Season</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                            <th style="max-width: 50px; word-break: break-word;">Academic plan course</th>
+                            <th>Grade</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="transferCourseContainer">
+                        @foreach (var course in Model)
+                        {
+                            <partial name="_EditRowPartial" model="course" />
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 p-0 text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> &nbsp; Save
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/edit-transfer-courses.js" asp-append-version="true"></script>
+} 

@@ -1,0 +1,49 @@
+﻿@using iuca.Application.DTO.Slots;
+
+@model IEnumerable<LessonPeriodDTO>
+
+@{
+    ViewBag.Title = "Lesson periods";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-lg-6 col-12">
+            <h3 class="text-uppercase">Lesson periods</h3>
+        </div>
+        <div class="col-lg-6 col-12 text-right">
+            <a asp-controller="LessonPeriods" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add lesson period
+            </a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Begins</th>
+                <th>Ends</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var period in Model)
+            {
+                <tr>
+                    <td>@period.TimeBegin</td>
+                    <td>@period.TimeEnd</td>
+                    <td class="text-right">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-outline-primary" style="border: 1px outset #435287; margin-right: 3px;" asp-action="Edit" asp-route-id="@period.Id">
+                                <i class="fas fa-edit"></i> &nbsp; Edit
+                            </a>
+                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@period.Id">
+                                <i class="fas fa-trash"></i> &nbsp; Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

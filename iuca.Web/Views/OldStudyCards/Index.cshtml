@@ -1,0 +1,97 @@
+﻿@model IEnumerable<OldStudyCardDTO>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Study card</h3>
+        </div>
+    </div>
+    <div class="row pt-4 text-right">
+        <div class="col-12 p-0">
+            <a asp-action="Create" asp-route-departmentGroupId="@ViewBag.DepartmentGroupId" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add Study Cards
+            </a>
+        </div>
+    </div>
+    <form method="get" asp-action="Index">
+        <div class="row mt-3">
+            <div class="col-12 p-0">
+                <div class="form-group row mb-1">
+                    <div class="col-2">
+                        <label>Группа:</label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-control dropdown" name="departmentGroupId" asp-items="@ViewBag.DepartmentGroups">
+                            <option value="0">Все</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter"></i> &nbsp; Фильтр
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>
+                                Semester
+                            </th>
+                            <th>Group</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var studyCard in Model)
+                        {
+                            num++;
+                            <tr>
+                                <td>@num</td>
+                                <td>@studyCard.Semester.SeasonYear</td>
+                                <td>@(studyCard.DepartmentGroup.Department.Code + " " + studyCard.DepartmentGroup.Code)</td>
+                                <td width="15%" class="text-center p-2">
+                                    <div class="btn-group" role="group">
+                                        <a asp-route-id="@studyCard.Id"
+                                           asp-action="Details"  asp-route-departmentGroupId="@ViewBag.DepartmentGroupId" 
+                                           class="btn btn-primary mx-1" title="Details">
+                                            <i class="fas fa-file-alt"></i>
+                                        </a>
+                                        <a asp-route-Id="@studyCard.Id" asp-route-departmentGroupId="@ViewBag.DepartmentGroupId"
+                                           asp-action="Edit" class="btn btn-primary mx-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-route-Id="@studyCard.Id" asp-route-departmentGroupId="@ViewBag.DepartmentGroupId"
+                                           asp-action="EditStudyCardCourses" class="btn btn-primary mx-1" title="Редактировать курсы">
+                                            <i class="fas fa-list-ol"></i>
+                                        </a>
+                                        <a asp-route-Id="@studyCard.Id" asp-route-departmentGroupId="@ViewBag.DepartmentGroupId"
+                                           asp-action="Delete" class="btn btn-danger mx-1">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No study card exists</p>
+            }
+        </div>
+    </div>
+</div>

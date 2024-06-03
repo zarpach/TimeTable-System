@@ -1,0 +1,55 @@
+﻿@model InstructorInfoDetailsViewModel
+
+<div class="container">
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <a asp-action="Index" asp-route-state="@ViewBag.State" asp-route-departmentId="@ViewBag.DepartmentId"
+                class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Edit Instructor </h3>
+            <h4>@Model.UserInfo.FullNameEng</h4>
+        </div>
+    </div>
+    <div class="text-danger">
+        @TempData["Error"]
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <div class="p-1">
+                <div class="row d-flex justify-content-between" id="infoContainer">
+                    <input type="hidden" id="IsReadOnly" value="@Model.IsReadOnly" />
+                    <div class="col-12 mt-2">
+                        <partial name="_EditUserInfoPartial" model="Model.UserInfo"/>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <partial name="_EditUserBasicInfoPartial" model="Model?.UserBasicInfo"/>
+                    </div>
+                    <div class="col-lg-6 col-12 mt-2">
+                        <partial name="_EditInstructorBasicInfoPartial" model="Model?.InstructorBasicInfo"/>
+                    </div>
+                    <div class="col-lg-6 col-12 mt-2">
+                        <partial name="_EditOrgInfoPartial" model="Model?.InstructorOrgInfo"/>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <partial name="_EditOtherJobInfoContainerPartial" model="Model?.InstructorBasicInfo?.InstructorOtherJobInfo"/>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <partial name="_EditEducationInfoContainerPartial" model="Model?.InstructorBasicInfo?.InstructorEducationInfo"/>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <partial name="_EditContactInfoPartial" model="Model?.InstructorBasicInfo?.InstructorContactInfo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/js/edit-instructor-info.js" asp-append-version="true"></script>
+
+} 

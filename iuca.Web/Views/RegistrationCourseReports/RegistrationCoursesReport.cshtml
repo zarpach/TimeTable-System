@@ -1,0 +1,158 @@
+﻿@using iuca.Application.Enums;
+@model List<RegistrationCourseReportViewModel>
+
+@{
+    int num = 0;
+    List<enu_CourseType> courseTypes = ViewBag.CourseTypes as List<enu_CourseType>;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Course list @ViewBag.Semester</h3>
+        </div>
+    </div>
+    <hr>
+    <form method="get" asp-action="RegistrationCoursesReport">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" id="semesterId" asp-items="@ViewBag.Semesters">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentId" id="departmentId" asp-items="@ViewBag.Departments">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Max quantity:</label>
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control" type="number" name="maxQty" value="@ViewBag.MaxQty"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="col-12">
+                    <label>&nbsp;</label>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fab fa-sistrix"></i> &nbsp; Show
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @foreach (var courseType in Enum.GetValues(typeof(enu_CourseType)).Cast<enu_CourseType>())
+                {
+                    bool isSelected = courseTypes.Contains(courseType);
+                    <label class="mx-2 cursor-pointer">
+                        <input type="checkbox" name="courseTypes" value="@courseType" @(isSelected ? "checked" : "") />
+                        @courseType.GetDisplayName()
+                    </label>
+                       
+                }
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-12 text-right">
+            <form method="get" asp-action="PrintRegistrationCoursesReport">
+                <input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+                <input type="hidden" name="departmentId" value="@ViewBag.DepartmentId" />
+                <input type="hidden" name="maxQty" value="@ViewBag.MaxQty" />
+                @foreach (var courseType in courseTypes)
+                {
+                    <input type="hidden" name="courseTypes" value="@courseType" />
+                }
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-print"></i>&nbsp; Print
+                </button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th colspan="6"></th>
+                <th colspan="3" class="text-center">Students</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>ID</th>
+                <th>Sec.</th>
+                <th>Creds</th>
+                <th>Instructor</th>
+                <th>Tot.</th>
+                <th title="Not submitted registration">N/S</th>
+                <th>AU</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model.GroupBy(x => x.AnnouncementSection.Announcement.Course.DepartmentId))
+            {
+                <tr class="bg-gray-light">
+                    <td colspan="9">
+                        <b>@department.FirstOrDefault().AnnouncementSection.Announcement.Course.Department.Code</b>
+                        Total courses: @department.Count()
+                    </td>
+                </tr>
+                num = 0;
+                @foreach (var course in department.OrderBy(x => x.AnnouncementSection.Announcement.Course.NameEng)
+                                 .ThenBy(x => x.AnnouncementSection.Section).ToList())
+                {
+                    num++;
+                    <tr>
+                        <td>@num</td>
+                        <td>
+                            <b>@course.AnnouncementSection.Announcement.Course.Abbreviation @course.AnnouncementSection.Announcement.Course.Number</b>
+                            @course.AnnouncementSection.Announcement.Course.NameEng
+                            (@course.AnnouncementSection.Announcement.Course.Language?.NameEng)
+                        </td>
+                        <td class="text-center">
+                            @course.AnnouncementSection.Announcement.Course.ImportCode
+                        </td>
+                        <td class="text-center">
+                            @course.AnnouncementSection.Section
+                        </td>
+                        <td class="text-center">
+                            @course.AnnouncementSection.Credits
+                        </td>
+                        <td>
+                            @course.InstructorName
+                        </td>
+                        <td class="text-center">
+                            @course.TotalStudents
+                        </td>
+                        <td class="text-center" title="Not submitted registration">
+                            <span class="@(course.NotSubmittedRegistration > 0 ? "text-danger" : 0)">@course.NotSubmittedRegistration</span>
+                        </td>
+                        <td class="text-center">
+                            @course.TotalAudits
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

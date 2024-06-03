@@ -1,0 +1,63 @@
+﻿@model StudyCardDTO
+
+<div id="modalContainer"></div>
+
+<div class="row justify-content-between">
+    <div class="col-lg-10 col-12">
+        <div class="row">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="col-lg-4 col-8">
+                <div class="form-group">
+                    <select class="form-control shadow-none" asp-for="SemesterId" asp-items="@ViewBag.Semesters" id="selectSemester"></select>
+                    <span asp-validation-for="Semester" class="text-danger"></span>
+                    <input type="hidden" id="hiddenSelectValue" name="SemesterId" value="" />
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-4">
+                <div class="form-group">
+                    <select class="form-control shadow-none" asp-for="DepartmentGroupId" asp-items="@ViewBag.DepartmentGroups" id="selectDepartmentGroup"></select>
+                    <span asp-validation-for="DepartmentGroup" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col col-6">
+                <label class="big-checkbox text-nowrap">
+                    <input asp-for="DisplayIUCAElectives" />
+                    Display IUCA electives
+                </label>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-2 col-12 text-right">
+        <button type="button" class="btn bg-blue text-white shadow-none" id="selectCoursesBtn">
+            <i class="fas fa-plus"></i> Add courses
+        </button>
+    </div>
+</div>
+
+<div class="row pt-lg-0 pt-4">
+    <div class="col-12">
+
+        <div class="card">
+            <ul class="list-group list-group-flush" id="studyCardCourseContainer">
+                @if (Model.StudyCardCourses != null && Model.StudyCardCourses.Any())
+                {
+                    @for (int i = 0; i < Model.StudyCardCourses.Count; i++)
+                    {
+                        <partial name="_EditStudyCardCoursesPartial" for="@Model.StudyCardCourses[i]" />
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <p class="pt-3 text-danger">Courses for the study card have not been added yet</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>

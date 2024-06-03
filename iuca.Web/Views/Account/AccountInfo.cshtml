@@ -1,0 +1,224 @@
+﻿@using iuca.Application.Enums
+
+@model AccountInfoViewModel
+
+<div class="container p3">
+    @if (Model.UserInfo.IsStudent)
+    {
+        @*<div class="row">
+            <div class="col-12">
+                <a class="btn btn-primary" asp-controller="StudentCourseRegistrations" asp-action="CourseRegistration">Регистрация на курсы</a>
+            </div>
+        </div>*@
+    }
+    
+    <div class="row d-flex justify-content-between">
+        <div class="col-lg-6 col-12 mt-2">
+            <div class="border rounded p-2">
+                <div class="row form-group m-0">
+                    <div class="col-12 pt-2">
+                        <h4 class="text-uppercase">User Info</h4>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                        <label class="label-info m-0">Full Name Eng:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@Model.UserInfo.ApplicationUser.FullNameEng</label>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                        <label class="label-info m-0">Email:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@Model.UserInfo.ApplicationUser.Email</label>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                        <label class="label-info m-0">Sex:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@(Model.UserBasicInfo.Sex == 1 ? "Male" : "Female")</label>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                        <label class="label-info m-0">Date Of Birth:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@Model.UserBasicInfo.DateOfBirth.ToString("dd.MM.yyyy")</label>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold label-info">
+                        <label class="label-info m-0">Citizenship:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@Model.UserBasicInfo.Citizenship.NameEng</label>
+                    </div>
+                </div>
+                <hr class="m-2">
+                <div class="row form-group m-0">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                        <label class="label-info m-0">Nationality:</label>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                        <label class="m-0">@Model.UserBasicInfo.Nationality.NameEng</label>
+                    </div>
+                </div>
+                <br>
+            </div>
+            
+        </div>
+        @if (Model.UserInfo.IsStudent)
+        {
+            <div class="col-lg-6 col-12 mt-2">
+                <div class="border rounded p-2">
+                    <div class="row form-group m-0">
+                        <div class="col-12 pt-2">
+                            <h4 class="text-uppercase">Student Info</h4>
+                        </div>
+                    </div>
+                    <hr class="m-2">
+                    <div class="row form-group m-0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                            <label class="label-info m-0">Group:</label>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                            <label class="m-0">@Model.StudentOrgInfo.DepartmentGroup.DepartmentCode</label>
+                        </div>
+                    </div>
+                    <hr class="m-2">
+                    <div class="row form-group m-0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                            <label class="label-info m-0">Student ID:</label>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                            <label class="m-0">@Model.StudentOrgInfo.StudentId</label>
+                        </div>
+                    </div>
+                    <hr class="m-2">
+                    <div class="row form-group m-0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                            <label class="label-info m-0">State:</label>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                            <label class="m-0">@(EnumExtentions.GetDisplayName((enu_StudentState)Model.StudentOrgInfo.State))</label>
+                        </div>
+                    </div>
+                    
+                    @if (Model.StudentOrgInfo.IsPrep)
+                    {
+                        <hr class="m-2">
+                        <div class="row form-group m-0">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-12 text-xl-right text-lg-right text-md-right font-weight-bold">
+                                <label class="label-info m-0">Prep:</label>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+                                <label class="m-0">@Model.StudentOrgInfo.IsPrep</label>
+                            </div>
+                        </div>
+                    }
+                    <br>
+                </div>
+            </div>
+        }
+    </div>
+
+    
+
+    @if (Model.UserInfo.IsInstructor)
+    {
+        /*<div class="row pt-4">
+            <div class="col-12">
+                <h3 class="text-uppercase">Instructor Info</h3>
+            </div>
+        </div>
+        <hr/>
+        <div class="row pt-2">
+            <div class="col-12">
+                <h5 class="text-uppercase">General Info</h5>
+                <div class="row form-group m-0">
+                    <div class="col-3 text-right">
+                        <label class="label-info">Department:</label>
+                    </div>
+                    <div class="col-9">
+                        <label>@Model.InstructorOrgInfo.Department.Code</label>
+                    </div>
+                </div>
+                <div class="row form-group m-0">
+                    <div class="col-3 text-right">
+                        <label class="label-info">State:</label>
+                    </div>
+                    <div class="col-9">
+                        <label>@(EnumExtentions.GetDisplayName((enu_StudentState)Model.InstructorOrgInfo.State))</label>
+                    </div>
+                </div>
+                <div class="row form-group m-0">
+                    <div class="col-3 text-right">
+                        <label class="label-info">Part time:</label>
+                    </div>
+                    <div class="col-9">
+                        <label>@Model.InstructorOrgInfo.PartTime</label>
+                    </div>
+                </div>
+                <div class="row form-group m-0">
+                    <div class="col-3 text-right">
+                        <label class="label-info">Children:</label>
+                    </div>
+                    <div class="col-9">
+                        <label>@Model.InstructorBasicInfo.ChildrenQty</label>
+                    </div>
+                </div>
+                @if (Model.InstructorBasicInfo.InstructorEducationInfo != null && 
+                        Model.InstructorBasicInfo.InstructorEducationInfo.Any())
+                {
+                    <h5 class="text-uppercase">Education Info</h5>
+                    @foreach (var education in Model.InstructorBasicInfo.InstructorEducationInfo)
+                    {
+                        <div class="row form-group m-0">
+                            <div class="col-3 text-right">
+                                <label class="label-info">Education type:</label>
+                            </div>
+                            <div class="col-9">
+                                <label>@education.EducationType.NameEng</label>
+                            </div>
+                        </div>
+                        <div class="row form-group m-0">
+                            <div class="col-3 text-right">
+                                <label class="label-info">Year:</label>
+                            </div>
+                            <div class="col-9">
+                                <label>@education.GraduateYear</label>
+                            </div>
+                        </div>
+                        <div class="row form-group m-0">
+                            <div class="col-3 text-right">
+                                <label class="label-info">University:</label>
+                            </div>
+                            <div class="col-9">
+                                <label>@education.University.NameEng</label>
+                            </div>
+                        </div>
+                        <div class="row form-group m-0">
+                            <div class="col-3 text-right">
+                                <label class="label-info">Major:</label>
+                            </div>
+                            <div class="col-9">
+                                <label>@education.MajorEng</label>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>*/
+    }
+</div>

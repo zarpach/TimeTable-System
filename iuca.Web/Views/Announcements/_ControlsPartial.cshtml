@@ -1,0 +1,206 @@
+﻿@model AnnouncementForAnnouncementControlsDTO
+@using iuca.Application.Enums
+
+@{
+    Layout = null;
+
+    string statusText = "Deactivated";
+    string activateBtn = "";
+    string deactivateBtn = "d-none";
+
+    if (Model.IsActivated)
+    {
+        statusText = "Activated";
+        activateBtn = "d-none";
+        deactivateBtn = "";
+    }
+}
+
+<div class="row">
+    <div class="col-lg-6 col-12">
+
+        <div class="row">
+            <div class="col-lg-6 col-12">
+
+                <small class="text-gray">Announcement</small>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="input-group flex-nowrap my-2">
+                            <div class="input-group-prepend d-flex w-100">
+                                <span class="input-group-text flex-grow-1 text-uppercase">Sections</span>
+                                <span class="input-group-text"><strong id="sectionsCount">@Model.AnnouncementSections.Count()</strong></span>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="editSections(this)" value="@Model.Id">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+
+                        <div class="input-group flex-nowrap my-2">
+                            <div class="input-group-prepend d-flex w-100">
+                                <span class="input-group-text flex-grow-1 text-uppercase" id="statusText">@statusText</span>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-success shadow-none @activateBtn" onclick="activateAnnouncement(this)" value="@Model.Id">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger shadow-none @deactivateBtn" onclick="deactivateAnnouncement(this)" value="@Model.Id">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-12">
+
+                <small class="text-gray">Proposal</small>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        @if (Model.ProposalCourse != null && Model.ProposalCourse.InstructorsCount > 0)
+                        {
+                            <div class="input-group flex-nowrap my-2">
+                                <div class="input-group-prepend d-flex w-100">
+                                    <span class="input-group-text flex-grow-1 text-uppercase">Instructors</span>
+                                    <span class="input-group-text"><strong id="instructorsCount">@Model.ProposalCourse.InstructorsCount</strong></span>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="editInstructors(this)" value="@Model.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="col-12">
+
+                        <div class="input-group flex-nowrap my-2">
+                            <div class="input-group-prepend d-flex w-100">
+                                <span class="input-group-text flex-grow-1 text-uppercase">For all status</span>
+                            </div>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <input class="cursor-pointer" type="checkbox" asp-for="@Model.IsForAll" value="@Model.Id" onchange="setForAllValue(this)" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+                <small class="text-gray">Attendance</small>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="input-group flex-nowrap my-2">
+                            <div class="input-group-prepend d-flex w-100">
+                                <span class="input-group-text flex-grow-1">Spreadsheet</span>
+                                @if (!string.IsNullOrEmpty(Model.AttendanceSpreadsheetId))
+                                {
+                                    <span class="input-group-text">
+                                        <a href="@Model.AttendanceSpreadsheetLink" target="_blank">
+                                            <i class="fa fa-link"></i>
+                                        </a>
+                                    </span>
+                                }
+                            </div>
+                            <div class="input-group-append">
+                                <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="generateAttendanceTable(this)" value="@Model.Id">
+                                    <span class="btnTitle">
+                                        Update
+                                    </span>
+                                    <span class="spinner" hidden>
+                                        <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                    </span>
+                                </button>
+                                @if (!string.IsNullOrEmpty(Model.AttendanceSpreadsheetId))
+                                {
+                                    <button type="button" class="btn bg-blue text-white transparent-hover shadow-none" onclick="parseAttendanceTable(this)" value="@Model.Id">
+                                        <span class="btnTitle">
+                                            Parse
+                                        </span>
+                                        <span class="spinner" hidden>
+                                            <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger transparent-hover shadow-none" onclick="deleteAttendanceSpreadsheet(this)" value="@Model.Id">
+                                        <span class="btnTitle">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="spinner" hidden>
+                                            <i class="fas fa-circle-notch animate-icon rotate"></i>
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-12">
+
+        @if (Model.AnnouncementSections != null && Model.AnnouncementSections.Any())
+        {
+            <small class="text-gray">Students</small>
+
+            <div class="row">
+                <div class="col-lg-6 col-12">
+
+                    <div class="input-group flex-nowrap my-2">
+                        <div class="input-group-prepend d-flex w-100">
+                            <span class="input-group-text flex-grow-1 text-uppercase">Students assigning</span>
+                        </div>
+                        <div class="input-group-append">
+                            <a asp-controller="RegistrationCourseManagement" asp-action="AssignStudentsToSections" asp-route-announcementId="@Model.Id" asp-route-searchSemesterId="@Model.SemesterId" asp-route-courseName="@Model.Course.NameEng" target="_blank" class="btn bg-blue text-white transparent-hover shadow-none">
+                                <i class="fas fa-list-ol"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-12">
+                    @foreach (var announcementSection in Model.AnnouncementSections.OrderBy(x => x.Section))
+                    {
+                        <div class="input-group flex-nowrap my-2">
+                            <div class="input-group-prepend d-flex w-100">
+                                <span class="input-group-text flex-grow-1">@announcementSection.Section SECTION</span>
+                                <span class="input-group-text"><strong id="sectionsCount">@announcementSection.StudentsCount</strong></span>
+                            </div>
+                            <div class="input-group-append">
+                                <a asp-controller="RegistrationCourses" asp-action="RegistrationCourseDetails" asp-route-registrationCourseId="@announcementSection.Id" target="_blank" class="btn bg-blue text-white transparent-hover shadow-none">
+                                    <i class="fas fa-users"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

@@ -1,0 +1,128 @@
+﻿@using iuca.Application.Enums;
+@model CourseDTO
+
+<div id="modalContainer"></div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-lg-2 col-12 text-lg-right">
+                <label>Name Eng:</label>
+            </div>
+            <div class="col-lg-10 col-12">
+                <input asp-for="NameEng" class="form-control" />
+                <span asp-validation-for="NameEng" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-lg-2 col-12 text-lg-right">
+                <label>Name Rus:</label>
+            </div>
+            <div class="col-lg-10 col-12">
+                <input asp-for="NameRus" class="form-control" />
+                <span asp-validation-for="NameRus" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-lg-2 col-12 text-lg-right">
+                <label>Name Kir:</label>
+            </div>
+            <div class="col-lg-10 col-12">
+                <input asp-for="NameKir" class="form-control" />
+                <span asp-validation-for="NameKir" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-lg-4 col-12 text-lg-right">
+                <label>Abbreviation:</label>
+            </div>
+            <div class="col-lg-8 col-12">
+                <input asp-for="Abbreviation" class="form-control" />
+                <span asp-validation-for="Abbreviation" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-lg-4 col-12 text-lg-right">
+                <label>Number:</label>
+            </div>
+            <div class="col-lg-8 col-12">
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-lg-4 col-12 text-lg-right">
+                <label>Department:</label>
+            </div>
+            <div class="col-lg-8 col-12">
+                <select class="form-control dropdown" asp-for="DepartmentId" asp-items="@ViewBag.Departments"></select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-lg-4 col-12 text-lg-right">
+                <label>Language:</label>
+            </div>
+            <div class="col-lg-8 col-12">
+                <select class="form-control dropdown" asp-for="LanguageId" asp-items="@ViewBag.Languages"></select>
+                <span asp-validation-for="LanguageId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group row">
+            <div class="col-lg-4 col-12 text-lg-right">
+                <label>Course type:</label>
+            </div>
+            <div class="col-lg-8 col-12">
+                <select class="form-control dropdown" asp-for="CourseType" asp-items="Html.GetEnumSelectList<enu_CourseType>()"></select>
+                <span asp-validation-for="CourseType" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-lg-2 col-0"></div>
+            <div class="col-lg-10 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Course prerequisites:</h6>
+                            </div>
+
+                            <div class="col-6 text-right">
+                                <button type="button" class="btn btn-primary" id="addPrerequisiteBtn">
+                                    <i class="fas fa-plus"></i> &nbsp;Add prerequisite
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="coursePrerequisiteContainer">
+                        @if (Model != null && Model.CoursePrerequisites != null)
+                        {
+                            var prerequisites = @Model.CoursePrerequisites.Select(x => x.Prerequisite).ToList();
+                            <partial name="_EditCoursePrerequsitePartial" for="@prerequisites" />
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,97 @@
+﻿@model UserBasicInfoDTO
+@using iuca.Application.Enums
+
+<form method="post" id="userBasicInfoForm" name="userBasicInfoForm" asp-controller="StudentInfo"
+    asp-action="EditUserBasicInfo" data-ajax="true" data-ajax-update="#userBasicInfoForm" data-ajax-mode="replace">
+    <input type="hidden" asp-for="ApplicationUserId" />
+    <input type="hidden" asp-for="Id" />
+
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <h4 class="text-uppercase">User Basic Info 
+                <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                <span class="green-colored">@TempData["SuccessMessage"]</span> 
+            </h4>
+        </div>
+        <div class="col-lg-6 col-12">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="LastNameRus" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="LastNameRus" class="form-control" />
+                    <span asp-validation-for="LastNameRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="FirstNameRus" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="FirstNameRus" class="form-control" />
+                    <span asp-validation-for="FirstNameRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="MiddleNameRus" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="MiddleNameRus" class="form-control" />
+                    <span asp-validation-for="MiddleNameRus" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="Sex" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control dropdown" asp-for="Sex" asp-items="Html.GetEnumSelectList<enu_Sex>()"></select>
+                    <span asp-validation-for="Sex" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+                
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="DateOfBirth" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input class="form-control" asp-for="DateOfBirth" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+		    <hr class="m-2 mb-3">
+		    <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="Nationality" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control dropdown" asp-for="NationalityId" asp-items="@ViewBag.Nationalities"></select>
+                    <span asp-validation-for="NationalityId" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label asp-for="Citizenship" class="form-label"></label>
+                </div>
+                <div class="col-9">
+                    <select class="form-control dropdown" asp-for="CitizenshipId" asp-items="@ViewBag.Cintizehships"></select>
+                    <span asp-validation-for="CitizenshipId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-right mb-2">
+            <button type="submit" id="saveUserBasicInfoBtn" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>

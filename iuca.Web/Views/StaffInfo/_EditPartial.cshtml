@@ -1,0 +1,22 @@
+﻿@model StaffInfoDetailsViewModel
+
+<div id="infoContainer">
+    <div class="row">
+        <div class="col-lg-6 col-12">
+
+            <div class="form-group row">
+                <div class="col-3 text-right">
+                    <label>Staff Info:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="StaffBasicInfo.StaffInfo" class="form-control" />
+                    <span asp-validation-for="StaffBasicInfo.StaffInfo" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+

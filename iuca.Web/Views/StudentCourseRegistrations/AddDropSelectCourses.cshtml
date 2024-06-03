@@ -1,0 +1,113 @@
+﻿@using iuca.Application.Enums
+@model RegistrationSelectionCourseViewModel
+
+@{
+    int num = 0;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container">
+    <div class="row pt-2 justify-content-end">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <a asp-controller="StudentCourseRegistrations" asp-action="AddDropCourses" class="btn btn-primary btn-lg btn-block text-uppercase">
+                 Продолжить &nbsp; <i class="fas fa-chevron-right"></i> </a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row pt-2">
+        <div class="col-12 p-0 text-center">
+            <h4 class="text-uppercase">Выбор курсов</h4>
+        </div>
+    </div>
+    <div class="input-group pt-4">
+        <input type="text" id="searchText" class="form-control zero-border-right" placeholder="Код или наименование курса"/>
+        <div class="input-group-append p-0">
+            <button id="clearSearchBtn" class="btn gray-border-top gray-border-bottom text-secondary">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="input-group-append col-3 p-0">
+            <button id="searchBtn" class="btn btn-primary btn-block text-uppercase">
+                Найти
+            </button>
+        </div>
+    </div>
+    <hr>
+
+
+    <div class="row pt-2">
+        <div class="col-12">
+            @if (Model.Courses.Count > 0)
+            {
+                foreach (var course in Model.Courses)
+                {
+                    num++;
+                    <div class="row course-item @(course.IsProcessed ? (course.IsApproved ? "correct-bg" : "incorrect-bg") : course.IsSelected ? "regular-bg" : "")">
+                        @if (course.IsForAll)
+                        {
+                            <div class="col-12 p-0">
+                                <div class="alert alert-warning p-0">
+                                    <h6 class="text-uppercase m-1 ml-3">IUCA Elective</h6>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xg-4 mt-2">
+                            <span class="course-item-name"><b>@course.Course.Abbreviation @course.Course.Number</b>, @course.Course.Name (@course.Section) (<b>ID: @course.Course.ImportCode</b>)</span>
+                            <input type="hidden" name="registrationCourseId" value="@course.RegistrationCourseId" />
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                            @course.InstructorName
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                            Кредиты: <span class="coursePts">@course.Points</span><br/>
+                            Время: @course.Schedule
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                            Мест осталось: <span class="placesText">@course.RestPlaces</span>
+                            <span class="queueText text-danger">
+                                @if (course.Queue > 0) 
+                                { 
+                                    @string.Format("(очередь: {0})", course.Queue) 
+                                }
+                            </span>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                            <input type="hidden" name="studentCourseRegistrationId" value="@ViewBag.StudentCourseRegistrationId" />
+                            <input type="hidden" name="studyCardCourseId" value="@course.RegistrationCourseId" />
+
+                            <button name="btnAdd" class="btn btn-outline-primary btn-block text-uppercase @(course.IsForAll ? "forAll" : "")"
+                            @(course.IsForAll && Model.ElectiveSelected ? "disabled" : "")>
+                                Add
+                            </button>
+                        </div>
+
+                        @if (course.IsProcessed && !course.IsApproved)
+                        {
+                                <div class="col-12 adviserComment">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xg-3">
+                                        <span>Комментарий эдвайзера: </span>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xg-9">
+                                        <b>@course.Comment</b>
+                                    </div>
+                                </div>
+                            </div>  
+                        }
+                            
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Нет курсов для выбора</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/add-drop-select-courses.js" asp-append-version="true"></script>
+}

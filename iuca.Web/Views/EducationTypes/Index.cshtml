@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EducationTypeDTO>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Education types</h3>
+        </div>
+    </div>
+    <div class="row pt-4 text-right">
+        <div class="col-12 p-0">
+            <a asp-controller="EducationTypes" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add Education Type
+            </a>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>
+                                Name Eng
+                            </th>
+                            <th>
+                                Name Rus
+                            </th>
+                            <th>
+                                Name Kir
+                            </th>
+                            <th>
+                                Import code
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var educationType in Model)
+                        {
+                            num++;
+                            <tr>
+                                <td>@num</td>
+                                <td>@educationType.NameEng</td>
+                                <td>@educationType.NameRus</td>
+                                <td>@educationType.NameKir</td>
+                                <td>@educationType.ImportCode</td>
+                                <td width="15%" class="text-center p-2">
+                                    <div class="btn-group" role="group">
+                                        <a asp-controller="EducationTypes" asp-route-id="@educationType.Id"
+                                           asp-action="Details" class="btn btn-primary mx-1" title="Details">
+                                            <i class="fas fa-file-alt"></i>
+                                        </a>
+                                        <a asp-controller="EducationTypes" asp-route-Id="@educationType.Id" asp-action="Edit" class="btn btn-primary mx-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="EducationTypes" asp-route-Id="@educationType.Id" asp-action="Delete" class="btn btn-danger mx-1">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No education type exists</p>
+            }
+        </div>
+    </div>
+</div>

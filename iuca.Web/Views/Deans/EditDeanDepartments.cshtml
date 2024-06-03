@@ -1,0 +1,65 @@
+﻿@model DeanDepartmentViewModel
+
+<div class="container p3">
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="row pt-4">
+                <div class="col-12 p-0">
+                    <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-12 p-0">
+                    <h4 class="text-uppercase">Edit departments</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10 p-0">
+                    <h4>@ViewBag.DeanName</h4>
+                </div>
+                <div class="col-2 text-right">
+                    <button type="button" class="btn btn-primary" id="addDepartmentBtn" title="Add department">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <div class="text-danger">
+                @TempData["Error"]
+            </div>
+            <div class="row pt-2">
+                <div class="col-12 p-0">
+                    <form method="post" asp-action="EditDeanDepartments">
+                        <input type="hidden" name="deanUserId" id="DeanUserId" value="@Model.DeanUser.Id" />
+                        <input type="hidden" name="organizationId" id="OrganizationId"  value="@Model.OrganizationId" />
+                        <div class="p-3">
+                            <div id="departmentsContainer">
+                                @if (Model != null && Model.Departments != null)
+                                {
+                                    for (int i = 0; i < Model.Departments.Count; i++)
+                                    {
+                                        <partial name="_EditDeanDepartmentsPartial" for="@Model.Departments[i]" />
+                                    }
+                                }
+                            </div>
+                            <hr>
+                            <div class="form-group row mb-0">
+                                <div class="col-12 p-0 text-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>&nbsp; Edit
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+@section Scripts{
+    <script src="~/js/edit-dean-departments.js" asp-append-version="true"></script>
+}

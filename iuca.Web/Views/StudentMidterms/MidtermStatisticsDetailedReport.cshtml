@@ -1,0 +1,135 @@
+﻿@using iuca.Application.Enums;
+@model List<MidtermStatisticsDetailedReportViewModel>
+
+@{
+    var num = 0;
+}
+
+<div class="container p-0">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Midterm statistics detailed report</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <form asp-action="MidtermStatisticsDetailedReport" method="get">
+        <div class="row">
+            <div class="col-lg-4 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Department:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="departmentId" asp-items="@ViewBag.Departments">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Instructor:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="instructorUserId" asp-items="@ViewBag.Instructors">
+                            <option value="">Not selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Course Id:</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="courseId" value="@ViewBag.CourseId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>State:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="state" asp-items="@ViewBag.States">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Show</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        
+    </form>
+
+    <ul class="list-group list-group-flush mt-3">
+        @foreach (var course in Model)
+        {
+            num++;
+            <li class="list-group-item striped-row">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-lg-8 col-7">
+                                @num. <b>@course.AnnouncementSection.Announcement.Course.Abbreviation @course.AnnouncementSection.Announcement.Course.Number</b>
+                                @course.AnnouncementSection.Announcement.Course.Name (@course.AnnouncementSection.Section)
+                            </div>
+                            <div class="col-lg-2 col-2 text-right">
+                                <b>@course.AnnouncementSection.Announcement.Course.Department.Code</b>
+                            </div>
+                            <div class="col-lg-2 col-3 text-right">
+                                ID: <b>@course.AnnouncementSection.Announcement.Course.ImportCode</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-6">
+                                <b>@course.AnnouncementSection.InstructorUserName</b>
+                            </div>
+                            <div class="col-lg-3 col-2 text-right">
+                                Submitted: @course.CountMidterms/@course.CountStudents
+                            </div>
+                            <div class="col-lg-3 col-4 text-nowrap text-right">
+                                @{
+                                    string circleColor = "text-danger";
+                                    if ((enu_MidtermReportState)course.State == enu_MidtermReportState.InProgress)
+                                        circleColor = "text-warning";
+                                    else if ((enu_MidtermReportState)course.State == enu_MidtermReportState.Submitted)
+                                        circleColor = "text-success";
+                                }
+                                <i class="fas fa-circle @circleColor"></i> 
+                                @(EnumExtentions.GetDisplayName((enu_MidtermReportState)course.State))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+</div>

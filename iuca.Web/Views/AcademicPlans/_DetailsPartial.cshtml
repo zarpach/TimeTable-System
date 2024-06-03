@@ -1,0 +1,203 @@
+﻿@using iuca.Application.Enums
+@model AcademicPlanViewModel
+
+@{
+    List<CyclePartCourseDTO> cyclePartCourses = new List<CyclePartCourseDTO>();
+    CyclePartDTO cyclePart = null;
+    var cyclePartIndex = 0;
+}
+
+<table class="table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th class="text-center" rowspan="2"></th>
+            <th class="text-center" rowspan="2">Код №</th>
+            <th class="text-center" rowspan="2">Группа</th>
+            <th class="text-center" rowspan="2"></th>
+            <th rowspan="2" class="text-center border-right">
+                Наименование дисциплин по ГОС
+            </th>
+            <th rowspan="2" class="text-center border-right">
+                Кредиты
+            </th>
+            <th colspan="2" class="text-center border-right">1 курс</th>
+            <th colspan="2" class="text-center border-right">2 курс</th>
+            <th colspan="2" class="text-center border-right">3 курс</th>
+            <th colspan="2" class="text-center border-right">4 курс</th>
+        </tr>
+        <tr>
+            <th class="text-center">1 сем.</th>
+            <th class="text-center border-right">2 сем.</th>
+            <th class="text-center">1 сем.</th>
+            <th class="text-center border-right">2 сем.</th>
+            <th class="text-center">1 сем.</th>
+            <th class="text-center border-right">2 сем.</th>
+            <th class="text-center">1 сем.</th>
+            <th class="text-center border-right">2 сем.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cycle in Model.Cycles)
+        {
+            <tr class="font-weight-bold text-uppercase text-center bg-dark-lilac">
+                <td colspan="15">
+                    @cycle.NameRus / @cycle.NameEng
+                </td>
+            </tr>
+            @foreach (var part in Model.Parts)
+            {
+                cyclePart = Model.AcademicPlan.CycleParts.FirstOrDefault(x => x.CycleId == cycle.Id && x.AcademicPlanPart == (int)part);
+
+                <tr id="@("row_" + cycle.Id + "_" + (int)part)" class="font-weight-bold bg-light-orange highlighted-row">
+                    <td></td>
+                    <td class="border-right" colspan="4">@EnumExtentions.GetDisplayName(part)</td>
+                    <td class="border-right">
+                        @(cyclePart != null ? cyclePart.ReqPts : 0)
+                    </td>
+                    <td>
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs1Sem1 : 0)
+                    </td>
+                    <td class="border-right">
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs1Sem2 : 0)
+                    </td>
+                    <td>
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs2Sem1 : 0)
+                    </td>
+                    <td class="border-right">
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs2Sem2 : 0)
+                    </td>
+                    <td>
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs3Sem1 : 0)
+                    </td>
+                    <td class="border-right">
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs3Sem2 : 0)
+                    </td>
+                    <td>
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs4Sem1 : 0)
+                    </td>
+                    <td class="border-right">
+                        @(cyclePart != null ? cyclePart.ReqPtsCrs4Sem2 : 0)
+                    </td>
+                </tr>
+
+                cyclePartCourses = Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id
+                                && x.AcademicPlanPart == (int)part).SelectMany(x => x.CyclePartCourses).ToList();
+
+                ViewData["NumId"] = $"num_{cycle.Id}_{(int)part}";
+                ViewData["CycleId"] = cycle.Id;
+                ViewData["Part"] = (int)part;
+                ViewData["CyclePartIndex"] = cyclePartIndex;
+
+                <partial name="_CourseRow" for="@cyclePartCourses" view-data="ViewData" />
+                cyclePartIndex++;
+            }
+            <tr class="font-weight-bold highlighted-row">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="border-right">Итого по циклу @cycle.Code</td>
+                <td class="text-center border-right">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPts)
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs1Sem1)
+                    </span>
+                </td>
+                <td class="text-center border-right">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs1Sem2)
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs2Sem1)
+                    </span>
+                </td>
+                <td class="text-center border-right">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs2Sem2)
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs3Sem1)
+                    </span>
+                </td>
+                <td class="text-center border-right">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs3Sem2)
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs4Sem1)
+                    </span>
+                </td>
+                <td class="text-center border-right">
+                    <span>
+                        @Model.AcademicPlan.CycleParts.Where(x => x.CycleId == cycle.Id).Sum(x => x.ReqPtsCrs4Sem2)
+                    </span>
+                </td>
+            </tr>
+        }
+        <tr class="font-weight-bold highlighted-row">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="border-right">Итого за 4 года</td>
+            <td class="text-center border-right">
+                <span id="total_ReqPts">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPts)
+                </span>
+            </td>
+            <td class="text-center">
+                <span id="total_ReqPtsCrs1Sem1">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs1Sem1)
+                </span>
+            </td>
+            <td class="text-center border-right">
+                <span id="total_ReqPtsCrs1Sem2">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs1Sem2)
+                </span>
+            </td>
+            <td class="text-center">
+                <span id="total_ReqPtsCrs2Sem1">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs2Sem1)
+                </span>
+            </td>
+            <td class="text-center border-right">
+                <span id="total_ReqPtsCrs2Sem2">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs2Sem2)
+                </span>
+            </td>
+            <td class="text-center">
+                <span id="total_ReqPtsCrs3Sem1">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs3Sem1)
+                </span>
+            </td>
+            <td class="text-center border-right">
+                <span id="total_ReqPtsCrs3Sem2">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs3Sem2)
+                </span>
+            </td>
+            <td class="text-center">
+                <span id="total_ReqPtsCrs4Sem1">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs4Sem1)
+                </span>
+            </td>
+            <td class="text-center border-right">
+                <span id="total_ReqPtsCrs4Sem2">
+                    @Model.AcademicPlan.CycleParts.Sum(x => x.ReqPtsCrs4Sem2)
+                </span>
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+

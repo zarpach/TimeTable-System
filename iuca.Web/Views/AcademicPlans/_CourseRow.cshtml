@@ -1,0 +1,83 @@
+﻿@model List<CyclePartCourseDTO>
+
+@{
+    Layout = null;
+    int num = 1;
+    int cyclePartIndex = (int)ViewData["CyclePartIndex"];
+    int courseIndex = 0;
+    int courseGroupIndex = 0;
+}
+
+@foreach (var courseGroup in Model.GroupBy(x => x.GroupId))
+{
+    courseGroupIndex = 1;
+    foreach (var course in courseGroup)
+    {
+        <tr class="@($"row_{ViewData["CycleId"]}_{ViewData["Part"]}")">
+            <td class="text-center" @(courseGroup.Key != Guid.Empty ? courseGroupIndex == 1 ? "rowspan=" + courseGroup.Count() : "style=display:none;" : "")>
+                <input type="checkbox" class="big-checkbox" name="groupCheckbox.@($"row_{ViewData["CycleId"]}_{ViewData["Part"]}")" />
+                <input type="hidden" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].GroupId" value="@course.GroupId" />
+            </td>
+            <td @(courseGroup.Key != Guid.Empty ? courseGroupIndex == 1 ? "rowspan=" + courseGroup.Count() : "style=display:none;" : "")>
+                <span class="@ViewData["NumId"]">@(num)</span>
+            </td>
+            <td @(courseGroup.Key != Guid.Empty ? courseGroupIndex == 1 ? "rowspan=" + courseGroup.Count() : "style=display:none;" : "")>
+                <textarea class="form-control group-textarea" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].GroupName"
+                          @(courseGroup.Key != Guid.Empty && courseGroupIndex == 1 ? "style=display:block;" : "style=display:none;")>@course.GroupName</textarea>
+            </td>
+            <td class="text-center">
+                <button type="button" class="btn btn-warning mt-1" name="ungroupRow.@($"row_{ViewData["CycleId"]}_{ViewData["Part"]}")" title="Разъединить" 
+                        @(courseGroup.Key != Guid.Empty ? "style=display:block;" : "style=display:none;")>
+                    <i class="fas fa-unlink"></i>
+                </button>
+            </td>
+            <td class="border-right">
+                @course.Course.NameRus / @course.Course.NameEng
+            </td>
+            <td class="border-right">
+                <input type="hidden" name="cyclePartIndex" value="@cyclePartIndex" />
+                <input type="hidden" name="cycleId" value="@ViewData["CycleId"]" />
+                <input type="hidden" name="part" value="@ViewData["Part"]" />
+
+                <input type="hidden" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].CyclePartId" value="@course.CyclePartId" />
+                <input type="hidden" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].CourseId" value="@course.Course.Id" />
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].Points" value="@course.Points" />
+            </td>
+            <td>
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs1Sem1" value="@course.PtsCrs1Sem1" />
+            </td>
+            <td class="border-right">
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs1Sem2" value="@course.PtsCrs1Sem2" />
+            </td>
+            <td>
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs2Sem1" value="@course.PtsCrs2Sem1" />
+            </td>
+            <td class="border-right">
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs2Sem2" value="@course.PtsCrs2Sem2" />
+            </td>
+            <td>
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs3Sem1" value="@course.PtsCrs3Sem1" />
+            </td>
+            <td class="border-right">
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs3Sem2" value="@course.PtsCrs3Sem2" />
+            </td>
+            <td>
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs4Sem1" value="@course.PtsCrs4Sem1" />
+            </td>
+            <td class="border-right">
+                <input class="form-control text-center integer-only" name="[@cyclePartIndex].CyclePartCourses[@courseIndex].PtsCrs4Sem2" value="@course.PtsCrs4Sem2" />
+            </td>
+            <td class="text-right">
+                <button type="button" class="btn btn-danger" name="removeCoursesBtn" title="Удалить курс">
+                    <i class="fas fa-times"></i>
+                </button>
+            </td>
+        </tr>
+        courseIndex++;
+        courseGroupIndex++;
+        if (courseGroup.Key == Guid.Empty)
+            num++;
+    }
+    if (courseGroup.Key != Guid.Empty)
+        num++;
+}

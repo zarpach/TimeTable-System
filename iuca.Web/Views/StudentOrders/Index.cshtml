@@ -1,0 +1,204 @@
+﻿@model IEnumerable<OrdersViewModel>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>State change orders</h2>
+            <span class="text-danger">
+                @TempData["StudentOrdersErrorMessage"]
+            </span>
+            <span class="text-danger">
+                @TempData["StudentOrdersError"]
+            </span>
+        </div>
+        <div class="col-auto">
+            <a class="btn bg-blue text-white shadow-none" asp-action="CreateReinstatementExpulsionOrder" asp-route-type="@((int)enu_OrderType.Reinstatement)">
+                <i class="fas fa-plus"></i> Reinstatement
+            </a>
+            <a class="btn bg-blue text-white shadow-none" asp-action="CreateAcademicLeaveOrder">
+                <i class="fas fa-plus"></i> Acad leave
+            </a>
+            <a class="btn bg-blue text-white shadow-none" asp-action="CreateReinstatementExpulsionOrder" asp-route-type="@((int)enu_OrderType.Expulsion)">
+                <i class="fas fa-plus"></i> Expulsion
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <form method="get" asp-action="Index">
+                        <div class="row align-items-center justify-content-between">
+
+                            <div class="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-lg-auto col-12">
+                                        <select class="form-control shadow-none" name="searchIsApplied" asp-items="@ViewBag.ApplicationStatuses" onchange="this.form.submit()">
+                                            <option value="0">All statuses</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-auto col-12 pt-lg-0 pt-2">
+                                        <select class="form-control shadow-none" name="searchType" asp-items="@ViewBag.Types" onchange="this.form.submit()">
+                                            <option value="0">All types</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 pt-lg-0 pt-2">
+                                <div class="input-group">
+                                    <input type="text" id="searchText" class="form-control zero-border-right shadow-none" />
+                                    <div class="input-group-append p-0">
+                                        <button type="button" id="clearSearchBtn" class="btn gray-border-top gray-border-bottom bg-white text-gray shadow-none">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button id="searchBtn" type="button" class="btn btn-block bg-blue text-white shadow-none">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    @if (Model.Any())
+                    {
+                        @foreach (var order in Model)
+                        {
+                            num++;
+
+                            string isAppliedColor = "";
+
+                            string editButton = "disabled";
+                            string deleteButton = "disabled";
+                            string applyButton = "d-none";
+                            string cancelButton = "d-none";
+
+                            string editButtonName = "";
+                            string deleteButtonName = "";
+                            string applyButtonName = "";
+                            string cancelButtonName = "";
+
+                            @if (order.IsApplied == true)
+                            {
+                                isAppliedColor = "text-success";
+                                cancelButton = "";
+                            }
+                            if (order.IsApplied == false)
+                            {
+                                isAppliedColor = "text-danger";
+                                editButton = "";
+                                deleteButton = "";
+                                applyButton = "";
+                            }
+
+                            @if (order.Type == (int)enu_OrderType.AcadLeave)
+                            {
+                                editButtonName = "EditAcademicLeaveOrder";
+                                deleteButtonName = "deleteAcademicLeaveOrderBtn";
+                                applyButtonName = "applyAcademicLeaveOrderBtn";
+                                cancelButtonName = "cancelAcademicLeaveOrderBtn";
+                            }
+                            @if (order.Type == (int)enu_OrderType.Expulsion || order.Type == (int)enu_OrderType.Reinstatement)
+                            {
+                                editButtonName = "EditReinstatementExpulsionOrder";
+                                deleteButtonName = "deleteReinstatementExpulsionOrderBtn";
+                                applyButtonName = "applyReinstatementExpulsionOrderBtn";
+                                cancelButtonName = "cancelReinstatementExpulsionOrderBtn";
+                            }
+
+                            <li class="list-group-item search-item">
+                                <div class="row">
+                                    <div class="col-lg-7 col-12">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-3 col-6">
+                                                <i class="fas fa-circle @isAppliedColor"></i> <strong>№ @order.Number</strong>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                @order.Date.Date.ToString("dd.MM.yyyy")
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <em>@order.StudentInfo.FullNameEng</em>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-12 text-right">
+                                        @if (order.Start != DateTime.MinValue && order.End != DateTime.MinValue)
+                                        {
+                                            <text><strong>From</strong> @order.Start.Date.ToString("dd.MM.yyyy") <strong>to</strong> @order.End.Date.ToString("dd.MM.yyyy")</text>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-7 col-12 pt-2">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-12">
+                                                <strong class="text-uppercase">@EnumExtentions.GetDisplayName((enu_OrderType)order.Type)</strong>
+                                            </div>
+                                            <div class="col-lg-9 col-12 text-gray">
+                                                Reason: @if (order.Type == (int)enu_OrderType.Reinstatement)
+                                                {
+                                                    @EnumExtentions.GetDisplayName((enu_ReasonReinstatement)order.Reason)
+                                                }
+                                                else if (order.Type == (int)enu_OrderType.Expulsion)
+                                                {
+                                                    @EnumExtentions.GetDisplayName((enu_ReasonExpulsion)order.Reason)
+                                                }
+                                                else if (order.Type == (int)enu_OrderType.AcadLeave)
+                                                {
+                                                    @EnumExtentions.GetDisplayName((enu_ReasonAcadLeave)order.Reason)
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-12 text-right pt-3">
+                                        <button type="button" class="btn btn-success shadow-none @applyButton" name="@applyButtonName" value="@order.Id">
+                                            <i class="fas fa-check"></i> Apply
+                                        </button>
+                                        <button type="button" class="btn btn-danger shadow-none @cancelButton" name="@cancelButtonName" value="@order.Id">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
+                                        <a asp-action="@editButtonName" class="btn bg-blue text-white @editButton" asp-route-id="@order.Id">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-danger shadow-none" name="@deleteButtonName" value="@order.Id" @deleteButton>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No orders</p>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/reinstatement-expulsion-order.js" asp-append-version="true"></script>
+    <script src="~/js/academic-leave-order.js" asp-append-version="true"></script>
+    <script src="~/js/student-order.js" asp-append-version="true"></script>
+
+}

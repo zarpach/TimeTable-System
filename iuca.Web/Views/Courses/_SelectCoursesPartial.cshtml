@@ -1,0 +1,92 @@
+﻿@model List<CourseDTO>
+@using iuca.Application.Enums
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+<div class="modal fade" id="selectCourses">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Выбор курсов</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-header">
+                <div class="input-group">
+                    <input type="text" id="searchText" class="form-control shadow-none zero-border-right" placeholder="Code or name of the course" />
+                    <div class="input-group-append p-0">
+                        <button type="button" id="clearSearchBtn" class="btn gray-border-top gray-border-bottom text-gray shadow-none">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="input-group-append col-3 p-0">
+                        <button type="button" id="searchBtn" class="btn bg-blue text-white shadow-none btn-block">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        @if (Model.Count() > 0)
+                        {
+                            @foreach (var course in Model)
+                            {
+                                num++;
+                                <li class="list-group-item search-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-10">
+                                            <span class="text-gray">#@num </span>
+                                            <strong>@(course.Abbreviation + " " + course.Number)</strong> @course.Name
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group text-right">
+                                                <input class="big-checkbox" type="checkbox" name="selectCoursesCheckbox" value="@course.Id" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 pt-2">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    Language: <strong>@course.Language.NameEng</strong>
+                                                </div>
+                                                <div class="col-4">
+                                                    ID: <strong>@course.ImportCode</strong>
+                                                </div>
+                                                <div class="col-4">
+                                                    Type: <strong>@(EnumExtentions.GetDisplayName((enu_CourseType)course.CourseType))</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <p class="pt-3">No course exists</p>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gray text-white shadow-none" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bg-blue text-white shadow-none" id="addSelectedCoursesBtn">Add</button>
+            </div>
+
+        </div>
+    </div>
+</div>

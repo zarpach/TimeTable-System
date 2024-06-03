@@ -1,0 +1,59 @@
+﻿@model List<AdviserStudentViewModel>
+
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <a asp-controller="Deans" asp-action="DeanAdvisers" asp-route-deanUserId="@ViewBag.DeanUserId"
+                class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-lg-9 col-12">
+            <h5 class="text-uppercase">Edit students</h5>
+            <h5 class="text-uppercase">Adviser: <b>@ViewBag.AdviserName</b></h5>
+        </div>
+        <div class="col-lg-3 col-12 text-right">
+            <input type="hidden" name="organizationId" value="@ViewBag.OrganizationId" />
+            <input type="hidden" name="deanUserId" value="@ViewBag.DeanUserId" />
+
+            <button type="button" id="selectStudentsBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Add students
+            </button>
+        </div>
+    </div>
+    <hr>
+    
+    <div class="row pt-2">
+        <div class="col-12">
+            <form method="post" asp-action="EditAdviserStudents">
+                <input type="hidden" name="deanUserId" value="@ViewBag.DeanUserId" />
+                <input type="hidden" name="instructorUserId" value="@ViewBag.InstructorUserId" />
+
+                <div id="studentsContainer">
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        <partial name="_StudentRow" for="@Model" />
+                    }
+                </div>
+                <hr>
+                <div class="form-group row mt-2">
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> &nbsp; Save
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/edit-adviser-students.js" asp-append-version="true"></script>
+}
+

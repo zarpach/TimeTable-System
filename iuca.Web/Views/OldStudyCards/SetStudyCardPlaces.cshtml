@@ -1,0 +1,119 @@
+﻿@model IEnumerable<StudyCardPlacesViewModel>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Количество мест для объявленных курсов</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text-success">@TempData["SuccessResult"]</h3>
+            <h3 class="text-danger">@TempData["FailResult"]</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <form method="get" asp-action="SetStudyCardPlaces">
+        <div class="row mt-3">
+            <div class="col-12 p-0">
+                <div class="form-group row mb-1">
+                    <div class="col-1">
+                        <label>Год:</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control" name="year" value="@ViewBag.Year" />
+                    </div>
+                    <div class="col-1">
+                        <label>Сезон:</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="hidden" class="form-control" name="year" value="@ViewBag.Season" />
+                        <select class="form-control dropdown" name="season" as asp-items="@enu_Season.Fall.ToSelectList((int)ViewBag.Season)">
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter"></i> &nbsp; Показать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <hr>
+
+    <form method="post" asp-action="SetStudyCardPlaces">
+        <input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+        <div class="row pt-2">
+            <div class="col-12 p-0">
+                @if (Model.Count() > 0)
+                {
+                    <table class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Курс</th>
+                                <th>Код</th>
+                                <th>Кредиты</th>
+                                <th>Преподаватель</th>
+                                <th>Кол-во мест</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var studyCardCourse in Model)
+                            {
+                                num++;
+                                <tr>
+                                    <td>@num</td>
+                                    <td>
+                                        @studyCardCourse.CyclePartCourse.Course.Name
+                                    </td>
+                                    <td>
+                                        @studyCardCourse.CyclePartCourse.Course.Number
+                                    </td>
+                                    <td>
+                                        @studyCardCourse.CyclePartCourse.Points
+                                    </td>
+                                    <td>
+                                        @(studyCardCourse.InstructorName)
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="[@(num-1)].CyclePartCourse.CourseId" value="@studyCardCourse.CyclePartCourse.CourseId" />
+                                        <input type="hidden" name="[@(num-1)].InstructorUserId" value="@(studyCardCourse.InstructorUserId)" />
+                                        <input type="number" class="form-control" name="[@(num-1)].Places" value="@studyCardCourse.Places" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Нет объявленных курсов</p>
+                }
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12 p-0 text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> &nbsp; Сохранить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+

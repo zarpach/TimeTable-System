@@ -1,0 +1,40 @@
+﻿@using iuca.Application.Interfaces.Users.Instructors
+@using iuca.Application.Interfaces.Common
+
+@model List<OldStudyCardCourseDTO>
+
+
+@inject IInstructorInfoService instructorInfoService;
+@inject IOrganizationService organizationService
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+@for (int i = 0; i < Model.Count; i++)
+{
+<tr class="@(Model[i].IsVacancy ? "red-colored" : "")">
+    <td><span class="courseNum">@(++num)</span></td>
+    <td>@Model[i].CyclePartCourse.Course.NameRus (@Model[i].CyclePartCourse.Course.NameEng)</td>
+    <td>@Model[i].CyclePartCourse.Course.Abbreviation</td>
+    <td><span class="pts">@Model[i].CyclePartCourse.Points</span></td>
+    <td>
+        <select class="form-control dropdown"  name="[@i].InstructorUserId" 
+                asp-items="@instructorInfoService.GetInstructorSelectList(Model[i].InstructorUserId, organizationService.GetSelectedOrganization(User))">
+            <option></option>
+        </select>
+    </td>
+    <td class="text-center">
+        <input type="checkbox" name="[@i].IsVacancy" value="@(Model[i].IsVacancy ? "true" : "false")" @(Model[i].IsVacancy ? "checked" : "") onchange="this.value = this.checked;"/>
+    </td>
+    <td class="text-right">
+        <input type="hidden" name="[@i].CyclePartCourseId" value="@Model[i].CyclePartCourseId" />
+        <input type="hidden" name="[@i].StudyCardId" value="@Model[i].OldStudyCardId" />
+        <button type="button" class="btn btn-danger" name="removeCoursesBtn" title="Удалить курс">
+            <i class="fas fa-times"></i>
+        </button>
+    </td>
+</tr>
+}
+

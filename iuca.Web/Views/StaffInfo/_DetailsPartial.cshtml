@@ -1,0 +1,23 @@
+﻿@model StaffInfoDetailsViewModel
+
+<div class="form-group row">
+    <div class="col-3 text-right">
+        <label class="label-info">Full Name Eng:</label>
+    </div>
+    <div class="col-9">
+        <label>@Model.FullNameEng</label>
+    </div>
+</div>
+@if (@Model.StaffBasicInfo != null)
+{
+    <div class="form-group row">
+        <div class="col-3 text-right">
+            <label class="label-info">Staff Info:</label>
+        </div>
+        <div class="col-9">
+            <label>@Model.StaffBasicInfo.StaffInfo</label>
+        </div>
+    </div>
+}
+
+

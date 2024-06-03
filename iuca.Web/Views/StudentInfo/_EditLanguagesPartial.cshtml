@@ -1,0 +1,33 @@
+﻿@using iuca.Application.Interfaces.Common
+
+@model StudentLanguageDTO
+
+@inject ILanguageService languageService;
+
+@{
+    Layout = null;
+}
+
+<div class="row mb-3">
+    <input type="hidden" name="StudentBasicInfo.StudentLanguages[0].StudentBasicInfoId" id="StudentBasicInfo.StudentLanguages.StudentBasicInfoId"  value="@Model.StudentBasicInfoId" />
+    <div class="col-lg-6 col-12">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="Language"></label>
+            </div>
+            <div class="col-7">
+                <select class="form-control dropdown"  name="StudentBasicInfo.StudentLanguages[0].LanguageId" 
+                    id="StudentBasicInfo.StudentLanguages.LanguageId"
+                        asp-items="@languageService.GetLanguageSelectList(Model.LanguageId)">
+                </select>
+            </div>
+            <div class="col-2 text-right">
+                <button type="button" class="btn btn-danger" id="removeLanguageBtn" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+
+</div>

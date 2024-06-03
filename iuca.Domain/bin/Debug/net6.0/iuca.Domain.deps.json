@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "iuca.Domain/1.0.0": {
+        "runtime": {
+          "iuca.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "iuca.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ProposalDTO>
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>Proposal management</h2>
+            <span class="text-danger">
+                @TempData["ProposalError"]
+            </span>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+
+                        <form method="get" asp-action="ManageProposals">
+                            <div class="col-lg-auto col-12">
+                                <div class="row">
+                                    <div class="col-lg-auto col-12">
+                                        <select class="form-control shadow-none" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var proposal in Model)
+                        {
+                            num++;
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-8 col-12">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-8">
+                                                <span class="text-gray">#@num</span> @proposal.Semester.SeasonYear
+                                            </div>
+
+                                            <div class="col-lg-2 col-4">
+                                                <strong>@proposal.Department.Code</strong>
+                                            </div>
+
+                                            <div class="col-lg-6 col-12 mt-lg-0 mt-2">
+                                                <div class="row">
+                                                    <div class="col-4 text-success">
+                                                        <em>
+                                                            Approved: @proposal.ProposalCourses.Count(x => x.Status == (int)enu_ProposalCourseStatus.Approved)
+                                                        </em>
+                                                    </div>
+                                                    <div class="col-4 text-danger">
+                                                        <em>
+                                                            Rejected: @proposal.ProposalCourses.Count(x => x.Status == (int)enu_ProposalCourseStatus.Rejected)
+                                                        </em>
+                                                    </div>
+                                                    <div class="col-4 text-gray">
+                                                        <em>
+                                                            Total: @proposal.ProposalCourses.Count(x => !(x.Status == (int)enu_ProposalCourseStatus.New))
+                                                        </em>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-12 mt-lg-0 mt-4 text-right">
+                                        <button type="button" class="btn btn-success shadow-none" name="approveProposalCoursesBtn" value="@proposal.Id">
+                                            <i class="fas fa-check"></i> Approve all pending (<span class="countToSubmit">@proposal.ProposalCourses.Count(x => x.Status == (int)enu_ProposalCourseStatus.Pending)</span>)
+                                        </button>
+                                        <a class="btn bg-blue text-white shadow-none" asp-action="ManageDetails" asp-route-id="@proposal.Id"
+                                           asp-route-searchSemesterId="@ViewBag.SemesterId">
+                                            <i class="fas fa-file-alt"></i> Courses
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No proposals</p>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/proposals.js" asp-append-version="true"></script>
+
+}

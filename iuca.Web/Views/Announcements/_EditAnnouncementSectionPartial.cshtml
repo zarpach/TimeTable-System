@@ -1,0 +1,125 @@
+﻿@model AnnouncementSectionDTO
+
+@{
+    Layout = null;
+}
+
+<li class="list-group-item striped-row">
+
+    <input type="hidden" asp-for="Id" name="AnnouncementSections[0].Id" />
+    <input type="hidden" asp-for="AnnouncementId" name="AnnouncementSections[0].AnnouncementId" />
+
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="row pt-2">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>№ <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control shadow-none min-width-30" asp-for="Section" name="AnnouncementSections[0].Section" />
+                            <span asp-validation-for="Section" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Credits <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control shadow-none min-width-30" asp-for="Credits" name="AnnouncementSections[0].Credits" />
+                            <span asp-validation-for="Credits" data-valmsg-for="AnnouncementSections[0].Credits" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Places <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control shadow-none min-width-30" asp-for="Places" name="AnnouncementSections[0].Places" />
+                            <span asp-validation-for="Places" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 pt-2">
+            <div class="row">
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Schedule</label>
+                        </div>
+                        <div class="col-12">
+                            <input class="form-control shadow-none" asp-for="Schedule" name="AnnouncementSections[0].Schedule" />
+                            <span asp-validation-for="Schedule" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 text-right">
+                    <div class="col-12">
+                        <label><br/></label>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-danger" id="removeAnnouncementSectionBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-12 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label>Instructor<span class="text-danger">*</span></label>
+                </div>
+                <div class="col-12">
+                    <select class="form-control shadow-none" asp-for="InstructorUserId" name="AnnouncementSections[0].InstructorUserId" asp-items="@ViewBag.InstructorIds">
+                        <option value=""></option>
+                    </select>
+                    <span asp-validation-for="InstructorUserId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label>Extra instructors</label>
+                </div>
+                <div class="col-12">
+                    <select class="form-control selectpicker" data-style="border-gray shadow-none"
+                            asp-for="ExtraInstructorsJson" name="AnnouncementSections[0].ExtraInstructorsJson" asp-items="@ViewBag.InstructorIds">
+                    </select>
+                    <span asp-validation-for="ExtraInstructorsJson" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-12 pt-2">
+            <div class="row">
+                <div class="col-12">
+                    <label>Groups</label>
+                </div>
+                <div class="col-12">
+                    <select class="form-control selectpicker" data-style="border-gray shadow-none" data-live-search="true"
+                            data-container="body"
+                            asp-for="GroupsJson" name="AnnouncementSections[0].GroupsJson" asp-items="@ViewBag.DepartmentGroups">
+                    </select>
+                    <span asp-validation-for="GroupsJson" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 pt-2">
+        </div>
+    </div>
+
+</li>

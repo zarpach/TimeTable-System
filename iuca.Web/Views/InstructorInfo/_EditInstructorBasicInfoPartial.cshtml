@@ -1,0 +1,44 @@
+﻿@model InstructorBasicInfoDTO
+
+<form method="post" id="instructorBasicInfoForm" name="instructorBasicInfoForm" asp-controller="InstructorInfo"
+    asp-action="EditInstructorBasicInfo" data-ajax="true" data-ajax-update="#instructorBasicInfoForm" data-ajax-mode="replace"
+        data-ajax-success="instructorBasicInfoUpdated()">
+    <input type="hidden" asp-for="InstructorUserId" />
+    <input type="hidden" name="Id" value="@(Model == null ? "0" : Model.Id)" id="dbInstructorBasicInfoId"/>
+
+    <div class="border rounded p-2 m-1 row">
+        <div class="col-12 pt-2">
+            <h4 class="text-uppercase">Instructor Basic Info 
+                <span class="red-colored">@TempData["ErrorMessage"]</span> 
+                <span class="green-colored">@TempData["SuccessMessage"]</span> 
+            </h4>
+        </div>
+        <div class="col-12">
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input type="checkbox" asp-for="IsMarried" />
+                    <label asp-for="IsMarried"></label>
+                </div>
+            </div>
+            <hr class="m-2 mb-3">
+            <div class="form-group row">
+                <div class="col-lg-3 col-12 text-lg-right text-left">
+                    <label asp-for="ChildrenQty" class="form-label"></label>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <input asp-for="ChildrenQty" class="form-control" />
+                    <span asp-validation-for="ChildrenQty" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+            
+        <div class="col-12 text-right mb-2">
+            <button type="submit" id="saveInstructorBasicInfoBtn" class="btn btn-primary">
+                <i class="fas fa-save"></i>&nbsp; Save
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,29 @@
+﻿@model SlotOptionsViewModel
+
+@{
+    ViewBag.Title = "Print Options";
+}
+
+<h2>Генерация PDF</h2>
+
+<form asp-action="Print">
+    <div class="form-group">
+        <label for="SelectedSemesterIds">Семестр</label>
+        <select id="printSemester" asp-for="SelectedSemesterIds" class="form-control" asp-items="@ViewBag.Semesters" multiple="multiple"></select>
+    </div>
+    <div class="form-group">
+        <label for="SelectedDepartmentIds">Департамент</label>
+        <select id="printDepartment" asp-for="SelectedDepartmentIds" class="form-control" asp-items="@ViewBag.Departments" multiple="multiple"></select>
+    </div>
+    <div class="form-group">
+        <label for="SelectedGroupIds">Группа</label>
+        <select id="printGroup" asp-for="SelectedGroupIds" class="form-control" asp-items="@ViewBag.Groups" multiple="multiple"></select>
+    </div>
+    <div class="form-group">
+        <label for="SelectedDayOfWeekIds">День недели</label>
+        <select id="printDaysOfWeek" asp-for="SelectedDayOfWeekIds" class="form-control" asp-items="@ViewBag.DaysOfWeek" multiple="multiple"></select>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+        <i class="fas fa-download"></i> &nbsp; Скачать PDF
+    </button>
+</form>

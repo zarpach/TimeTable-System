@@ -1,0 +1,96 @@
+﻿@model StudentMidtermViewModel
+
+@{
+    var formId = "studentMidtermForm" + ViewData["Num"];
+    bool isPeriodEnabled = ViewBag.IsPeriodEnabled != null && ViewBag.IsPeriodEnabled;
+}
+
+<form method="post" id="@formId" name="@formId" asp-controller="StudentMidterms"
+      asp-action="SaveStudentMidterm" data-ajax="true" data-ajax-update="#@formId" data-ajax-mode="replace" data-ajax-failure="alert('Saving failed')">
+    <input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+    <input type="hidden" name="num" value="@ViewData["Num"]" />
+    <input type="hidden" name="StudentMidterm.StudentCourseId" value="@Model.StudentMidterm.StudentCourseId" />
+    <input type="hidden" name="StudentMidterm.Id" value="@Model.StudentMidterm.Id" />
+    <input type="hidden" name="StudentName" value="@Model.StudentName" />
+    <input type="hidden" name="StudentStatus" value="@Model.StudentStatus" />
+    <input type="hidden" name="StudentId" value="@Model.StudentId" />
+    <input type="hidden" name="StudentMajor" value="@Model.StudentMajor" />
+    <input type="hidden" name="StudentGroup" value="@Model.StudentGroup" />
+
+    <div class="align-items-center">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        <div class="row midtermItem">
+            <div class="col-lg-6 col-12 my-1">
+                <div class="row">
+                    <div class="col-12">
+                        <b>@ViewData["Num"].</b> @Model.StudentName
+                    </div>
+                    <div class="col-4 mt-2">
+                        <b>ID:</b> @Model.StudentId
+                    </div>
+                    <div class="col-5 mt-2">
+                        <b>@Model.StudentMajor @Model.StudentGroup</b> (@Model.StudentStatus)
+                    </div>
+                    <div class="col-3 mt-2 text-lg-right">
+                        <span class="text-secondary">
+                            <span class="gradePercent">@(Model.StudentMidterm.MaxScore > 0 ? Model.StudentMidterm.Score * 100 / Model.StudentMidterm.MaxScore : 0)</span>%
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6 my-1">
+                <label class="form-label">Score (today)</label>
+                <input type="number" class="form-control" name="StudentMidterm.Score" value="@Model.StudentMidterm.Score" />
+                <span asp-validation-for="StudentMidterm.Score" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2 col-6 my-1">
+                <label class="form-label">Max Score (today)</label>
+                <input type="number" class="form-control" name="StudentMidterm.MaxScore" value="@Model.StudentMidterm.MaxScore" />
+                <span asp-validation-for="StudentMidterm.MaxScore" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2 col-6 my-1">
+                <label class="cursor-pointer">
+                    <input class="cursor-pointer" type="checkbox" name="StudentMidterm.Attention" value="@(Model.StudentMidterm.Attention ? "true" : "false")"
+                    @(Model.StudentMidterm.Attention ? "checked" : "") onchange="this.value = this.checked;" ) />
+                    Attention
+                </label>
+                <button class="btn btn-primary btn-block my" name="saveGradeBtn"
+                @(isPeriodEnabled ? "" : "disabled")>
+                    Save
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <label class="form-label">Comment for Student</label>
+                <textarea class="form-control" name="StudentMidterm.Comment">@Model.StudentMidterm.Comment</textarea>
+                <span asp-validation-for="StudentMidterm.Comment" class="text-danger"></span>
+            </div>
+            <div class="col-lg-6 col-12">
+                <label class="form-label">Comment for Adviser</label>
+                <textarea class="form-control" name="StudentMidterm.Recommendation">@Model.StudentMidterm.Recommendation</textarea>
+                <span asp-validation-for="StudentMidterm.Recommendation" class="text-danger"></span>
+            </div>
+        </div>
+        @if (Model.StudentMidterm.AdviserComment != null)
+        {
+            <div class="row pt-2">
+                <div class="col-12">
+                    <label class="form-label">Adviser comment</label> <br/>
+                    <textarea class="form-control" disabled rows="1">@Model.StudentMidterm.AdviserComment</textarea>
+                </div>
+            </div>
+        }
+    </div>
+</form>

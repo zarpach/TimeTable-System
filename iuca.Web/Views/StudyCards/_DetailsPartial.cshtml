@@ -1,0 +1,70 @@
+﻿@model StudyCardDTO
+
+@{
+    var num = 0;
+}
+
+<div class="row pt-lg-0 pt-2">
+    <div class="col-12">
+
+        <div class="card">
+            <ul class="list-group list-group-flush" id="studyCardCourseContainer">
+                @if (Model.StudyCardCourses != null && Model.StudyCardCourses.Any())
+                {
+                    @foreach (var studyCardCourse in Model.StudyCardCourses)
+                    {
+                        <li class="list-group-item">
+                            @if (!studyCardCourse.AnnouncementSection.Announcement.IsActivated)
+                            {
+                                <div class="alert alert-danger">
+                                    <h6>Deactivated</h6>
+                                </div>
+                            }
+                            <div class="row align-items-center">
+
+                                <div class="col-lg-8 col-12">
+                                    <span class="text-gray">#@(++num)</span>
+                                    @studyCardCourse.AnnouncementSection.Course.NameEng | @studyCardCourse.AnnouncementSection.Course.NameRus (@studyCardCourse.AnnouncementSection.Section)
+                                </div>
+                                <div class="col-lg-4 col-12">
+                                    <div class="row pt-4 pt-lg-0">
+                                        <div class="col-12">
+                                            <div class="form-group text-gray">
+                                                Comment: @studyCardCourse.Comment
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-12 pt-2">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <strong>@(studyCardCourse.AnnouncementSection.Course.Abbreviation + " " + studyCardCourse.AnnouncementSection.Course.Number)</strong>
+                                        </div>
+                                        <div class="col-4">
+                                            ID <strong>@studyCardCourse.AnnouncementSection.Course.ImportCode</strong>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong>@studyCardCourse.AnnouncementSection.Credits</strong> credits
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12 text-lg-right pt-2">
+                                    @studyCardCourse.AnnouncementSection.InstructorUserName
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <p class="pt-3 text-danger">Courses for the study card have not been added yet</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>

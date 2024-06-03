@@ -1,0 +1,144 @@
+﻿@using iuca.Application.Enums;
+@using iuca.Infrastructure.Identity;
+
+@model List<StudentCourseTempDTO>
+@inject ApplicationUserManager<ApplicationUser> _userManager
+
+@{
+    var num = 0;
+}
+
+<div class="container p-0">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Midterm student report</h3>
+        </div>
+    </div>
+
+    <hr>
+
+    <form asp-action="MidtermStudentReport" method="get">
+        <div class="row">
+            <div class="col-lg-3 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control dropdown" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-12">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Student:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="selectpicker form-control" data-style="border-gray shadow-none" data-width="100%"
+                                data-live-search="true" data-actions-box="true"
+                                name="studentUserId" asp-items="@ViewBag.Students">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Course ID:</label>
+                    </div>
+                    <div class="col-12">
+                        <input type="number" class="form-control" name="courseId" value="@ViewBag.CourseId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Show</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-group list-group-flush mt-3">
+        @foreach (var course in Model)
+        {
+            num++;
+            <li class="list-group-item striped-row">
+                <div class="row">
+                    <div class="col-lg-7 col-12">
+                        @num. <b>@course.AnnouncementSection.Course.Abbreviation @course.AnnouncementSection.Course.Number</b>
+                        @course.AnnouncementSection.Course.Name (@course.AnnouncementSection.Section)
+                    </div>
+                    <div class="col-lg-5 col-12 pt-lg-0 pt-2">
+                        <div class="row">
+                            <div class="col-3">
+                                <b>ID: @course.AnnouncementSection.Course.ImportCode</b>
+                            </div>
+                            <div class="col-9 text-right">
+                                <b>@_userManager.GetUserFullName(course.AnnouncementSection.InstructorUserId)</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="m-1"/>
+                @if (course.StudentMidterm != null)
+                {
+                    <div class="row">
+                        <div class="col-lg-7 col-12 pt-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    @if (course.StudentMidterm.Attention)
+                                    {
+                                        <i class="fas fa-exclamation-circle text-warning"></i>
+                                    }
+                                    <b>@(course.StudentMidterm.MaxScore > 0 ? course.StudentMidterm.Score * 100 / course.StudentMidterm.MaxScore : 0)%</b>
+                                </div>
+                                <div class="col-5">
+                                    <span class="text-secondary">Score:</span> <b>@course.StudentMidterm.Score/@course.StudentMidterm.MaxScore</b>
+                                </div>
+                            </div>
+                            <div class="row pt-4">
+                                <div class="col-12">
+                                    <span class="text-secondary font-italic">Comment for Student:</span> @course.StudentMidterm.Comment
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-secondary font-italic">Comment for Adviser:</span> @course.StudentMidterm.Recommendation
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-12 pt-2">
+                            <div class="row">
+                                <div class="col-6 d-flex align-items-end">
+                                    <label class="form-label">Adviser comment</label>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <button type="button" class="btn text-white bg-blue mb-2 shadow-none" value="@course.StudentMidterm.Id" onclick="saveAdviserComment(this)">
+                                        <i class="fas fa-save"></i> Save
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <textarea class="form-control shadow-none" id="adviserComment_@(course.StudentMidterm.Id)">@course.StudentMidterm.AdviserComment</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/student-midterms.js" asp-append-version="true"></script>
+
+}

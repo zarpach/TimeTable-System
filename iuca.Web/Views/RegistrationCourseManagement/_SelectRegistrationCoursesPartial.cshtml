@@ -1,0 +1,62 @@
+﻿@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity
+
+@model List<RegistrationCourseDTO>
+
+@inject ApplicationUserManager<ApplicationUser> userManager;
+
+@{
+    Layout = null;
+    int num = 0;
+}
+<div class="modal fade" id="selectRegistrationCourse">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Select Registration Course</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div style="max-height: 500px; overflow: auto;">
+                    <table class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Course name</th>
+                                <th>Code</th>
+                                <th>Id</th>
+                                <th>Cred</th>
+                                <th>Instructor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registrationCourse in Model)
+                            {
+                                <tr>
+                                    <td>@(++num)</td>
+                                    <td>@registrationCourse.Course.NameEng / @registrationCourse.Course.NameRus / @registrationCourse.Course.NameKir (@registrationCourse.Section)</td>
+                                    <td>@(registrationCourse.Course.Abbreviation + registrationCourse.Course.Number)</td>
+                                    <td>@registrationCourse.Course.ImportCode</td>
+                                    <td>@registrationCourse.Points</td>
+                                    <td>@userManager.GetUserFullName(registrationCourse.InstructorUserId)</td>
+                                    <td class="text-center">
+                                        <input type="hidden" name="registrationCourseId" value="@registrationCourse.Id" />
+                                        <input type="hidden" name="isFrom" value="@(ViewBag.IsFrom ? "true" : "false")"/>
+                                        <button type="button" class="btn btn-primary" name="selectCourseBtn">Select</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

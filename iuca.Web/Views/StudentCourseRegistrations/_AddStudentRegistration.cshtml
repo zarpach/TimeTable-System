@@ -1,0 +1,44 @@
+﻿@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity
+
+@model List<StudentInfoBriefViewModel>
+
+
+@{
+    Layout = null;
+    int num = 0;
+}
+<div class="modal fade" id="selectRegistrationCourse">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add student registration</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div style="max-height: 500px; overflow: auto;">
+                        @foreach (var student in Model)
+                        {
+                            <div class="row adaptive-row p-2">
+                                <div class="col-6">
+                                    @(++num). <b>@student.FullNameEng</b>
+                                </div>
+                                <div class="col-lg-2 col-6">@student.State</div>
+                                <div class="col-lg-2 col-6">@student.DepartmentGroup</div>
+                                <div class="col-lg-2 col-6 text-right">
+                                    <input type="hidden" name="studentUserId" value="@student.StudentUserId" />
+                                    <button type="button" class="btn btn-primary" name="addRegistrationBtn">Add</button>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

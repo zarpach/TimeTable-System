@@ -1,0 +1,36 @@
+﻿@model ProposalCourseDTO
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="editInstructors">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Edit instructors for <strong>@Model.Course.NameEng</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+
+                <partial name="_EditInstructorsFormPartial" for="@Model" />
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-blue text-white shadow-none" id="addProposalInstructorBtn">
+                    <i class="fas fa-plus"></i> Add instructor
+                </button>
+                <button type="submit" class="btn btn-info shadow-none" form="editProposalForm">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>

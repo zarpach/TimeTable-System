@@ -1,0 +1,154 @@
+﻿@model IEnumerable<StudentAttendanceDetailsViewModel>
+@using Newtonsoft.Json;
+@using iuca.Application.Enums;
+
+@{
+    Layout = null;
+
+    var num = 0;
+
+    var uniqueDates = Model.SelectMany(x => x.CourseAttendance).Select(x => x.Date).Distinct().OrderBy(x => x.Date);
+
+    var chartData = Model
+    .SelectMany(x => x.CourseAttendance, (x, y) => new DateAttendanceViewModel
+    {
+        Date = y.Date,
+        TotalClasses = y.TotalClasses,
+        BlankOrLateClasses = y.BlankOrLateClasses
+    })
+    .Where(x => x.Date != DateTime.MinValue) // Исключаем записи с недействительными датами
+    .GroupBy(x => x.Date)
+    .Select(x => new DateAttendanceViewModel
+        {
+            Date = x.Key,
+            TotalClasses = x.Sum(y => y.TotalClasses),
+            BlankOrLateClasses = x.Sum(y => y.BlankOrLateClasses)
+        })
+        .OrderBy(x => x.Date)
+        .ToList();
+}
+
+<div class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">@ViewBag.StudentName</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 p-4 table-responsive">
+
+                        @if (Model != null && Model.Any())
+                        {
+                            <table class="table table-bordered table-striped small">
+                                <thead class="text-nowrap">
+                                    <tr>
+                                        <th>№</th>
+                                        <th class="text-break">Title</th>
+                                        <th class="text-break">ID</th>
+                                        <th class="text-break">syllabus grade</th>
+                                        <th class="text-break">attendance %</th>
+                                        @foreach (var uniqueDate in uniqueDates)
+                                        {
+                                            <th>@uniqueDate.ToString("dd.MM, ddd")</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody class="text-nowrap">
+                                    @foreach (var course in Model)
+                                    {
+                                        <tr>
+                                            <td scope="row">@(++num)</td>
+                                            <td class="col-auto">@course.Course.NameEng</td>
+                                            <td class="col-1 font-weight-bold">@course.Course.ImportCode</td>
+                                            <td class="col-1">
+                                                @if (course.AttendanceWeightedGrade != 0)
+                                                {
+                                                    <span class="font-weight-bold">@course.AttendanceWeightedGrade %</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>none</span>
+                                                }
+                                            </td>
+                                            <td class="col-1">
+                                                @{
+                                                    string courseAttendancePercentageColor = "text-danger";
+
+                                                    if (course.CourseAttendancePercentage >= 80)
+                                                        courseAttendancePercentageColor = "text-success";
+                                                    else if (course.CourseAttendancePercentage >= 60)
+                                                        courseAttendancePercentageColor = "text-warning";
+                                                    else if (course.CourseAttendancePercentage < 30)
+                                                        courseAttendancePercentageColor = "text-danger font-weight-bold";
+
+                                                    <span class="@courseAttendancePercentageColor">@course.CourseAttendancePercentage.ToString("0.##")%</span>
+                                                }
+                                            </td>
+                                            @if (course.CourseAttendance != null && course.CourseAttendance.Any())
+                                            {
+                                                foreach (var uniqueDate in uniqueDates)
+                                                {
+                                                    var attendanceClass = course.CourseAttendance.FirstOrDefault(x => x.Date == uniqueDate);
+
+                                                    <td class="col-1">
+                                                        @if (attendanceClass != null)
+                                                        {
+                                                            foreach (var mark in attendanceClass.Marks)
+                                                            {
+                                                                var markColor = "text-warning";
+
+                                                                if (mark == (int)enu_AttendanceMark.blank)
+                                                                    markColor = "text-success";
+                                                                else if (mark == (int)enu_AttendanceMark.abs)
+                                                                    markColor = "text-danger";
+                                                                else if (mark == (int)enu_AttendanceMark.na || mark == (int)enu_AttendanceMark.undefined)
+                                                                    markColor = "text-secondary";
+
+                                                                <span class="@markColor">@(EnumExtentions.GetDisplayName((enu_AttendanceMark)mark))<br /></span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <text>
+                                No attendance :(
+                            </text>
+                        }
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-right">
+
+                        <button class="btn btn-link" style="text-decoration: none !important" onclick="drawChart(@JsonConvert.SerializeObject(chartData))">
+                            <i class="fas fa-chart-area"></i> Graphics
+                        </button>
+
+                        <div id="chart_div" class="d-none" style="width: 100%; height: 300px;"></div>
+
+                        <div id="percentage_chart_div" class="d-none" style="width: 100%; height: 300px;"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

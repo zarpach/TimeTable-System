@@ -1,0 +1,127 @@
+﻿@model IEnumerable<CourseDTO>
+@using iuca.Application.Enums
+
+@{
+    Layout = null;
+    int num = 0;
+}
+
+<div class="modal fade" id="selectCourses">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Courses</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-header flex-column">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Department:</label>
+                            </div>
+                            <div class="col-12">
+                                <select class="form-control shadow-none" id="departments" asp-items="@ViewBag.Departments">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Course ID:</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" id="searchByIdText" class="form-control shadow-none" placeholder="Course ID" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-12 input-group">
+                        <input type="text" id="searchCoursesText" class="form-control shadow-none zero-border-right" placeholder="Code or name of the course" />
+                        <div class="input-group-append p-0">
+                            <button type="button" id="clearSearchCoursesBtn" class="btn gray-border-top gray-border-bottom text-gray shadow-none">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="input-group-append">
+                            <button type="button" id="searchCoursesBtn" class="btn bg-blue text-white shadow-none btn-block">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                
+                <input type="hidden" id="semesterForCourses" value="@ViewBag.SemesterId" />
+                <input type="hidden" id="departmentGroupForCourses" value="@ViewBag.DepartmentGroupId" />
+
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        @if (Model.Count() > 0)
+                        {
+                            @foreach (var course in Model)
+                            {
+                                num++;
+                                <li class="list-group-item search-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-10">
+                                            <span class="text-gray">#@num </span>
+                                            @course.NameEng | @course.NameRus | @course.NameKir 
+                                            <em class="text-gray">(@course.Language.NameEng)</em>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group text-right">
+                                                <input class="big-checkbox" type="checkbox" id="selectCoursesCheckbox" value="@course.Id" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 pt-2">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <strong>@(course.Abbreviation + " " + course.Number)</strong>
+                                                </div>
+                                                <div class="col-3">
+                                                    ID <strong class ="searchCourseId">@course.ImportCode</strong>
+                                                </div>
+                                                <div class="col-3">
+                                                    <span class="departmentCode">@course.Department.Code</span>
+                                                </div>
+                                                <div class="col-3">
+                                                    @(EnumExtentions.GetDisplayName((enu_CourseType)course.CourseType))
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <p class="pt-3">No courses</p>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gray text-white shadow-none" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bg-blue text-white shadow-none" id="addSelectedCoursesBtn">Add</button>
+            </div>
+
+        </div>
+    </div>
+</div>

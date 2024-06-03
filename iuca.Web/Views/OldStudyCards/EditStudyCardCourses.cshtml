@@ -1,0 +1,95 @@
+﻿@using iuca.Application.Enums
+
+@model OldStudyCardDTO
+
+@{ 
+    enu_Season season = (enu_Season)Model.Semester.Season;
+}
+
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <a asp-action="Index" asp-route-departmentGroupId="@ViewBag.DepartmentGroupId" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <h3 class="text-uppercase">Редактировать курсы Study card</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row font-weight-bold">
+        <div class="col-3">
+            Семестр (Semester): @(Html.DisplayFor(x => season))
+        </div>
+        <div class="col-3">
+            Год (Year): @Model.Semester.Year
+        </div>
+        <div class="col-3">
+            Группа (Group): @Model.DepartmentGroup.DepartmentCode
+        </div>
+        <div class="col-3 p-0 text-right">
+            <input type="hidden" name="year" value="@Model.Semester.Year" />
+            <input type="hidden" name="season" value="@Model.Semester.Season" />
+            <input type="hidden" name="departmentGroupId" value="@Model.DepartmentGroup.Id" />
+            <input type="hidden" name="studyCardId" value="@Model.Id" />
+
+            <button type="button" id="selectCoursesBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Добавить курсы
+            </button>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            <form method="post" asp-action="EditStudyCardCourses">
+                <input type="hidden" name="studyCardId" value="@Model.Id" />
+                <input type="hidden" name="departmentGroupId" value="@ViewBag.DepartmentGroupId" />
+                <table class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">№</th>
+                            <th class="text-center">Курсы</th>
+                            <th class="text-center">Код</th>
+                            <th class="text-center">Кред</th>
+                            <th class="text-center">Фамилия преподав.</th>
+                            <th class="text-center">Вакансия</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="courseContainer">
+
+                        @if (Model != null && Model.OldStudyCardCourses != null)
+                        {
+                            <partial name="_CourseRow" for="@Model.OldStudyCardCourses" />
+                        }
+                    </tbody>
+                    <tr class="font-weight-bold">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="totalPoints">@Model.OldStudyCardCourses.Sum(x => x.CyclePartCourse.Points)</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <div class="form-group row mb-0">
+                    <div class="col-12 p-0 row">
+                        <div class="col-12 p-0 text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> &nbsp; Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/edit-old-study-card.js" asp-append-version="true"></script>
+} 

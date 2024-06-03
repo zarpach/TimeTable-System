@@ -1,0 +1,92 @@
+﻿@using iuca.Application.Enums;
+@model List<InstructorCourseStudentViewModel>
+
+@{
+    int num = 0;
+    bool onlyActiveStudents = ViewBag.OnlyActiveStudents != null && ViewBag.OnlyActiveStudents;
+}
+
+<div class="container p-0">
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="row">
+                <div class="col-6">
+                    <a asp-action="Index" asp-route-semesterId="@ViewBag.SemesterId"
+                       asp-route-instructorUserId="@ViewBag.InstructorUserId" class="btn bg-gray text-white"><i class="fas fa-reply"></i> &nbsp; Back</a>
+                </div>
+                <div class="col-6 text-right">
+                    <div class="row">
+                        <div class="col-6">
+                            <form method="get" action="InstructorCourseStudents">
+                                <input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+                                <input type="hidden" name="announcementSectionId" value="@ViewBag.AnnouncementSectionId" />
+                                <label>
+                                    <input type="checkbox" name="onlyActiveStudents" value="@(onlyActiveStudents ? "true" : "false")"
+                                    @(onlyActiveStudents ? "checked" : "") onchange="this.value = this.checked; this.form.submit();" />
+                                    Только активные
+                                </label>
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="InstructorCourseStudentsPrint" asp-route-announcementSectionId="@ViewBag.AnnouncementSectionId"
+                               asp-route-onlyActiveStudents="@onlyActiveStudents.ToString()" 
+                                class="btn btn-primary" target="_blank">
+                                <i class="fas fa-print"></i> Print
+                            </a>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-4">
+            <h5>Course ID: <b>@ViewBag.CourseId</b>, Section: <b>@ViewBag.CourseSection</b></h5>
+            <h5><b>@ViewBag.CourseCode</b> @ViewBag.CourseName </h5>
+        </div>
+    </div>
+    <hr />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Group</th>
+                    <th>Status</th>
+                    <th>Reg. state</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    num++;
+                    <tr class="@(student.StudentStatus == enu_StudentState.Dismissed.ToString() ? "table-danger" : "")">
+                        <td>@num</td>
+                        <td>@student.StudentId</td>
+                        <td>@student.StudentName</td>
+                        <td>@($"{student.StudentMajor}{student.StudentGroup}")</td>
+                        <td>@student.StudentStatus</td>
+                        <td>
+                            @if (student.RegistrationState == enu_RegistrationState.Submitted)
+                            {
+                                <text>Ok</text>
+                            }
+                            else
+                            {
+                                <span class="text-danger">@student.RegistrationState</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No students</p>
+    }
+
+</div>

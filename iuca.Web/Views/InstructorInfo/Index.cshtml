@@ -1,0 +1,126 @@
+﻿@using iuca.Application.Enums
+@model List<InstructorInfoBriefViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Instructors</h3>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-7 col-12">
+            <form method="get" asp-action="Index">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Department:</label>
+                            </div>
+                            <div class="col-12">
+                                <select class="form-control dropdown" name="departmentId" id="departmentId" asp-items="@ViewBag.Departments">
+                                    <option value="">Not selected</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Instructor state:</label>
+                            </div>
+                            <div class="col-12">
+                                <select class="form-control dropdown" name="state" id="state" asp-items="@ViewBag.InstructorStates">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>&nbsp;</label>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            
+        </div>
+        <div class="col-lg-5 col-12 text-lg-right">
+            <button class="btn btn-primary" id="refreshInstructorStatesBtn">Refresh states</button>
+            <button type="button" id="importInstructorsBtn" class="btn btn-primary">
+                <i class="fas fa-sync-alt"></i> &nbsp;Import instructors
+            </button>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.Count > 0)
+            {
+                
+                        @foreach (var instructorInfo in Model)
+                        {
+                            num++;
+                            <div class="row adaptive-row p-2">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">@num</div>
+                                        <div class="col-lg-4 col-6"><b>@instructorInfo.FullNameEng</b></div>
+                                        <div class="col-lg-3 col-4 text-break">@instructorInfo.Email</div>
+                                        <div class="col-lg-1 col-3"><b>@instructorInfo.Department</b></div>
+                                        <div class="col-lg-1 col-3 @(instructorInfo.State != enu_InstructorState.Active ? "red-bg" : "")">
+                                            <b>@instructorInfo.State</b>
+                                        </div>
+                                        <div class="col-lg-2 col-5 text-right @(instructorInfo.ImportCode != 0 ? "" : "yellow-bg")">
+                                            Import code: <b><span class="importCode">@instructorInfo.ImportCode</span></b>
+                                            </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12 text-right">
+                                            <div class="btn-group" role="group">
+                                                <input type="hidden" name="instructorBasicInfoId" value="@instructorInfo.InstructorBasicInfoId" />
+                                                <a asp-controller="InstructorInfo" asp-route-instructorUserId="@instructorInfo.InstructorUserId"
+                                                    asp-action="Details" asp-route-state="@ViewBag.State" asp-route-departmentId="@ViewBag.DepartmentId"
+                                                     class="btn btn-outline-primary mx-1">
+                                                    <i class="fas fa-file-alt"></i>&nbsp; Details
+                                                </a>
+                                                <a asp-controller="InstructorInfo" asp-route-instructorUserId="@instructorInfo.InstructorUserId" 
+                                                 asp-route-state="@ViewBag.State" asp-route-departmentId="@ViewBag.DepartmentId" asp-action="Edit"
+                                                    class="btn btn-outline-primary mx-1">
+                                                    <i class="fas fa-edit"></i> &nbsp; Edit
+                                                </a>
+                                                <button type="button" name="exportInstructorBtn" class="btn btn-outline-primary"
+                                                    disabled="@(instructorInfo.ImportCode != 0 && !instructorInfo.IsChanged)">
+                                                    <i class="fas fa-upload"></i>&nbsp; Export
+                                                </button>
+                                                @*<a asp-controller="InstructorInfo" asp-route-instructorUserId="@instructorInfo.InstructorUserId" asp-action="Delete"
+                                                   class="btn btn-danger mx-1" title="Clear">
+                                                    <i class="fas fa-eraser"></i>
+                                                </a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+            }
+            else
+            {
+                <p>No instructor exists</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/instructors.js" asp-append-version="true"></script>
+}

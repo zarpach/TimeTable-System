@@ -1,0 +1,86 @@
+﻿@model List<DeanAdviserViewModel>
+
+@{
+    int num = 0;
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h3 class="text-uppercase">Dean advisers - @ViewBag.DeanName</h3>
+        </div>
+    </div>
+
+    <hr>
+    @if (ViewBag.IsAdmin)
+    {
+        <div class="form-group row">
+            <div class="col-lg-1 col-2">
+                <label>Dean:</label>
+            </div>
+            <div class="col-lg-5 col-10">
+                <form method="get" asp-action="DeanAdvisers">
+                    <select class="form-control dropdown" name="deanUserId" id="deanUserId" asp-items="@ViewBag.Deans" onchange="this.form.submit()">
+                        <option value="">Not selected</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-12 text-right">
+            <a asp-controller="RegistrationCourseReports" asp-action="DeanAdviserStudentReport"  
+                    asp-route-deanUserId="@ViewBag.DeanUserId" class="btn btn-primary mt-1">
+                <i class="fas fa-file-alt"></i> &nbsp; Adviser-Student Report
+            </a>
+            <a asp-controller="RegistrationCourseReports" asp-action="StudentsWithoutAdviserReport"  
+                    asp-route-deanUserId="@ViewBag.DeanUserId" class="btn btn-primary mt-1">
+                <i class="fas fa-file-alt"></i> &nbsp; Students without adviser
+            </a>
+            @if (!string.IsNullOrEmpty(ViewBag.DeanUserId))
+            {
+                <a asp-controller="Deans" asp-action="AddDeanAdvisers"  
+                        asp-route-deanUserId="@ViewBag.DeanUserId" asp-route-onlyActive="true" 
+                        class="btn btn-primary mt-1">
+                    <i class="fas fa-plus"></i> &nbsp; Add adviser
+                </a>
+            }
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row pt-3">
+        <div class="col-12">
+            
+            @foreach (var instructor in Model)
+            {
+                num++;
+                <div class="row p-2 adaptive-row">
+                    <div class="col-1 pt-2"><span class="num">@num</span></div>
+                    <div class="col-lg-4 col-11 pt-2"><b>@instructor.Instructor.FullNameEng</b></div>
+                    <div class="col-lg-3 col-12 text-right pt-2">@instructor.Instructor.Email (@instructor.State)</div>
+                    <div class="col-lg-4 col-12 text-right pt-2">
+                        <a asp-controller="AdviserStudents" asp-route-deanUserId="@ViewBag.DeanUserId" 
+                            asp-route-instructorUserId="@instructor.Instructor.Id"
+                                asp-action="EditAdviserStudents" class="btn btn-primary mx-1">
+                                <i class="fas fa-list-ol"></i> &nbsp; Edit students
+                            </a>
+                        <input type="hidden" name="instructorUserId" value="@instructor.Instructor.Id" />
+                        <button type="button" class="btn btn-danger" name="deleteAdviser">
+                            <i class="fas fa-times"></i> &nbsp; Delete
+                        </button>
+                    </div>
+                </div>
+            }
+                
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/js/dean-advisers.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,794 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+@using iuca.Application.ViewModels.Courses
+
+@{
+    //int requiredPoliciesCount = 3;
+    int requiredRequirementsCount = 3;
+    //int requiredCalendarRowsCount = 14;
+
+    var fieldsEng = new Dictionary<string, SyllabusFieldsViewModel>();
+    var fieldsRus = new Dictionary<string, SyllabusFieldsViewModel>();
+
+    fieldsEng.Add("phone", new SyllabusFieldsViewModel { Name = "Phone", Info = "Phone number in the format +996 (***) *** - ***" });
+    fieldsEng.Add("officeHours", new SyllabusFieldsViewModel { Name = "Office hours", Info = "Please write the days and times when you can provide personal consultations to students." });
+    fieldsEng.Add("courseDescription", new SyllabusFieldsViewModel { Name = "Course description", Info = "In this field, you should provide general information about the course content, its main topics, and focuses.\nSpecify what students will study during the course, what skills they will acquire, and how it will help them in their educational and professional development." });
+    //fieldsEng.Add("objectives", new SyllabusFieldsViewModel { Name = "Objectives", Info = "Here, you need to specify the main objectives and expected outcomes that students will achieve after completing the course.\nClearly define what you want students to learn and what they will accomplish by successfully completing the course." });
+    //fieldsEng.Add("teachingMethods", new SyllabusFieldsViewModel { Name = "Learning and teaching methods", Info = "In this section, please indicate the methods and approaches you will use for teaching students.\nThis may include lectures, seminars, practical exercises, project work, group assignments, and other activities.\nDescribe how these methods will help students better grasp the material and achieve the set goals." });
+    //fieldsEng.Add("primaryResources", new SyllabusFieldsViewModel { Name = "Primary resources", Info = "Here, list the primary resources that will be required for the student to complete the course.\nThis may include textbooks, articles, online resources, software, etc." });
+    //fieldsEng.Add("additionalResources", new SyllabusFieldsViewModel { Name = "Additional resources", Info = "Here, list additional resources." });
+    fieldsEng.Add("syllabusLink", new SyllabusFieldsViewModel { Name = "Syllabus link", Info = "Please provide the link to the syllabus stored on Google Drive here." });
+    fieldsEng.Add("gradingComment", new SyllabusFieldsViewModel { Name = "Grading comment", Info = "If you have any additional conditions related to student assessment, please describe them here." });
+    //fieldsEng.Add("policies", new SyllabusFieldsViewModel { Name = "Policies", Info = $"In this section, you need to specify important rules, norms, and procedures related to students' behavior and the learning process within this course.\nHere, you can establish specific expectations and recommendations for course participants to ensure effective and peaceful learning.\n\nHere are several key aspects you can include: Academic honesty policy, Code of conduct, Attendance requirements, Assignment submission guidelines, Use of electronic devices during classes, etc. ({requiredPoliciesCount} or more)" });
+    fieldsEng.Add("requirements", new SyllabusFieldsViewModel { Name = "Grading system", Info = $"This section describes specific requirements that students must fulfill for successful completion of the course.\nIt includes details about assignments, tests, exams, grading criteria, and point distribution for assignments.\n\nFor example, if you mention essays as one of the course requirements, you can describe the essay topics, the number of points for each essay, and recommendations for writing the essays. ({requiredRequirementsCount} or more)" });
+    //fieldsEng.Add("calendar", new SyllabusFieldsViewModel { Name = "Calendar", Info = $"This section is intended to provide students with the course schedule throughout the entire academic period.\nIn this section, the class timetable is indicated, including the dates of the lessons, the topics that will be covered in each class, and the related assignments or activities. ({requiredCalendarRowsCount} or more)" });
+    //fieldsEng.Add("week", new SyllabusFieldsViewModel { Name = "Week", Info = "Week number." });
+    //fieldsEng.Add("date", new SyllabusFieldsViewModel { Name = "Date", Info = "Date of the class.\nYou don't need to fill in the dates if you don't have the class schedule yet, but you will need to fill it as soon as the schedule becomes available." });
+    //fieldsEng.Add("topics", new SyllabusFieldsViewModel { Name = "Topics", Info = "A brief description of the main topics, concepts, or subjects that will be covered in the specified class.\nThis helps students understand the focus of the content for each class." });
+    //fieldsEng.Add("assignments", new SyllabusFieldsViewModel { Name = "Assignments", Info = "A list of assignments or tasks that are expected to be completed by students in the specified class. This may include readings, essays, projects, or any other form of assessment.\nThis helps students plan their workload and keep track of the assignments." });
+
+    fieldsRus.Add("phone", new SyllabusFieldsViewModel { Name = "Телефон", Info = "Номер телефона в формате +996 (***) *** - ***" });
+    fieldsRus.Add("officeHours", new SyllabusFieldsViewModel { Name = "Консультации", Info = "Укажите дни недели и время, когда вы можете проводить персональные консультации для студентов." });
+    fieldsRus.Add("courseDescription", new SyllabusFieldsViewModel { Name = "Описание курса", Info = "В этом поле следует предоставить общую информацию о содержании курса, его основных темах и акцентах.\nУкажите, что студенты будут изучать в течение курса, какие навыки они приобретут и как это поможет им в их образовательном и профессиональном развитии." });
+    //fieldsRus.Add("objectives", new SyllabusFieldsViewModel { Name = "Цели курса", Info = "Здесь необходимо указать основные цели и ожидаемые результаты, которые студенты достигнут после окончания курса.\nЧетко определите, что вы хотите, чтобы студенты усвоили и чего они достигнут, успешно проходя курс." });
+    //fieldsRus.Add("teachingMethods", new SyllabusFieldsViewModel { Name = "Методы обучения", Info = "В этой части укажите, какие методы и подходы вы будете использовать для обучения студентов.\nЭто может включать лекции, семинары, практические занятия, проектную работу, групповые задания и другие активности.\nОпишите, как эти методы помогут студентам лучше усвоить материал и достичь поставленных целей." });
+    //fieldsRus.Add("primaryResources", new SyllabusFieldsViewModel { Name = "Основные ресурсы", Info = "Здесь перечислите основные ресурсы, которые будут необходимы студенту для успешного прохождения курса.\nЭто могут быть учебники, статьи, онлайн-ресурсы, программное обеспечение и т.п." });
+    //fieldsRus.Add("additionalResources", new SyllabusFieldsViewModel { Name = "Допонительные ресурсы", Info = "Здесь перечислите дополнительные ресурсы." });
+    fieldsRus.Add("syllabusLink", new SyllabusFieldsViewModel { Name = "Ссылка на силлабус", Info = "Пожалуйста, укажите здесь ссылку на силлабус, который хранится на Google Диске." });
+    fieldsRus.Add("gradingComment", new SyllabusFieldsViewModel { Name = "Комментарий", Info = "Если у вас есть дополнительные условия, связанные с оцениванием студентов, пожалуйста, опишите их здесь." });
+    //fieldsRus.Add("policies", new SyllabusFieldsViewModel { Name = "Политика курса", Info = $"В данном разделе вам необходимо указать важные правила, нормы и процедуры, которые касаются поведения студентов и учебного процесса в рамках данного курса.\nЗдесь вы можете установить определённые ожидания и рекомендации для участников курса, чтобы обеспечить эффективное и спокойное обучение.\n\nВот несколько ключевых аспектов которые вы можете сюда включить: политика академической честности, правила поведения, посещаемости, сдачи заданий, использования электронных устройств во время занятий и т.п. ({requiredPoliciesCount} и более)" });
+    fieldsRus.Add("requirements", new SyllabusFieldsViewModel { Name = "Система оценивания", Info = $"Этот раздел описывает конкретные требования, которые студенты должны выполнить для успешного завершения курса. \nОн включает подробности о заданиях, тестах, экзаменах, распределении баллов за задания и критериях оценки.\n\nНапример, если вы укажите эссе как одно из требований курса, то вы можете описать на какие они будут темы, сколько баллов за каждое эссе и рекомендации по их написанию. ({requiredRequirementsCount} и более)" });
+    //fieldsRus.Add("calendar", new SyllabusFieldsViewModel { Name = "Календарь", Info = $"Данный раздел предназначен для предоставления студентам плана занятий на протяжении всего учебного периода.\nВ этом разделе указывается расписание занятий, включающее даты проведения, темы, которые будут рассматриваться на каждом уроке, и связанные с этими темами задания или активности. ({requiredCalendarRowsCount} и более)" });
+    //fieldsRus.Add("week", new SyllabusFieldsViewModel { Name = "Неделя", Info = "Номер учебной недели." });
+    //fieldsRus.Add("date", new SyllabusFieldsViewModel { Name = "Дата", Info = "Дата занятия.\n\nВам не нужно заполнять даты, если у вас ещё нет расписания занятий, но вам придётся заполнить их, как только расписание станет доступным." });
+    //fieldsRus.Add("topics", new SyllabusFieldsViewModel { Name = "Темы", Info = "Краткое описание основных тем, концепций или предметов, которые будут рассмотрены в указанном занятии.\nЭто помогает студентам понять фокус содержания каждого занятия." });
+    //fieldsRus.Add("assignments", new SyllabusFieldsViewModel { Name = "Задания", Info = "Список заданий или задач, которые ожидается, что студенты завершат в указанном занятии. Это может включать чтения, эссе, проекты или любую другую форму оценки.\nЭто помогает студентам планировать свою нагрузку и следить за заданиями." });
+    
+    var fields = fieldsEng;
+    if ((int)ViewData["Language"] == (int)enu_SyllabusLanguage.Russian)
+        fields = fieldsRus;
+
+}
+
+<div class="row pt-2">
+    <div class="col-12 d-flex">
+        <ul class="nav nav-pills mx-auto syllabus-edit-menu" id="pills-tab" role="tablist">
+            <li class="nav-item pr-2">
+                <a class="btn btn-link-dark shadow-none active" id="general" data-toggle="pill" href="#pills-general" role="tab"
+                   aria-controls="pills-general" aria-selected="true">General</a>
+            </li>
+            <li class="nav-item pr-2">
+                <a class="btn btn-link-dark shadow-none" id="description" data-toggle="pill" href="#pills-description" role="tab"
+                   aria-controls="pills-description" aria-selected="false">Description</a>
+            </li>
+            @*<li class="nav-item pr-2">
+                <a class="btn btn-link-dark shadow-none" id="policies" data-toggle="pill" href="#pills-policies" role="tab"
+                   aria-controls="pills-policies" aria-selected="false">Policies</a>
+            </li>*@
+            <li class="nav-item pr-2">
+                <a class="btn btn-link-dark shadow-none" id="requirements" data-toggle="pill" href="#pills-requirements" role="tab"
+                   aria-controls="pills-requirements" aria-selected="false">Grading system</a>
+            </li>
+            @*<li class="nav-item">
+                <a class="btn btn-link-dark shadow-none" id="calendar" data-toggle="pill" href="#pills-calendar" role="tab"
+                   aria-controls="pills-calendar" aria-selected="false">Calendar</a>
+            </li>*@
+        </ul>
+    </div>
+</div>
+<div class="row alert bg-gray-light text-black p-4">
+    <div class="col-12">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="RegistrationCourseId" />
+        <input type="hidden" asp-for="Language" />
+        <input type="hidden" name="semesterId" value="@ViewBag.SemesterId"/>
+        <input type="hidden" name="instructorUserId" value="@ViewBag.InstructorUserId"/>
+
+        <div class="tab-content" id="pills-tabContent">
+            @*Start*@
+
+            @*General*@
+            <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general">
+
+                <input type="hidden" asp-for="SyllabusDetails.CourseCode" />
+                <input type="hidden" asp-for="SyllabusDetails.CourseNameEng" />
+
+                <h4 class="pt-4"><strong>@Model.SyllabusDetails.CourseCode</strong> @Model.SyllabusDetails.CourseNameEng</h4>
+
+                <div class="row pt-4">
+                    <div class="col-lg-6 col-12">
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">Semester</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input type="hidden" asp-for="SyllabusDetails.SemesterSeason" />
+                                <input type="hidden" asp-for="SyllabusDetails.SemesterYear" />
+                                <label>@(EnumExtentions.GetDisplayName((enu_Season)@Model.SyllabusDetails.SemesterSeason)) @Model.SyllabusDetails.SemesterYear</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">Department</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input type="hidden" asp-for="SyllabusDetails.DepartmentNameEng" />
+                                <label>@Model.SyllabusDetails.DepartmentNameEng</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">Credits</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input type="hidden" asp-for="SyllabusDetails.CourseCredits" />
+                                <label>@Model.SyllabusDetails.CourseCredits</label>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">Prerequisites</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                @if (Model.SyllabusDetails != null && Model.SyllabusDetails.CoursePrerequisitesEng != null)
+                                {
+                                    for (int i = 0; i < Model.SyllabusDetails.CoursePrerequisitesEng.Count; i++)
+                                    {
+                                        <input type="hidden" asp-for="SyllabusDetails.CoursePrerequisitesEng[i]" />
+                                        <label>@Model.SyllabusDetails.CoursePrerequisitesEng[i]</label>
+                                        <br />
+                                    }
+                                } else
+                                {
+                                    <span>No prerequisites</span>
+                                }
+                            </div>
+                        </div>*@
+
+                    </div>
+                    <div class="col-lg-6 col-12">
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">Instructor</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input type="hidden" asp-for="SyllabusDetails.InstructorName" />
+                                <label>@Model.SyllabusDetails.InstructorName</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+                                <label class="text-uppercase">E-mail</label>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input type="hidden" asp-for="SyllabusDetails.InstructorEmail" />
+                                <label>@Model.SyllabusDetails.InstructorEmail</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+
+                                <label class="text-uppercase" for="phone">
+                                    <a class="cursor-pointer text-secondary" data-toggle="modal" data-target="#phoneInfoModel">
+                                        <i class="fas fa-question-circle"></i>
+                                    </a>
+                                    @fields["phone"].Name
+                                </label>
+
+                                <div class="modal fade" id="phoneInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content text-lg-left">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">@fields["phone"].Name <small class="text-secondary">(not required)</small></h5>
+                                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-pre-wrap">@fields["phone"].Info</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <input asp-for="InstructorPhone" class="form-control shadow-none" id="phone" placeholder="Phone" />
+                                <span asp-validation-for="InstructorPhone" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-12 text-lg-right">
+
+                                <label class="text-uppercase" for="officeHours">
+                                    <a class="cursor-pointer text-secondary" data-toggle="modal" data-target="#officeHoursInfoModel">
+                                        <i class="fas fa-question-circle"></i>
+                                    </a>
+                                    @fields["officeHours"].Name
+                                </label>
+
+                                <div class="modal fade" id="officeHoursInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content text-lg-left">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">@fields["officeHours"].Name <small class="text-secondary">(not required)</small></h5>
+                                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-pre-wrap">@fields["officeHours"].Info</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <textarea asp-for="OfficeHours" class="form-control shadow-none" id="officeHours" rows="2" placeholder="Office hours" wrap="hard"></textarea>
+                                <span asp-validation-for="OfficeHours" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            @*Description*@
+            <div class="tab-pane fade" id="pills-description" role="tabpanel" aria-labelledby="pills-description">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="form-group row pt-2">
+                            <div class="col-12">
+
+                                <label class="text-uppercase " for="courseDescription">
+                                    @fields["courseDescription"].Name
+                                    <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#courseDescriptionInfoModel">
+                                        <i class="fas fa-question-circle"></i>
+                                    </a>
+                                </label>
+
+                                <div class="modal fade" id="courseDescriptionInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">@fields["courseDescription"].Name <small class="text-danger">(required)</small></h5>
+                                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-pre-wrap">@fields["courseDescription"].Info</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <textarea asp-for="CourseDescription" class="form-control shadow-none" id="courseDescription" rows="8" placeholder="Course description" wrap="hard"></textarea>
+                                <span asp-validation-for="CourseDescription" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group row pt-2">
+                        <div class="col-12">
+
+                            <label class="text-uppercase" for="objectives">
+                                @fields["objectives"].Name 
+                                <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#objectivesInfoModel">
+                                    <i class="fas fa-question-circle"></i>
+                                </a>
+                            </label>
+
+                            <div class="modal fade" id="objectivesInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">@fields["objectives"].Name <small class="text-danger">(required)</small></h5>
+                                            <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-pre-wrap">@fields["objectives"].Info</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <textarea asp-for="Objectives" class="form-control shadow-none" id="objectives" rows="8" placeholder="Objectives" wrap="hard"></textarea>
+                            <span asp-validation-for="Objectives" class="text-danger"></span>
+                            
+                        </div>
+                        </div>
+
+                        <div class="form-group row pt-2">
+                        <div class="col-12">
+
+                            <label class="text-uppercase" for="teachingMethods">
+                                @fields["teachingMethods"].Name 
+                                <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#teachingMethodsInfoModel">
+                                    <i class="fas fa-question-circle"></i>
+                                </a>
+                            </label>
+
+                            <div class="modal fade" id="teachingMethodsInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">@fields["teachingMethods"].Name <small class="text-danger">(required)</small></h5>
+                                            <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-pre-wrap">@fields["teachingMethods"].Info</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <textarea asp-for="TeachMethods" class="form-control shadow-none" id="teachingMethods" rows="8" placeholder="Learning and teaching methods" wrap="hard"></textarea>
+                            <span asp-validation-for="TeachMethods" class="text-danger"></span>
+                            
+                        </div>
+                        </div>
+
+                        <div class="form-group row pt-2">
+                        <div class="col-12">
+
+                            <label class="text-uppercase" for="primaryResources">
+                                @fields["primaryResources"].Name
+                                <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#primaryResourcesInfoModel">
+                                    <i class="fas fa-question-circle"></i>
+                                </a>
+                            </label>
+
+                            <div class="modal fade" id="primaryResourcesInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">@fields["primaryResources"].Name <small class="text-danger">(required)</small></h5>
+                                            <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-pre-wrap">@fields["primaryResources"].Info</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <textarea asp-for="PrimaryResources" class="form-control shadow-none" id="primaryResources" rows="8" placeholder="Primary resources" wrap="hard"></textarea>
+                            <span asp-validation-for="PrimaryResources" class="text-danger"></span>
+                            
+                        </div>
+                        </div>
+
+                        <div class="form-group row pt-2">
+                        <div class="col-12">
+
+                            <label class="text-uppercase" for="additionalResources">
+                                @fields["additionalResources"].Name
+                                <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#additionalResourcesInfoModel">
+                                    <i class="fas fa-question-circle"></i>
+                                </a>
+                            </label>
+
+                            <div class="modal fade" id="additionalResourcesInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">@fields["additionalResources"].Name <small class="text-danger">(required)</small></h5>
+                                            <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-pre-wrap">@fields["additionalResources"].Info</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <textarea asp-for="AdditionalResources" class="form-control shadow-none" id="additionalResources" rows="8" placeholder="Additional resources" wrap="hard"></textarea>
+                            <span asp-validation-for="AdditionalResources" class="text-danger"></span>
+
+                        </div>
+                        </div>*@
+
+                        <div class="form-group row pt-2">
+                            <div class="col-12">
+
+                                <label class="text-uppercase" for="syllabusLink">
+                                    @fields["syllabusLink"].Name
+                                    <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#syllabusLinkInfoModel">
+                                        <i class="fas fa-question-circle"></i>
+                                    </a>
+                                </label>
+
+                                <div class="modal fade" id="syllabusLinkInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">@fields["syllabusLink"].Name <small class="text-danger">(required)</small></h5>
+                                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </a>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="text-pre-wrap">@fields["syllabusLink"].Info</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input asp-for="Link" class="form-control shadow-none" id="syllabusLink" placeholder="Syllabus link" />
+                                <span asp-validation-for="Link" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            @*Policies*@
+            @*<div class="tab-pane fade" id="pills-policies" role="tabpanel" aria-labelledby="pills-policies">
+
+                <h3 class="pt-4">
+                    @fields["policies"].Name 
+                    @*<small>
+                        <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#policiesInfoModel">
+                            <i class="fas fa-question-circle"></i>
+                        </a>
+                    </small>
+                </h3>
+
+                <div class="modal fade" id="policiesInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">@fields["policies"].Name <small class="text-danger">(required)</small></h5>
+                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-pre-wrap">@fields["policies"].Info</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-12" id="academicPolicyContainer">
+                        @if (Model.AcademicPolicies != null)
+                        {
+                            for (int i = 0; i < Model.AcademicPolicies.Count; i++)
+                            {
+                                <partial name="_EditAcademicPolicyPartial" for="@Model.AcademicPolicies[i]" />
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-info" id="addAcademicPolicyBtn">
+                            <i class="fas fa-plus"></i>&nbsp; Add Policy
+                        </button>
+                    </div>
+                </div>
+
+            </div>*@
+
+            @*Requirements*@
+            <div class="tab-pane fade" id="pills-requirements" role="tabpanel" aria-labelledby="pills-requirements">
+
+                <h3 class="pt-4">
+                    @fields["requirements"].Name 
+                    <small>
+                        <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#requirementsInfoModel">
+                            <i class="fas fa-question-circle"></i>
+                        </a>
+                    </small>
+                </h3>
+
+                <div class="modal fade" id="requirementsInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">@fields["requirements"].Name <small class="text-danger">(required)</small></h5>
+                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-pre-wrap">@fields["requirements"].Info</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="text-success" id="total-points">
+                </h4>
+
+                <div class="row pt-4">
+                    <div class="col-12" id="courseRequirementContainer">
+                        @if (Model.CourseRequirements != null)
+                        {
+                            for (int i = 0; i < Model.CourseRequirements.Count; i++)
+                            {
+                                <partial name="_EditCourseRequirementPartial" for="@Model.CourseRequirements[i]" view-data="ViewData" />
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-info" id="addCourseRequirementBtn">
+                            <i class="fas fa-plus"></i>&nbsp; Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group row pt-2">
+                    <div class="col-12">
+
+                        <label class="text-uppercase " for="gradingComment">
+                            @fields["gradingComment"].Name
+                            <a class="cursor-pointer text-secondary" data-toggle="modal" data-target="#gradingCommentInfoModel">
+                                <i class="fas fa-question-circle"></i>
+                            </a>
+                        </label>
+
+                        <div class="modal fade" id="gradingCommentInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">@fields["gradingComment"].Name <small class="text-secondary">(not required)</small></h5>
+                                        <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-pre-wrap">@fields["gradingComment"].Info</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <textarea asp-for="GradingComment" class="form-control shadow-none" id="gradingComment" rows="3" placeholder="Grading сomment" wrap="hard"></textarea>
+                        <span asp-validation-for="GradingComment" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <h3 class="pt-4">Grading scale</h3>
+
+                <div class="row pt-2">
+                    <div class="col-12 table-responsive text-nowrap">
+                        <table class="table bg-white">
+                            <tbody>
+                                <tr class="text-center">
+                                    <td>A</td>
+                                    <td>A-</td>
+                                    <td>B+</td>
+                                    <td>B</td>
+                                    <td>B-</td>
+                                    <td>C+</td>
+                                    <td>C</td>
+                                    <td>C-</td>
+                                    <td>D+</td>
+                                    <td>D</td>
+                                    <td>D-</td>
+                                    <td>F</td>
+                                </tr>
+                                <tr>
+                                    <td>100 - 94</td>
+                                    <td>93 - 90</td>
+                                    <td>89 - 87</td>
+                                    <td>86 - 83</td>
+                                    <td>82 - 80</td>
+                                    <td>79 - 77</td>
+                                    <td>76 - 74</td>
+                                    <td>73 - 70</td>
+                                    <td>67 - 69</td>
+                                    <td>66 - 63</td>
+                                    <td>62 - 60</td>
+                                    <td>59 - 0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            @*Calendar*@
+            @*<div class="tab-pane fade" id="pills-calendar" role="tabpanel" aria-labelledby="pills-calendar">
+
+                <h3 class="pt-4">
+                    @fields["calendar"].Name 
+                    <small>
+                        <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#calendarInfoModel">
+                            <i class="fas fa-question-circle"></i>
+                        </a>
+                    </small>
+                </h3>
+
+                <div class="modal fade" id="calendarInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">@fields["calendar"].Name <small class="text-danger">(required)</small></h5>
+                                <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-pre-wrap">@fields["calendar"].Info</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-12 table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                
+                            </thead>
+                            <tbody id="courseCalendarRowContainer">
+                                <tr>
+                                    <td>
+
+                                        <label class="text-uppercase">
+                                            @fields["week"].Name 
+                                            <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#weekInfoModel">
+                                                <i class="fas fa-question-circle"></i>
+                                            </a>
+                                        </label>
+
+                                        <div class="modal fade" id="weekInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">@fields["week"].Name <small class="text-danger">(required)</small></h5>
+                                                        <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-pre-wrap">@fields["week"].Info</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+
+                                        <label class="text-uppercase">
+                                            @fields["date"].Name 
+                                            <a class="cursor-pointer text-secondary" data-toggle="modal" data-target="#dateInfoModel">
+                                                <i class="fas fa-question-circle"></i>
+                                            </a>
+                                        </label>
+
+                                        <div class="modal fade" id="dateInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">@fields["date"].Name <small class="text-secondary">(not required)</small></h5>
+                                                        <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-pre-wrap">@fields["date"].Info</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+
+                                        <label class="text-uppercase">
+                                            @fields["topics"].Name 
+                                            <a class="cursor-pointer text-danger" data-toggle="modal" data-target="#topicsInfoModel">
+                                                <i class="fas fa-question-circle"></i>
+                                            </a>
+                                        </label>
+
+                                        <div class="modal fade" id="topicsInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">@fields["topics"].Name <small class="text-danger">(required)</small></h5>
+                                                        <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-pre-wrap">@fields["topics"].Info</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+
+                                        <label class="text-uppercase">
+                                            @fields["assignments"].Name 
+                                            <a class="cursor-pointer text-secondary" data-toggle="modal" data-target="#assignmentsInfoModel">
+                                                <i class="fas fa-question-circle"></i>
+                                            </a>
+                                        </label>
+
+                                        <div class="modal fade" id="assignmentsInfoModel" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">@fields["assignments"].Name <small class="text-secondary">(not required)</small></h5>
+                                                        <a class="close cursor-pointer" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-pre-wrap">@fields["assignments"].Info</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                @if (Model.CourseCalendar != null)
+                                {
+                                    Model.CourseCalendar = Model.CourseCalendar.OrderBy(x => x.Week).ThenBy(x => x.Date).ToList();
+                                    for (int i = 0; i < Model.CourseCalendar.Count; i++)
+                                    {
+                                        <partial name="_EditCourseCalendarRowPartial" for="@Model.CourseCalendar[i]" />
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-12 text-right">
+                        <button type="button" class="btn btn-info" id="addCourseCalendarRowBtn">
+                            <i class="fas fa-plus"></i>&nbsp; Add Calendar Row
+                        </button>
+                    </div>
+                </div>
+
+            </div>*@
+
+            @*End*@
+        </div>
+
+    </div>
+</div>

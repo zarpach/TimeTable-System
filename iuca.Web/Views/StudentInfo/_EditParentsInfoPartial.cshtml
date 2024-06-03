@@ -1,0 +1,96 @@
+﻿@model StudentParentsInfoDTO
+
+@{
+    Layout = null;
+}
+
+<div class="row mb-3">
+    <input type="hidden" name="StudentBasicInfo.StudentParentsInfo[0].StudentBasicInfoId" id="StudentBasicInfo.StudentParentsInfo.StudentBasicInfoId"  value="@Model.StudentBasicInfoId" />
+    <div class="col-lg-6 col-12">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="@Model.Relation"></label>
+            </div>
+            <div class="col-7">
+                <input name="StudentBasicInfo.StudentParentsInfo[0].Relation" id="StudentBasicInfo.StudentParentsInfo.Relation" 
+                    value="@Model.Relation" class="form-control" />
+                <span asp-validation-for="@Model.Relation" class="text-danger"></span>
+            </div>
+            <div class="col-2 text-right">
+                <button type="button" class="btn btn-danger" id="removeParentsInfoBtn" title="Remove parent info">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.LastName"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].LastName" id="StudentBasicInfo.StudentParentsInfo.LastName" 
+                            value="@Model.LastName" class="form-control" />
+                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.FirstName"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].FirstName" id="StudentBasicInfo.StudentParentsInfo.FirstName" 
+                            value="@Model.FirstName" class="form-control" />
+                        <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.MiddleName"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].MiddleName" id="StudentBasicInfo.StudentParentsInfo.MiddleName" 
+                            value="@Model.MiddleName" class="form-control" />
+                        <span asp-validation-for="@Model.MiddleName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.Phone"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].Phone" id="StudentBasicInfo.StudentParentsInfo.Phone" 
+                            value="@Model.Phone" class="form-control" />
+                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.WorkPlace"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].WorkPlace" id="StudentBasicInfo.StudentParentsInfo.WorkPlace" 
+                            value="@Model.WorkPlace" class="form-control" />
+                        <span asp-validation-for="@Model.WorkPlace" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3 text-right">
+                        <label asp-for="@Model.DeadYear"></label>
+                    </div>
+                    <div class="col-9">
+                        <input name="StudentBasicInfo.StudentParentsInfo[0].DeadYear" id="StudentBasicInfo.StudentParentsInfo.DeadYear" 
+                            value="@Model.DeadYear" class="form-control" />
+                        <span asp-validation-for="@Model.DeadYear" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>

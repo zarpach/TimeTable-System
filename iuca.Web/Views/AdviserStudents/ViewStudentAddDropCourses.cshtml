@@ -1,0 +1,168 @@
+﻿@using iuca.Application.Enums
+@model CheckRegistrationViewModel
+
+@{
+    int num = 0;
+    var totalCredits = @Model.StudentCourses.Where(x => x.State != enu_CourseState.Dropped && !x.IsAudit).Sum(x => x.Points);
+}
+
+<div class="container p3">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-success" onclick="history.back()">
+                <i class="fas fa-reply"></i> &nbsp; Назад
+            </button>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <h4 class="text-uppercase">Выбранные курсы</h4>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-lg-6 col-12">
+            <h5><span class="text-uppercase">Студент:</span> <b>@Model.StudentName</b></h5>
+        </div>
+        <div class="col-lg-6 col-12 text-lg-right">
+            <h5><span class="text-uppercase">Статус регистрации:</span> <b>@Model.RegistrationState</b></h5>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+            @if (Model.StudentCourses.Count > 0)
+            {
+                foreach (var course in Model.StudentCourses.OrderBy(x => x.State).ThenBy(x => x.Name))
+                {
+                    num++;
+                    if (course.State == enu_CourseState.Regular)
+                    {
+                        <div class="row green-row">
+                            <div class="col-lg-7 col-12 text-break mt-2">
+                                @if (course.IsFromStudyCard)
+                                {
+                                    <i class="fas fa-file-signature text-success" title="Курс из study card"></i>
+                                }
+                                <b>@num. @course.Code, @course.Name (ID: @course.ImportCode)</b><br>
+                                кредиты: <b>@course.Points</b>
+                                @if (course.IsAudit)
+                                {
+                                    <span class="text-primary"><b>(Аудит)</b></span>
+                                }
+                                <br>
+                                преподаватель: <b>@course.InstructorName</b>
+                            </div>
+                            <div class="col-lg-5 col-12 text-break mt-2">
+                                @if (course.Queue > 0)
+                                {
+                                    <h6 class="text-danger">Запись в очереди: @course.Queue</h6>
+                                }
+                                @if (!course.PassedPrerequisite)
+                                {
+                                    <h6 class="text-danger">Не пройдены курсы-пререквизиты</h6>
+                                }
+                                @foreach (var prerequisite in course.CoursePrerequisites)
+                                {
+                                    <span class="@(!prerequisite.Passed ? "text-danger" : "")">
+                                        @prerequisite.Name (@prerequisite.Grade)
+                                    </span>
+                                    <br/>
+                                }
+                            </div>
+                            @if (course.IsFromStudyCard)
+                            {
+                                <div class="col-12">
+                                    Комментарий из study card: @course.StudyCardComment
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row @(course.IsApproved ? "green-row" : "red-row")">
+                            <div class="col-1" style="font-size:x-large;">
+                                @if (course.State == enu_CourseState.Added)
+                                {
+                                    <i class="fas fa-plus-circle text-success" title="Added"></i>
+                                }
+                                else if (course.State == enu_CourseState.Dropped) 
+                                {
+                                    <i class="fas fa-ban text-danger" title="Dropped"></i>
+                                }
+                            </div>
+                            <div class="col-lg-5 col-11 text-break mt-2">
+                                @if (course.IsFromStudyCard)
+                                {
+                                    <i class="fas fa-file-signature text-success" title="Курс из study card"></i>
+                                }
+                                <b>@num. @course.Code, @course.Name (ID: @course.ImportCode)</b><br>
+                                кредиты: <b>@course.Points</b>
+                                @if (course.IsAudit)
+                                {
+                                    <span class="text-primary"><b>(Аудит)</b></span>
+                                }
+                                <br>
+                                преподаватель: <b>@course.InstructorName</b>
+                            </div>
+                            <div class="col-lg-4 col-6 text-break mt-2">
+                                @if (course.Queue > 0)
+                                {
+                                    <h6 class="text-danger">Запись в очереди: @course.Queue</h6>
+                                }
+                                @if (!course.PassedPrerequisite)
+                                {
+                                    <h6 class="text-danger">Не пройдены курсы-пререквизиты</h6>
+                                }
+                                @foreach (var prerequisite in course.CoursePrerequisites)
+                                {
+                                    <span class="@(!prerequisite.Passed ? "text-danger" : "")">
+                                        @prerequisite.Name (@prerequisite.Grade)
+                                    </span>
+                                    <br/>
+                                }
+                            </div>
+                            <div class="col-lg-2 col-6 mt-2">
+                                <span>Комментарий:</span><br>
+                                <b>@course.Comment</b>
+                            </div>
+                            @if (course.IsFromStudyCard)
+                            {
+                                <div class="col-12">
+                                    Комментарий из study card: @course.StudyCardComment
+                                </div>
+                            }
+                        </div>
+                    }
+                    
+                }
+                <hr/>
+                <div class="row font-weight-bold">
+                    <div class="col-12 text-right text-uppercase">
+                        Всего кредитов: 
+                        <span class="@(totalCredits > Model.MaxRegistrationCredits ? "text-danger" : "")">@totalCredits</span> 
+                        @if (!Model.NoCreditsLimitation)
+                        {
+                            <span>(Максимально: @Model.MaxRegistrationCredits)</span>
+                        }
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <p>Нет выбранных курсов</p>
+            }
+            <hr/>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="col-12"><b>Комментарий студента:</b></div>
+                    <div class="col-12">@Model.StudentComment</div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="col-12"><b>Комментарий эдвайзера:</b></div>
+                    <div class="col-12">@Model.AdviserComment</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

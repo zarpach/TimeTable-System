@@ -1,0 +1,53 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="selectCourses">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Syllabus</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row px-lg-4">
+
+                    @if (Model != null && Model.Status == (int)enu_SyllabusStatus.Approved)
+                    {
+
+                        <div class="col-12 text-right mt-4">
+                            <a asp-controller="Syllabi" asp-action="Print" asp-route-Id="@Model.Id" class="btn btn-primary" target="_blank">
+                                <i class="fas fa-print"></i> &nbsp; Print PDF
+                            </a>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            @if (Model.Language == (int)enu_SyllabusLanguage.Russian)
+                            {
+                                <partial name="~/Views/Syllabi/_DetailsPartial_RU.cshtml" />
+                            } else
+                            {
+                                <partial name="~/Views/Syllabi/_DetailsPartial_EN.cshtml" />
+                            }
+                        </div>
+
+                    } else
+                    {
+                        <div class="col-12 my-4">
+                            No syllabus :(
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

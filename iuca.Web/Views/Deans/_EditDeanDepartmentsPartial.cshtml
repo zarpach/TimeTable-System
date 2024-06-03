@@ -1,0 +1,29 @@
+﻿@using iuca.Application.Interfaces.Common
+
+@model DepartmentDTO
+
+@inject IDepartmentService departmentService;
+
+@{
+    Layout = null;
+}
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-3 text-right">
+                <label asp-for="Code"></label>
+            </div>
+            <div class="col-7">
+                <select class="form-control dropdown"  name="departmentIds" 
+                        asp-items="@departmentService.GetDepartmentSelectList(ViewBag.OrganizationId, Model.Id)">
+                </select>
+            </div>
+            <div class="col-2 text-right">
+                <button type="button" class="btn btn-danger" id="removeDepartmentBtn" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

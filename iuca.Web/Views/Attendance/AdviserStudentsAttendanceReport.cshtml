@@ -1,0 +1,158 @@
+﻿@model IEnumerable<StudentAttendanceViewModel>
+
+@{
+    var num = 0;
+}
+
+<div id="studentCoursesAttendanceModalContainer"></div>
+
+<div class="container p-0">
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <h3 class="text-uppercase">Student attendance Report</h3>
+
+        </div>
+    </div>
+
+    <hr />
+
+    <form asp-action="AdviserStudentsAttendanceReport" method="get">
+
+        <div class="row">
+            <div class="col-lg-3 col-12">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Semester:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control shadow-none" name="semesterId" asp-items="@ViewBag.Semesters"></select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-5 col-12">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Adviser:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="selectpicker" data-style="border-gray shadow-none" data-width="100%"
+                                data-live-search="true" name="adviserUserId" asp-items="ViewBag.Advisers">
+                            <option value="">Not Selected</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-8">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>Group:</label>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-control shadow-none" name="group" asp-items="@ViewBag.Groups">
+                            <option value="">Not Selected</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="col-lg-2 col-4">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn bg-blue text-white shadow-none btn-block">View</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row pt-4">
+            <div class="col-12 table-responsive text-nowrap">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th class="text-break">Name</th>
+                            <th class="text-break">Id</th>
+                            <th class="text-break">Group</th>
+                            <th class="text-break">Registered courses</th>
+                            <th class="text-break">Attendance tracked</th>
+                            <th class="text-break">Overall attendance percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model)
+                        {
+                            string attendanceTrackedCoursesColor = "text-muted";
+                            string overallAttendancePercentageColor = "text-muted";
+
+                            string overallAttendancePercentage = "no info";
+
+                            if (student.AttendanceTrackedCoursesCount != 0)
+                            {
+                                attendanceTrackedCoursesColor = "";
+                                overallAttendancePercentage = $"{Math.Round(student.OverallAttendancePercentage, 2)} %";
+
+                                if (student.OverallAttendancePercentage >= 80)
+                                    overallAttendancePercentageColor = "text-success";
+                                else if (student.OverallAttendancePercentage >= 60)
+                                    overallAttendancePercentageColor = "text-warning";
+                                else if (student.OverallAttendancePercentage < 30)
+                                    overallAttendancePercentageColor = "text-danger font-weight-bold";
+                                else
+                                    overallAttendancePercentageColor = "text-danger";
+                            }
+
+                            <tr>
+                                <td>@(++num)</td>
+                                <td>
+                                    <button class="btn btn-link" style="text-decoration: none !important"
+                                            onclick="studentCoursesAttendanceModal('@student.StudentUserId', '@ViewBag.SemesterId', '@student.Student.ShortNameEng')">
+                                        @student.Student.ShortNameEng
+                                    </button>
+                                </td>
+                                <td>@student.Student.StudentId</td>
+                                <td>@student.Student.Group</td>
+                                <td>@student.RegisteredСoursesCount</td>
+                                <td class="@attendanceTrackedCoursesColor">@student.AttendanceTrackedCoursesCount</td>
+                                <td class="@overallAttendancePercentageColor">@overallAttendancePercentage</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="pt-4 text-danger">No students</p>
+    }
+
+</div>
+
+
+@section Scripts {
+
+    <script src="~/js/attendance.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+    </script>
+}

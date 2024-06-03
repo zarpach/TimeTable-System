@@ -1,0 +1,148 @@
+﻿@model IEnumerable<StudentDebtViewModel>
+@using iuca.Application.Enums
+@using System.Globalization
+
+@{
+    int num = 0;
+    bool activeOnly = (ViewBag.ActiveOnly == null || ViewBag.ActiveOnly);
+}
+
+<input type="hidden" name="semesterId" value="@ViewBag.SemesterId" />
+<input type="hidden" name="departmentGroupId" value="@ViewBag.DepartmentGroupId" />
+<input type="hidden" name="lastName" value="@ViewBag.LastName" />
+<input type="hidden" name="firstName" value="@ViewBag.FirstName" />
+<input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+<input type="hidden" name="debtorType" value="@ViewBag.DebtorType" />
+<input type="hidden" name="activeOnly" value="@(activeOnly ? "true" : "false")" />
+
+<div class="row pt-2">
+
+    <div class="col-8">
+        <div class="form-group row align-items-center">
+            <div class="col-12">
+                <span class="btn btn-success" id="isNotDebtBtn">Not Debtor</span>
+                <span class="btn btn-danger" id="isDebtBtn">Debtor</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="form-group row">
+            <div class="col-12 text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> &nbsp; Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+
+        <hr class="my-1" />
+
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-12 py-2">
+                        <div class="row">
+                            <div class="col-2">
+                                <strong>№</strong>
+                            </div>
+                            <div class="col-10">
+                                <strong>Student name</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-3 py-2">
+                        <input type="checkbox" class="big-checkbox" id="checkAll" />
+                    </div>
+                    <div class="col-lg-2 col-3 py-2">
+                        <strong>Id</strong>
+                    </div>
+                    <div class="col-lg-2 col-3 py-2">
+                        <strong>Group</strong>
+                    </div>
+                    <div class="col-lg-2 col-3 py-2">
+                        <strong>Access</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 py-2">
+                @if (ViewBag.DebtType == enu_DebtType.Accounting)
+                {
+                    <strong>Total debt amount: <span class="text-danger">@Model.Select(x => x.DebtAmount).Sum().ToString("N", new NumberFormatInfo {NumberGroupSeparator = ","})</span></strong>
+                } else
+                {
+                    <strong>Comment</strong>
+                }
+            </div>
+        </div>
+
+        @foreach (var studentDebt in Model)
+        {
+            num++;
+
+            <hr class="my-1" />
+
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 col-12 py-1">
+                            <div class="row">
+                                <div class="col-2">
+                                    @num
+                                </div>
+                                <div class="col-10">
+                                    @studentDebt.StudentName
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-3 py-2">
+                            <input type="hidden" name="[@(num-1)].DebtId" value="@studentDebt.DebtId" />
+                            <input type="hidden" name="[@(num-1)].DebtType" value="@studentDebt.DebtType" />
+                            <input type="hidden" name="[@(num-1)].SemesterId" value="@studentDebt.SemesterId" />
+                            <input type="hidden" name="[@(num-1)].StudentUserId" value="@studentDebt.StudentUserId" />
+                            <input type="checkbox" class="big-checkbox" name="checkRow" />
+                        </div>
+                        <div class="col-lg-2 col-3 py-2">
+                            @studentDebt.StudentId
+                        </div>
+                        <div class="col-lg-2 col-3 py-2">
+                            @studentDebt.StudentMajor-@studentDebt.StudentGroup
+                        </div>
+                        <div class="col-lg-2 col-3 py-2">
+                            <input type="checkbox" name="[@(num-1)].IsDebt" @(studentDebt.IsDebt ? "" : "checked") value="@(studentDebt.IsDebt ? "true" : "false")" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
+                               data-on="<i class='fas fa-check-circle fa-lg'></i>" data-off="<i class='fas fa-times-circle fa-lg'></i>">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 py-2">
+                    @if (ViewBag.DebtType == enu_DebtType.Accounting)
+                    {
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="row align-items-center">
+                                    <div class="col-2">Долг</div>
+                                    <div class="col-6"><input type="number" class="form-control input-no-spin-button" name="[@(num-1)].DebtAmount" value="@studentDebt.DebtAmount" /></div>
+                                    <div class="col-2">сом</div>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" class="form-control" name="[@(num-1)].Comment" value="@studentDebt.Comment" />
+                            </div>
+                        </div>
+                    } else
+                    {
+                        <input type="text" class="form-control" name="[@(num-1)].Comment" value="@studentDebt.Comment" />
+                    }
+                </div>
+            </div>
+        }
+
+        <hr class="my-1" />
+
+    </div>
+</div>

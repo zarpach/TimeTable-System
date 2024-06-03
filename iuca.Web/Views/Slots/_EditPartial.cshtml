@@ -1,0 +1,102 @@
+﻿@using iuca.Application.DTO.Slots;
+@using iuca.Application.Enums;
+
+@model SlotDTO
+@{
+    var isEdit = ViewData["Action"]?.ToString() == "Edit";
+}
+<hr>
+<input type="hidden" id="actionType" name="actionType" value="@ViewData["Action"]" />
+@if (isEdit)
+{
+    <input type="hidden" asp-for="Id" />
+}
+<div class="form-group">
+    <label asp-for="DepartmentIds" class="control-label"></label>
+    @if (isEdit)
+    {
+        <select id="departmentSelect" asp-for="DepartmentIds[0]" class="form-control dropdown custom-select" asp-items="@ViewBag.Departments">
+        </select>
+    }
+    else
+    {
+        <select id="departmentSelect" asp-for="DepartmentIds" class="form-control dropdown custom-select" asp-items="@ViewBag.Departments" multiple="multiple">
+        </select>
+    }
+    <span asp-validation-for="DepartmentIds" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="GroupIds" class="control-label"></label>
+    @if (isEdit)
+    {
+        <select id="departmentGroupSelect" asp-for="GroupIds[0]" class="form-control dropdown" asp-items="@ViewBag.DepartmentGroups" >
+        </select>
+    }
+    else
+    {
+        <select id="departmentGroupSelect" asp-for="GroupIds" class="form-control dropdown" asp-items="@ViewBag.DepartmentGroups" multiple="multiple">
+        </select>
+    }
+    <span asp-validation-for="GroupIds" class="text-danger"></span>
+</div>
+
+@if (ViewBag.Instructors != null)
+{
+    <div class="form-group">
+        <label asp-for="InstructorUserId" class="control-label"></label>
+        <select id="instructorUserSelect" asp-for="InstructorUserId" class="form-control dropdown custom-select" asp-items="@ViewBag.Instructors">
+            <option value="">Не выбрано</option>
+        </select>
+        <span asp-validation-for="InstructorUserId" class="text-danger"></span>
+    </div>
+}
+else
+{
+    <p>No instructors found.</p>
+}
+
+<div class="form-group">
+    @if (isEdit)
+    {
+        <label asp-for="SlotDaysOfWeek" class="control-label"></label>
+        <select id="dayOfWeekSelect" asp-for="SlotDaysOfWeek[0]" class="form-control dropdown" asp-items="@ViewBag.DaysOfWeek"></select>
+        <span asp-validation-for="SlotDaysOfWeek" class="text-danger"></span>
+    }
+    else
+    {
+        <label asp-for="SlotDaysOfWeek" class="control-label"></label>
+        <select id="dayOfWeekSelect" asp-for="SlotDaysOfWeek" class="form-control dropdown" asp-items="@ViewBag.DaysOfWeek" multiple="multiple"></select>
+        <span asp-validation-for="SlotDaysOfWeek" class="text-danger"></span>
+    }
+
+</div>
+<div class="form-group">
+    <label asp-for="LessonPeriodIds" class="control-label"></label>
+    @if (isEdit)
+    {
+        <select id="lessonPeriodSelect" asp-for="LessonPeriodIds[0]" class="form-control dropdown" asp-items="@ViewBag.LessonPeriods"></select>
+    }
+    else
+    {
+        <select id="lessonPeriodSelect" asp-for="LessonPeriodIds" class="form-control dropdown" asp-items="@ViewBag.LessonPeriods" multiple="multiple"></select>
+    }
+    <span asp-validation-for="LessonPeriodIds" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="LessonRoomId" class="control-label"></label>
+    <select id="lessonRoomSelect" asp-for="LessonRoomId" class="form-control dropdown custom-select" asp-items="@ViewBag.LessonRooms">
+        <option value="">Не выбрано</option>
+    </select>
+    <span asp-validation-for="LessonRoomId" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="AnnouncementSectionId" class="control-label"></label>
+    <select id="announcementSectionSelect" asp-for="AnnouncementSectionId" class="form-control dropdown custom-select" asp-items="@ViewBag.Announcements">
+        <option>Не выбрано</option>
+    </select>
+    <span asp-validation-for="AnnouncementSectionId" class="text-danger"></span>
+</div>
+
+<select id="semesterInput" hidden asp-for="SemesterId" asp-items="@ViewBag.Semesters"></select>
+

@@ -1,0 +1,62 @@
+﻿@using iuca.Application.Enums
+@using iuca.Infrastructure.Identity
+
+@model List<RegistrationCourseDTO>
+
+@inject ApplicationUserManager<ApplicationUser> userManager;
+
+@{
+    Layout = null;
+    int num = 0;
+    enu_CourseState state = (enu_CourseState)ViewBag.State;
+}
+<div class="modal fade" id="selectRegistrationCourse">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Select Registration Course</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div style="max-height: 500px; overflow: auto;">
+                        @foreach (var registrationCourse in Model)
+                        {
+                            <div class="row adaptive-row p-2">
+                                <div class="col-lg-8 col-12">
+                                    @(++num). <b>@(registrationCourse.Course.Abbreviation + registrationCourse.Course.Number),
+                                    @registrationCourse.Course.NameEng / @registrationCourse.Course.NameRus / @registrationCourse.Course.NameKir 
+                                    (@registrationCourse.Section)</b><br>
+                                    @userManager.GetUserFullName(registrationCourse.InstructorUserId)
+                                </div>
+
+                                <div class="col-lg-1 col-4">ID: @registrationCourse.Course.ImportCode</div>
+                                <div class="col-lg-1 col-4">Creds: @registrationCourse.Points</div>
+                                <div class="col-lg-2 col-4 text-right">
+                                    <input type="hidden" name="registrationCourseId" value="@registrationCourse.Id" />
+                                    @if (state == enu_CourseState.Regular)
+                                    {
+                                        <button type="button" class="btn btn-primary" name="selectRegularCourseBtn">Select</button>
+                                    }
+                                    else if (state == enu_CourseState.Added)
+                                    {
+                                        <button type="button" class="btn btn-primary" name="selectAddedCourseBtn">Select</button>
+                                    }
+                                    else if (state == enu_CourseState.Dropped)
+                                    {
+                                        <button type="button" class="btn btn-primary" name="selectDroppedCourseBtn">Select</button>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

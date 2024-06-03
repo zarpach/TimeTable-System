@@ -1,0 +1,29 @@
+﻿@model SyllabusDTO
+@using iuca.Application.Enums
+
+<div class="container p-0">
+
+    <div class="row px-lg-5">
+
+        <div class="col-12 text-right mt-4">
+            <a asp-action="Print" asp-route-Id="@Model.Id" class="btn btn-primary" target="_blank">
+                <i class="fas fa-print"></i> &nbsp; Print PDF
+            </a>
+        </div>
+
+        <div class="col-12 mt-4">
+
+            @if (Model.Language == (int)enu_SyllabusLanguage.Russian)
+            {
+                <partial name="_DetailsPartial_RU" />
+            }
+            else
+            {
+                <partial name="_DetailsPartial_EN" />
+            }
+                
+        </div>
+
+    </div>
+
+</div>

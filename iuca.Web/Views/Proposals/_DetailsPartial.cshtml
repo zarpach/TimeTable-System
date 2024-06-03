@@ -1,0 +1,179 @@
+﻿@using iuca.Application.Enums;
+@model ProposalDTO
+
+<div class="row pt-lg-0 pt-4">
+    <div class="col-12">
+
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                @if (Model.ProposalCourses != null && Model.ProposalCourses.Any())
+                {
+                    @foreach (var proposalCourse in Model.ProposalCourses)
+                    {
+                        string statusColor = "text-danger";
+
+                        if (proposalCourse.Status == (int)enu_ProposalCourseStatus.Pending)
+                            statusColor = "text-warning";
+                        if (proposalCourse.Status == (int)enu_SyllabusStatus.Approved)
+                            statusColor = "text-success";
+
+                        <li class="list-group-item striped-row search-item">
+
+                            <div class="row pt-1">
+                                <div class="col-lg-6 col-12">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-12 pt-2">
+                                            <i class="fas fa-circle statusIcon-@proposalCourse.Id @statusColor"></i>
+                                            <span class="statusText-@proposalCourse.Id">
+                                                @EnumExtentions.GetDisplayName((enu_ProposalCourseStatus)proposalCourse.Status)
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-9 col-12 pt-2">
+                                            <h6>@proposalCourse.Course.NameEng <em class="text-gray">(@proposalCourse.Course.Language.NameEng)</em></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-4 pt-2">
+                                                    <strong>@(proposalCourse.Course.Abbreviation + " " + proposalCourse.Course.Number)</strong>
+                                                </div>
+                                                <div class="col-lg-2 col-4 pt-2">
+                                                    ID <strong>@proposalCourse.Course.ImportCode</strong>
+                                                </div>
+                                                <div class="col-lg-2 col-4 pt-2">
+                                                    @proposalCourse.Course.Department.Code
+                                                </div>
+                                                <div class="col-lg-5 col-12 text-lg-right pt-2">
+                                                    <strong>@(EnumExtentions.GetDisplayName((enu_CourseType)proposalCourse.Course.CourseType))</strong>
+                                                    @if (proposalCourse.IsForAll)
+                                                    {
+                                                        <span>(For all)</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-lg-4 col-12">
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <small class="text-gray">Instructors</small>
+                                        </div>
+                                        <div class="col-12">
+                                            @if (proposalCourse.Instructors.Any())
+                                            {
+                                                foreach (var instructor in proposalCourse.Instructors)
+                                                {
+                                                    <span>@instructor.FullName</span> <br />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="text-gray">None</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-4">
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <small class="text-gray">Credits</small>
+                                        </div>
+                                        <div class="col-12">
+                                            <strong>@proposalCourse.Credits</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-8">
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <small class="text-gray">Schedule</small>
+                                        </div>
+                                        <div class="col-12">
+                                            @if (proposalCourse.Schedule != null)
+                                            {
+                                                <span>@proposalCourse.Schedule</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-gray">None</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-12">
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <small class="text-gray">Year of study</small>
+                                        </div>
+                                        <div class="col-12">
+                                            @if (proposalCourse.YearsOfStudyJson.Any())
+                                            {
+                                                foreach (var yearOfStudy in proposalCourse.YearsOfStudyJson)
+                                                {
+                                                    <span class="search-year-of-study">
+                                                        @yearOfStudy
+                                                        &nbsp; &nbsp;
+                                                    </span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="text-gray">None</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-10">
+                                    <div class="row py-1">
+                                        <div class="col-12">
+                                            <small class="text-gray">Comment</small>
+                                        </div>
+                                        <div class="col-12">
+                                            @if (proposalCourse.Comment != null)
+                                            {
+                                                <span>@proposalCourse.Comment</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-gray">None</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-12 text-right">
+                                    <button type="button" class="btn btn-success shadow-none @(proposalCourse.Status == (int)enu_ProposalCourseStatus.New ||
+                                                    proposalCourse.Status == (int)enu_ProposalCourseStatus.Rejected ? "" : "d-none")"
+                                            onclick="submitProposalCourse(this)" value="@proposalCourse.Id">
+                                        <i class="fas fa-check"></i> Submit
+                                    </button>
+                                    <button type="button" class="btn btn-danger shadow-none
+                                                    @(proposalCourse.Status == (int)enu_ProposalCourseStatus.Pending ? "" : "d-none")"
+                                            onclick="returnProposalCourse(this)" value="@proposalCourse.Id">
+                                        <i class="fas fa-times"></i> Return
+                                    </button>
+                                </div>
+                            </div>
+
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <p class="pt-3 text-danger">Courses for the proposal have not been added yet</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model CourseDTO
+
+@{
+    bool isDelete = ViewBag.IsDelete;
+    string action = isDelete ? "DeleteConfirm" : "UnDeleteConfirm";
+}
+
+<div class="container p3">
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            <a asp-action="Index" class="btn btn-success"><i class="fas fa-reply"></i> &nbsp; Back</a>
+        </div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-12 p-0">
+            @if (isDelete) 
+            {
+                <h3 class="text-uppercase">Delete course </h3>
+            }
+            else
+            {
+                <h3 class="text-uppercase">Undelete course </h3>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 p-0">
+            @if (isDelete) 
+            {
+                <h6 class="text-danger">Are you sure you want to <b>delete</b> course?</h6>
+            }
+            else
+            {
+                <h6 class="text-success">Are you sure you want to <b>undelete</b> course?</h6>
+            }
+            
+        </div>
+    </div>
+    <hr />
+    <div class="text-danger">
+        @TempData["Error"]
+    </div>
+    <div class="row pt-2">
+        <div class="col-12 p-0">
+
+            <form method="post" asp-action="@action">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="id" id="id" value="@Model.Id" />
+                <div class="row">
+                    <div class="col-12">
+
+                        <partial name="_DetailsPartial" />
+
+                        <div class="form-group row mb-0">
+                            <div class="col-12 p-0 row">
+                                <div class="col-12 p-0 text-right">
+                                @if (isDelete) 
+                                {
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i> &nbsp; Delete
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-tools"></i> &nbsp; Undelete
+                                    </button>
+                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+</div>

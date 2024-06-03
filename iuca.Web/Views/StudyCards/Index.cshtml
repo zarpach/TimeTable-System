@@ -1,0 +1,122 @@
+﻿@model IEnumerable<StudyCardDTO>
+
+@{
+    int num = 0;
+}
+
+<div class="container p-0">
+
+    <div class="row pt-4 justify-content-between">
+        <div class="col-auto">
+            <h2>Study cards</h2>
+            <span class="text-success">
+                @TempData["StudyCardSuccessMessage"]
+            </span>
+        </div>
+        <div class="col-auto">
+            <a class="btn bg-blue text-white shadow-none" asp-action="Create"
+               asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                <i class="fas fa-plus"></i> Add new
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+
+                        <form method="get" asp-action="Index">
+                            <div class="col-lg-auto col-12">
+                                <div class="row">
+                                    <div class="col-lg-auto col-12">
+                                        <select class="form-control shadow-none" name="searchSemesterId" asp-items="@ViewBag.Semesters" onchange="this.form.submit()">
+                                            <option value="0">All semesters</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-auto col-9 pt-lg-0 pt-2">
+                                        <select class="form-control shadow-none" name="searchDepartmentId" asp-items="@ViewBag.Departments" onchange="this.form.submit()">
+                                            <option value="0">All departments</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var studyCard in Model)
+                        {
+                            num++;
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+
+                                    <div class="col-lg-8 col-12">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-2 text-gray">
+                                                #@num
+                                            </div>
+                                            <div class="col-lg-10 col-10">
+                                                <div class="row align-items-center">
+
+                                                    <div class="col-lg-6 col-12">
+                                                        @studyCard.Semester.SeasonYear
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-6">
+                                                        <strong>@(studyCard.DepartmentGroup.Department.Code + "-" + studyCard.DepartmentGroup.Code)</strong>
+                                                    </div>
+
+                                                    <div class="col-lg-3 col-6 text-gray">
+                                                        <em>courses (@studyCard.StudyCardCourses.Count())</em>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-12 pt-lg-0 pt-3 text-right">
+                                        <a class="btn bg-blue text-white shadow-none" asp-action="Details" asp-route-id="@studyCard.Id"
+                                           asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                                            <i class="fas fa-file-alt"></i> Details
+                                        </a>
+                                        <a class="btn bg-blue text-white shadow-none" asp-action="Edit" asp-route-id="@studyCard.Id"
+                                           asp-route-searchSemesterId="@ViewBag.SemesterId" asp-route-searchDepartmentId="@ViewBag.DepartmentId">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-danger shadow-none" name="deleteStudyCardBtn" value="@studyCard.Id">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item">
+                            <p class="pt-3">No study cards</p>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="~/js/study-cards.js" asp-append-version="true"></script>
+
+}

@@ -1,0 +1,329 @@
+﻿@model CourseRegistrationStepsViewModel
+
+@using iuca.Application.Enums
+
+@{
+    int num = 0;
+    var registrationUnavailable = (Model.RegistrationUnavailable || Model.IsDebt);
+    var totalCredits = Model.StudentCourses.Where(x => !x.IsAudit && !x.NoCreditsCount).Sum(x => x.Points);
+    var totalNoCountCredits = Model.StudentCourses.Where(x => !x.IsAudit && x.NoCreditsCount).Sum(x => x.Points);
+}
+<div id="ModalContainer"></div>
+
+<div class="container p3">
+    <div class="fixed-header">
+        <div class="row pt-4">
+            <div class="col-12 text-center p-0">
+                <h5 class="text-uppercase course-item-name">Регистрация на курсы - @Model?.SeasonYear</h5>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(TempData["Error"]?.ToString()))
+        {
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-danger">@TempData["Error"]</h5>
+                </div>
+            </div>
+        }
+        <div class="row pt-2 mb-3">
+            <div class="col-12 p-0">
+                <div class="row pl-4 pr-4">
+                    <div class="col-4 text-left gray-bg-line p-0">
+                        <span class="step-number m-0 @(Model.StepNumber >= 1 ? "green-step" : "")">
+                            @if (Model.StepNumber <= 1)
+                            {
+                                <span>1</span>
+                            }
+                            else
+                            {
+                                <span>✓</span>
+                            }
+                        </span>
+                    </div>
+                    <div class="col-4 text-center gray-bg-line p-0">
+                        <span class="step-number m-0 @(Model.StepNumber >= 2 ? "green-step" : "")">
+                            @if (Model.StepNumber <= 2)
+                            {
+                                <span>2</span>
+                            }
+                            else
+                            {
+                                <span>✓</span>
+                            }
+                        </span>
+                    </div>
+                    <div class="col-4 text-right gray-bg-line p-0">
+                        <span class="step-number m-0 @(Model.StepNumber >= 3 ? "green-step" : "")">
+                            @if (Model.RegistrationState != enu_RegistrationState.Submitted)
+                            {
+                                <span>3</span>
+                            }
+                            else
+                            {
+                                <span>✓</span>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 p-0">
+                <div class="row pl-2 pr-2">
+                    <div class="col-4 text-left step-title @(Model.StepNumber == 1 ? "active-title" : "")">
+                        <span class="title-text">Выбор курсов</span>
+                    </div>
+                    <div class="col-4 text-center step-title @(Model.StepNumber == 2 ? "active-title" : "")">
+                        <span>Подтверждение эдвайзера</span>
+                    </div>
+                    <div class="col-4 text-right step-title  @(Model.StepNumber == 3 ? "active-title" : "")">
+                        <span class="title-text">Завершение регистрации</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @if (registrationUnavailable)
+        {   
+            <div class="row alert alert-danger">
+                <div class="col-12">
+                    <h5 class="text-uppercase">Регистрация на курсы невозможна</h5>
+                    <h6>@Model.WarningMessage</h6>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row alert @(Model.RegistrationState != enu_RegistrationState.Submitted ? "alert-warning" : "alert-success")">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 text-uppercase">
+                            <h5>@Model.ActionTitle</h5>
+                        </div>
+                    </div>
+                    @if (Model.RegistrationState != enu_RegistrationState.OnApproval && !string.IsNullOrEmpty(Model.AdviserComment))
+                    {
+                        <hr class="mt-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <h6>Комментарий эдвайзера: <b>@Model.AdviserComment</b></h6>
+                            </div>
+                        </div>
+                    }
+                    <hr class="m-2"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>Статус регистрации: <b>@Model.RegistrationStateStr</b></h6>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Всего курсов: <b><span id="couseNum">@Model.StudentCourses.Count</span></b></h6>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <h6>
+                                        Всего кредитов: 
+                                        <b>
+                                            <span id="totalPoints">@totalCredits</span>
+                                            @if (totalNoCountCredits > 0)
+                                            {
+                                                <span class="text-secondary">(+<span id="totalNoCreditsCount">@totalNoCountCredits</span>)</span>
+                                            }
+                                        </b>
+                                        @if (!Model.NoCreditsLimitation)
+                                        {
+                                            <span>(максимально: @Model.MaxRegistrationCredits)</span>
+                                        }
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        }
+    </div>
+
+    <div id="content">
+        <div class="row">
+            <div class="col-12">
+                @if (Model.StudentCourses.Count > 0)
+                {
+                    foreach (var course in Model.StudentCourses)
+                    {
+                        num++;
+                        <div class="row course-item @(course.IsProcessed && !course.IsApproved ? "incorrect-bg" : "") @(course.NoCreditsCount ? "noCreditsCount" : "")">
+                            @if (course.IsForAll)
+                            {
+                                <div class="col-12 p-0">
+                                    <div class="alert alert-warning p-0">
+                                        <h6 class="text-uppercase m-1 ml-3">IUCA Elective</h6>
+                                    </div>
+                                </div>
+                            }
+                            @if (!course.IsActivated)
+                            {
+                                <div class="col-12 p-0">
+                                    <div class="alert alert-danger p-0">
+                                        <h6 class="text-uppercase m-1 ml-3">Course is deactivated</h6>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xg-4 mt-2">
+                                @if (course.IsFromStudyCard)
+                                {
+                                    <i class="fas fa-file-signature text-success" title="Курс из study card"></i>
+                                }
+                                <span class="course-item-name"><b>@course.Code</b>, @course.CourseName (<b>ID: @course.CourseImportCode</b>)</span>
+                                <input type="hidden" name="registrationCourseId" value="@course.RegistrationCourseId" />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                                @course.InstructorName
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                                Кредитов: <span class="coursePts">@course.Points</span>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 mt-2">
+                                Время: @course.Schedule
+                                <span class="queueText text-danger">
+                                    @if (course.Queue > 0) 
+                                    { 
+                                        @string.Format("(очередь: {0})", course.Queue) 
+                                    }
+                                </span>
+                            </div>
+                            @if (Model.RegistrationState == enu_RegistrationState.NotSent ||
+                                    Model.RegistrationState == enu_RegistrationState.NotApproved)
+                            {
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xg-2 text-right mt-2">
+                                    <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                                    <input type="hidden" name="studyCardCourseId" value="@course.RegistrationCourseId" />
+                                    <input type="hidden" name="studentCourseId" value="@course.StudentCourseId" />
+                                    <button class="btn btn-outline-primary btn-block text-uppercase" name="btnRemove">
+                                        Удалить
+                                    </button>
+                                </div>
+                            }
+                            <div class="col-12 mt-2 mb-2">
+                                <label>
+                                    @if (Model.RegistrationState == enu_RegistrationState.NotSent ||
+                                        Model.RegistrationState == enu_RegistrationState.NotApproved)
+                                    {
+                                        <input type="checkbox" name="isAudit" value="@(course.IsAudit ? "true" : "false")" 
+                                        @(course.IsAudit ? "checked" : "") onchange="this.value = this.checked;"/>
+                                        <span class="font-weight-bold">Аудит</span>
+                                    }
+                                    else if (course.IsAudit)
+                                    {
+                                        <span class="text-primary font-weight-bold">Аудит</span>
+                                    }
+                                </label>
+                            </div>
+                            @if (course.IsProcessed && !course.IsApproved)
+                            {
+                                 <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xg-3">
+                                            <span>Комментарий эдвайзера: </span>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xg-9">
+                                            <b>@course.Comment</b>
+                                        </div>
+                                    </div>
+                                </div>  
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+      
+        @if (Model.RegistrationState != enu_RegistrationState.Submitted)
+        {
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    Комментарий студента (не обязательно):
+                </div>
+                <div class="col-12">
+                    <input type="hidden" id="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                    <textarea name="StudentComment" id="studentComment" class="form-control" 
+                    @(Model.RegistrationState != enu_RegistrationState.NotSent && 
+                        Model.RegistrationState != enu_RegistrationState.NotApproved ? "disabled" : "") >@Model.StudentComment</textarea>
+                </div>
+            </div>
+        }
+        
+        <hr>
+        <div class="row">
+            @if ((Model.StepNumber == 1 || Model.StepNumber == 2) && 
+                Model.RegistrationState != enu_RegistrationState.OnApproval)
+            {
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-2">
+                    <a asp-controller="StudentCourseRegistrations" asp-route-semesterId="@Model.SemesterId"
+                        asp-route-departmentGroupId="@ViewBag.DepartmentGroupId"
+                        asp-route-studentCourseRegistrationId="@Model.StudentCourseRegistrationId"
+                        asp-action="SelectCoursesFromStudyCard" class="btn btn-info btn-lg btn-block text-uppercase">
+                        Заполнить курсы по Study Card
+                    </a>
+                    <a asp-controller="StudentCourseRegistrations" asp-route-semesterId="@Model.SemesterId"
+                        asp-route-departmentGroupId="@ViewBag.DepartmentGroupId"
+                        asp-route-studentCourseRegistrationId="@Model.StudentCourseRegistrationId"
+                        asp-action="SelectCourses" class="btn btn-primary btn-lg btn-block text-uppercase">
+                        Выбрать курсы
+                    </a>
+                </div>
+                if (Model.StudentCourses.Count > 0)
+                {
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-right mt-2">
+                        <form method="post" asp-action="SendOnApproval" id="approvalForm">
+                            <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                            <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase">
+                                Отправить на одобрение эдвайзеру &nbsp;
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                }
+            }
+            else if (Model.StepNumber == 3)
+            {
+                if (Model.RegistrationState != enu_RegistrationState.Submitted)
+                {
+                    <div class="col-12 mt-2">
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <form method="post" asp-action="SubmitRegistration">
+                                    <input type="hidden" name="studentCourseRegistrationId" value="@Model.StudentCourseRegistrationId" />
+                                    <button type="submit" class="btn btn-success btn-lg btn-block text-uppercase" onsubmit()>
+                                        Завершить регистрацию &nbsp;
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-12 mt-2">
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <a asp-action="PrintToPDF" asp-route-semesterId="@Model.SemesterId" target="_blank"
+                                        class="btn btn-success btn-lg btn-block text-uppercase">
+                                    Скачать PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/course-registration.js" asp-append-version="true"></script>
+}
+
+
