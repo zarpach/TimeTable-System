@@ -82,8 +82,8 @@ namespace iuca.Web
             services.AddAuthentication()
             .AddGoogle(options =>
             {
-                options.ClientId = "780379148966-0g2kuupfjistellq7k6a2r7vkvpc4q10.apps.googleusercontent.com";
-                options.ClientSecret = "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";
+                options.ClientId = "";
+                options.ClientSecret = "";
                 options.SignInScheme = IdentityConstants.ExternalScheme;
             });
 
