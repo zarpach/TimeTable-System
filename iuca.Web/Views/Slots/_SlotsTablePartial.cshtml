@@ -5,13 +5,14 @@
 <style>
     .course-info:hover {
         background-color: #f0f0f0;
-        cursor: pointer;
+        
     }
 
     .course-info {
         flex-direction: column;
         align-items: stretch;
         justify-content: space-between;
+        transition: all 0.3s ease;
     }
 
         .course-info .course-title,
@@ -20,15 +21,38 @@
             flex-grow: 1;
         }
 
-    .slot-td {
+    .slot.over {
         border: 2px dotted #666;
+        transition: border 0.3s ease;
+    }
+
+    .grabbable {
+        cursor: move; /* fallback if grab cursor is unsupported */
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+    }
+
+        /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+        .grabbable:active {
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        }
+    .ghost {
+        opacity: .5;
+        background: #C8EBFB;
+    }
+
+    .highlight {
+        background-color: #f9c7c8 !important;
     }
 </style>
 
 @if (Model.Any())
 {
     IEnumerable<DepartmentGroupDTO> departmentGroups = ViewBag.DepartmentGroupsByDepartment;
-    <div style="page-break-after: always">
+    <div style="page-break-after: always" id="table-wrapper">
         <table class="table table-bordered mb-0">
             <thead>
                 <tr>
@@ -39,7 +63,7 @@
                     }
                 </tr>
             </thead>
-            <tbody>
+            <tbody  id="slotsTable">
                 @foreach (var lessonPeriod in ViewBag.AllLessonPeriods)
                 {
                     <tr>
@@ -51,16 +75,28 @@
                             </ul>
 
                         </td>
-                        @foreach (var groupCode in departmentGroups.Select(g => $"{g.Department.Code}{g.Code}"))
+                        @foreach (var group in departmentGroups)
                         {
                             var slot = Model
                                 .FirstOrDefault(groupedSlot => groupedSlot.Key == lessonPeriod.Name)
-                                ?.FirstOrDefault(s => $"{s.Group.Department.Code}{s.Group.Code}" == groupCode);
+                                ?.FirstOrDefault(s => $"{s.Group.Department.Code}{s.Group.Code}" == $"{group.Department.Code}{group.Code}");
 
-                            <td draggable="@(slot == null)" class="@(slot != null ? "p-0" : "align-middle text-muted") slot h-100" style="max-width: 250px">
+                            <td
+                                id="draggableTable"
+                                draggable="@(slot == null)"
+                                class="@(slot != null ? "p-0" : "align-middle text-muted") slot h-100"
+                                style="max-width: 250px"
+                                data-lesson-period-id="@lessonPeriod.Id"
+                                data-department-group-id="@group.Id"
+                                data-slot-id="@(slot != null ? slot.Id : 0)">
+
                                 @if (slot != null)
                                 {
-                                    <a asp-controller="Slots" asp-action="Edit" data-day="@slot.DayOfWeek" asp-route-Id="@slot.Id" class="text-black slot-cell" data-id="@slot.Id">
+                                    <a class="text-black slot-cell grabbable"
+                                       asp-controller="Slots"
+                                       asp-action="Edit"
+                                       asp-route-Id="@slot.Id"
+                                       >
                                         <div class="course-info p-3">
                                             <h5 class="course-title">@slot.AnnouncementSection.Course.NameEng</h5>
                                             <div class="align-self-start">

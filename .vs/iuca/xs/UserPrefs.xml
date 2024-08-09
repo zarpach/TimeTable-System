@@ -1,41 +1,57 @@
-﻿<Properties StartupConfiguration="{2312B6EE-703F-4F00-8E07-01DFFF32C655}|Default">
+﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{FE5FFB4D-31E2-45D7-8A3D-B5F9AB5F63A9}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="iuca.Web/Startup.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.src.iuca.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.Workbench ActiveDocument="iuca.Web/Controllers/SlotsController.cs">
     <Files>
       <File FileName="iuca.Core/DTO/Slots/SlotDTO.cs" />
-      <File FileName="iuca.Web/Controllers/SlotsController.cs" />
+      <File FileName="iuca.Web/Controllers/SlotsController.cs" Line="146" Column="1" />
       <File FileName="iuca.Web/Views/Slots/_SlotsTablePartial.cshtml" />
-      <File FileName="iuca.Web/Views/Slots/Index.cshtml" />
-      <File FileName="iuca.Web/Views/Slots/_EditPartial.cshtml" />
-      <File FileName="iuca.Core/Services/Slots/SlotService.cs" />
+      <File FileName="iuca.Web/Views/Slots/Index.cshtml" Line="138" Column="76" />
+      <File FileName="iuca.Web/wwwroot/js/slot-drag-and-drop.js" Line="25" Column="47" />
       <File FileName="iuca.Web/wwwroot/js/slots-form.js" />
-      <File FileName="iuca.Web/wwwroot/js/slot-drag-and-drop.js" />
-      <File FileName="iuca.Web/Program.cs" />
-      <File FileName="iuca.Web/Startup.cs" Line="48" Column="1" />
-      <File FileName="iuca.Core/Enums/EnumExtentions.cs" />
-      <File FileName="iuca.Core/Enums/enu_SlotDayOfWeek.cs" />
-      <File FileName="iuca.Core/Services/ImportData/ImportStudentService.cs" />
-      <File FileName="iuca.Web/Controllers/InstructorCoursesController.cs" />
-      <File FileName="iuca.Core/ViewModels/Slots/SlotViewModel.cs" />
-      <File FileName="iuca.Web/Views/Slots/_PrintOptionsPartial.cshtml" />
-      <File FileName="iuca.Web/wwwroot/js/slot-operations.js" />
-      <File FileName="iuca.Web/Extensions/ControllerExtensions.cs" />
-      <File FileName="iuca.Web/appsettings.json" />
-      <File FileName="docker-compose.yml" />
-      <File FileName="entrypoint.sh" />
+      <File FileName="iuca.Core/Interfaces/Slots/ISlotService.cs" />
+      <File FileName="iuca.Core/Services/Slots/SlotService.cs" Line="150" Column="10" />
+      <File FileName="iuca.Domain/Entities/Slots/Slot.cs" Line="17" Column="32" />
+      <File FileName="iuca.Core/Exceptions/ExistingSlotException.cs" Line="8" Column="1" />
+      <File FileName="iuca.Web/Startup.cs" Line="77" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="iuca" selected="True">
-            <Node name="src" expanded="True" />
+          <Node name="iuca">
+            <Node name="src" expanded="True">
+              <Node name="iuca.Application">
+                <Node name="DTO" expanded="True">
+                  <Node name="Slots" expanded="True" />
+                </Node>
+                <Node name="Exceptions" expanded="True" />
+                <Node name="Services" expanded="True">
+                  <Node name="Slots" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="iuca.Domain" expanded="True">
+                <Node name="Entities" expanded="True">
+                  <Node name="Slots" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="iuca.Web">
+                <Node name="Controllers" expanded="True">
+                  <Node name="SlotsController.cs" selected="True" />
+                </Node>
+                <Node name="Views" expanded="True">
+                  <Node name="Slots" expanded="True" />
+                </Node>
+                <Node name="wwwroot" expanded="True">
+                  <Node name="js" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.src.iuca.Web PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>

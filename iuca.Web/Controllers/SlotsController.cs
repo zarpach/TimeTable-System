@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using iuca.Web.Extensions;
 using SelectPdf;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System.IO;
 using DinkToPdf;
 
@@ -73,7 +72,7 @@ namespace iuca.Web.Controllers
         [Authorize]
         public IActionResult Edit(Guid Id)
         {
-            var slotToEdit = _slotService.GetSlot(Id);
+            var slotToEdit = _slotService.GetSlotDTO(Id);
             var slotViewModel = PrepareSlotViewModel(slotToEdit);
             slotViewModel.SingleSlot.DayOfWeek = slotToEdit.DayOfWeek;
             ViewData["Action"] = "Edit"; // Set ViewData for action type
@@ -134,6 +133,24 @@ namespace iuca.Web.Controllers
                     break;
                 default:
                     break;
+            }
+
+            var slotViewModel = PrepareSlotViewModel();
+            return View("Index", slotViewModel);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SwapSlots(string draggedId, string droppedOnId, int newLessonPeriod, int newDepartmentGroupId)
+        {
+            try
+            {
+                _slotService.SwapSlots(draggedId, droppedOnId, newLessonPeriod, newDepartmentGroupId);
+                return RedirectToAction("Index");
+            } catch (ExistingSlotException ex)
+            {
+                TempData["SlotError"] = ex.Message;
             }
 
             var slotViewModel = PrepareSlotViewModel();
@@ -206,7 +223,7 @@ namespace iuca.Web.Controllers
                 }
             }
 
-            string htmlResult = this.RenderViewAsync("_SlotsTablePartial", slots, true).GetAwaiter().GetResult(); ;
+            string htmlResult = this.RenderViewAsync("_SlotsTablePartial", slots, true).GetAwaiter().GetResult();
 
             return htmlResult;
         }
@@ -274,7 +291,8 @@ namespace iuca.Web.Controllers
                 {
                     GroupId = x.Id,
                     GroupCode = x.Code,
-                    GroupDepartment = x.Department.Code
+                    GroupDepartment = x.Department.Code,
+                    DepartmentId = x.Department.Id
                 });
 
             return Json(new
@@ -321,13 +339,12 @@ namespace iuca.Web.Controllers
             var announcements = _announcementService.GetAnnouncements(10, true, true);
 
             var announcementSections = announcements.SelectMany(a => a.AnnouncementSections);
-            var currentSemester = _semesterService.GetCurrentSemester(selectedOrganization);
+            // var currentSemester = _semesterService.GetCurrentSemester(selectedOrganization);
             var semesters = _semesterService.GetSemesters(selectedOrganization).Reverse();
 
 
             ViewBag.AllDepartments = new List<DepartmentDTO>(departments);
             ViewBag.AllLessonPeriods = lessonPeriods;
-            ViewBag.CurrentSemester = currentSemester;
             ViewBag.DepartmentGroupsByDepartment = departmentGroupsByDepartment;
 
 
@@ -350,7 +367,7 @@ namespace iuca.Web.Controllers
                 ViewBag.LessonRooms = new SelectList(lessonRooms, "Id", "RoomName");
                 ViewBag.DaysOfWeek = new SelectList(daysOfWeek, "Value", "Text");
                 ViewBag.Announcements = new SelectList(announcementSections, "AnnouncementId", "Course.Name");
-                ViewBag.Semesters = new SelectList(semesters, "Id", "SeasonYear", currentSemester.Id);
+                ViewBag.Semesters = new SelectList(semesters, "Id", "SeasonYear", semesters.ElementAtOrDefault(0).Id);
             }
         }
 

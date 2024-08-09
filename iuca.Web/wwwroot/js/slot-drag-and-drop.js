@@ -1,30 +1,36 @@
-﻿//$(document).ready(function(){
-//    $('.event').on("dragstart", function (event) {
-//        var dt = event.originalEvent.dataTransfer;
-//        dt.setData('Text', $(this).attr('id'));
-//    });
-//$('table td').on("dragenter dragover drop", function (event) {
-//    event.preventDefault();
-//    if (event.type === 'drop') {
-//        var data = event.originalEvent.dataTransfer.getData('Text',$(this).attr('id'));
-//        de=$('#'+data).detach();
-//        de.appendTo($(this)); 
-//        };
-//    });
-//})
+﻿const cardWrapper = document.getElementById("table-wrapper");
 
-document.addEventListener('DOMContentLoaded', (event) => {
+//const sortable = new Sortable(draggableTable, {
+//    animation: 150,
+//    ghostClass: 'ghost',
+//    dragoverBubble: true,
+//});
+
+$("slotsTable").sortable({
+    items: 'td:not(:first)',
+    helper: 'clone',
+});
+
+function initializeDragAndDrop() {
+    var draggedId;
+    var droppedOnId;
+
+    var departmentId = $('ul#myTab li a.active').data('department-id'); // Получаем активную вкладку департамента
+    var dayOfWeek = $('div#dayOfWeekButtons input').val(); // Получаем активную кнопку дня недели
+    var semesterId = $('#semesterSelect').val(); // Получаем значение семестра
 
     function handleDragStart(e) {
         this.style.opacity = '0.4';
-        
+        draggedId = $(this).data('slot-id');
+        //console.log($('ul#myTab li a.nav-link.active').data('department-id'));
+        //console.log($('#semesterSelect').val());
     }
 
     function handleDragEnd(e) {
         this.style.opacity = '1';
 
         slots.forEach(function (item) {
-            item.classList.remove('slot-td');
+            item.classList.remove('over');
         });
     }
 
@@ -34,15 +40,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function handleDragEnter(e) {
-        this.classList.add('slot-td');
+        this.classList.add('over');
     }
 
     function handleDragLeave(e) {
-        this.classList.remove('slot-td');
+        this.classList.remove('over');
     }
 
     function handleDrop(e) {
-        e.stopPropagation(); // stops the browser from redirecting.
+        //e.preventDefault(); // stops the browser from redirecting.
+        droppedOnId = $(this).data('slot-id');
+
+        // if user dropped slot on empty cell
+        if (droppedOnId == 0) {
+            var newLessonPeriod = $(this).data('lesson-period-id');
+            var newDepartmentGroupId = $(this).data('department-group-id');
+        }
+        
+        if (draggedId !== droppedOnId) {
+            swapSlots(draggedId, droppedOnId, newLessonPeriod, newDepartmentGroupId);
+            
+        }
         return false;
     }
 
@@ -55,4 +73,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
         slot.addEventListener('dragend', handleDragEnd);
         slot.addEventListener('drop', handleDrop);
     });
+
+    function swapSlots(draggedId, droppedOnId, newLessonPeriod, newDepartmentGroupId) {
+        $.ajax({
+            type: "POST",
+            url: "/Slots/SwapSlots",
+            data: {
+                draggedId: draggedId,
+                droppedOnId: droppedOnId,
+                newLessonPeriod: newLessonPeriod,
+                newDepartmentGroupId: newDepartmentGroupId
+            },
+            success: function (response) {
+                updateSlotsTable(departmentId, semesterId, dayOfWeek);
+            },
+            error: function (error) {
+                console.error("Error updating server: ", error);
+            }
+        });
+    }
+}
+
+
+// Call the function to initialize drag-and-drop functionality
+$(document).ready(function () {
+    initializeDragAndDrop();
 });

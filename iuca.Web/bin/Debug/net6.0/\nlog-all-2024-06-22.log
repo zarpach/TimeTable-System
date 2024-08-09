@@ -1,0 +1,6 @@
+2024-06-22 05:16:57.6838|0|WARN|Hangfire.Server.ServerHeartbeatProcess|Server zarpach:37497:d4def850 was considered dead by other servers, restarting... 
+2024-06-22 05:16:58.3571|0|WARN|Hangfire.Server.BackgroundServerProcess|Server zarpach:37497:d4def850 stopped non-gracefully due to ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler. Outstanding work on those dispatchers could be aborted, and there can be delays in background processing. This server instance will be incorrectly shown as active for a while. To avoid non-graceful shutdowns, investigate what prevents from stopping gracefully and add CancellationToken support for those methods. 
+2024-06-22 06:01:25.1774|0|WARN|iuca.Web.Configurations.AttendanceParsingJob|Attendance Parsing Job running. 
+2024-06-22 06:01:25.2540|0|ERROR|iuca.Web.Configurations.AttendanceParsingJob|Attendance Parsing Job failed. System.Exception: Settings not found
+   at iuca.Application.Services.Common.EnvarSettingService.GetCurrentSemester(Int32 organizationId) in /Users/admin/Projects/IUCA.Copy/iuca/iuca.Core/Services/Common/EnvarSettingService.cs:line 129
+   at iuca.Web.Configurations.AttendanceParsingJob.Execute() in /Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/Configurations/AttendanceParsingJob.cs:line 29

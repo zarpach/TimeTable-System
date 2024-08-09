@@ -9,8 +9,6 @@ using iuca.Domain.Entities.Slots;
 using Microsoft.EntityFrameworkCore;
 using iuca.Application.Exceptions;
 using iuca.Application.Enums;
-using iuca.Application.DTO.Courses;
-using iuca.Domain.Entities.Courses;
 
 namespace iuca.Application.Services.Slots
 {
@@ -53,17 +51,7 @@ namespace iuca.Application.Services.Slots
                         foreach (var lessonPeriodId in slot.LessonPeriodIds)
                         {
 
-                            var conflictingSlot = SlotExist(departmentId, groupId, slot.LessonRoomId, lessonPeriodId, dayOfWeek);
-
-                            if (conflictingSlot != null)
-                            {
-                                string conflictMessage = $"Слот с данными параметрами уже существует: " +
-                                    $"Предмет — {conflictingSlot.AnnouncementSection.Announcement.Course.NameEng}; " +
-                                    $"День недели — {(enu_SlotDayOfWeek)dayOfWeek}; " +
-                                    $"Время занятия — {conflictingSlot.LessonPeriod.Name}; " +
-                                    $"Аудитория — {conflictingSlot.LessonRoom.RoomName}.";
-                                throw new ExistingSlotException(conflictMessage, nameof(conflictingSlot));
-                            }
+                            SlotExists(departmentId, groupId, slot.LessonRoomId, lessonPeriodId, dayOfWeek, slot.SemesterId);
 
                             Slot newSlot = _mapper.Map<Slot>(slot);
                             newSlot.DepartmentId = departmentId;
@@ -100,12 +88,8 @@ namespace iuca.Application.Services.Slots
             if (slotDTO == null)
                 throw new ArgumentException("SlotDTO cannot be null", nameof(slotDTO));
 
-            var slot = _db.Slots
-                .FirstOrDefault(x => x.Id == Id);
-
-            if (slot == null)
-                throw new KeyNotFoundException($"Slot with ID {Id} not found");
-
+            Slot slot = _db.Slots
+                .FirstOrDefault(x => x.Id == Id) ?? throw new KeyNotFoundException($"Slot with ID {Id} not found");
             slot.DepartmentId = slotDTO.DepartmentIds[0];
             slot.GroupId = slotDTO.GroupIds[0];
             slot.SemesterId = slotDTO.SemesterId;
@@ -135,21 +119,121 @@ namespace iuca.Application.Services.Slots
             return _mapper.Map<IEnumerable<SlotDTO>>(slots.AsEnumerable());
         }
 
-        public SlotDTO SlotExist(int departmentId, int groupId, string lessonRoomId, int lessonPeriodId, int dayOfWeek)
+        private void SlotExists(int departmentId, int groupId, string lessonRoomId, int lessonPeriodId, int dayOfWeek, int semesterId, Guid Id = default)
         {
-            var slots = GetAllSlots();
-            return slots.FirstOrDefault(s => s.Department.Id == departmentId &&
-                                                 s.Group.Id == groupId &&
-                                                 s.DayOfWeek == dayOfWeek &&
-                                                 s.LessonPeriod.Id == lessonPeriodId &&
-                                                 s.LessonRoom.Id.ToString() == lessonRoomId);
+            var slotsForSemester = GetSlotsForSemester(semesterId, Id);
+
+            var slot = FindSlotByRoomAndDay(slotsForSemester, lessonRoomId, dayOfWeek, lessonPeriodId);
+            if (slot != null)
+            {
+                string errorMessage = ExistingSlotErrorMessage(slot);
+                throw new ExistingSlotException(errorMessage, nameof(slot));                
+            }
+
+            slot = FindSlotByDetails(slotsForSemester, departmentId, groupId, lessonRoomId, lessonPeriodId, dayOfWeek);
+            if (slot != null)
+            {
+                string errorMessage = ExistingSlotErrorMessage(slot);
+                throw new ExistingSlotException(errorMessage, nameof(slot));
+            }
         }
 
-        public SlotDTO GetSlot(Guid Id)
+        private static string ExistingSlotErrorMessage(SlotDTO conflictingSlot)
         {
-            var slots = GetAllSlots();
-            var slot = slots.FirstOrDefault(x => x.Id == Id);
+            string errorMessage = $"Слот с данными параметрами уже существует: " +
+                                    $"Предмет — {conflictingSlot.AnnouncementSection.Announcement.Course.NameEng}; " +
+                                    $"День недели — {(enu_SlotDayOfWeek)conflictingSlot.DayOfWeek}; " +
+                                    $"Время занятия — {conflictingSlot.LessonPeriod.Name}; " +
+                                    $"Аудитория — {conflictingSlot.LessonRoom.RoomName}.";
+
+            return errorMessage;
+        }
+
+        private IEnumerable<SlotDTO> GetSlotsForSemester(int semesterId, Guid Id)
+        {
+            return GetAllSlots().Where(slot => slot.SemesterId == semesterId && slot.Id != Id);
+        }
+
+        private static SlotDTO FindSlotByRoomAndDay(IEnumerable<SlotDTO> slots, string lessonRoomId, int dayOfWeek, int lessonPeriodId)
+        {
+            return slots.FirstOrDefault(slot =>
+            slot.LessonRoomId == lessonRoomId &&
+            slot.DayOfWeek == dayOfWeek &&
+            slot.LessonPeriod.Id == lessonPeriodId);
+        }
+
+        private static SlotDTO FindSlotByDetails(IEnumerable<SlotDTO> slots, int departmentId, int groupId, string lessonRoomId, int lessonPeriodId, int dayOfWeek)
+        {
+            return slots.FirstOrDefault(slot =>
+                slot.Department.Id == departmentId &&
+                slot.Group.Id == groupId &&
+                slot.DayOfWeek == dayOfWeek &&
+                slot.LessonPeriod.Id == lessonPeriodId &&
+                slot.LessonRoom.Id.ToString() == lessonRoomId
+            );
+        }
+
+        public SlotDTO GetSlotDTO(Guid Id)
+        {
+            IEnumerable<SlotDTO> slots = GetAllSlots();
+            SlotDTO slot = slots.FirstOrDefault(x => x.Id == Id);
             return slot;
+        }
+
+        public Slot GetSlot(Guid Id)
+        {
+            Slot slot = _db.Slots
+                .FirstOrDefault(x => x.Id == Id) ?? throw new KeyNotFoundException($"Slot with ID {Id} not found");
+            return slot;
+        }
+
+        public void SwapSlots(string draggedId, string droppedOnId, int newLessonPeriod, int newDepartmentGroupId)
+        {
+            SlotDTO draggedSlot = GetSlotDTO(Guid.Parse(draggedId));
+            SlotDTO droppedOnSlot;
+            if (Guid.TryParse(droppedOnId, out var parsedGuid))
+            {
+                droppedOnSlot = GetSlotDTO(parsedGuid);
+                SwapExistingSlots(draggedSlot, droppedOnSlot);
+                return;
+            }
+            else
+            {
+                Slot slot = GetSlot(draggedSlot.Id);
+                slot.LessonPeriodId = newLessonPeriod;
+                slot.GroupId = newDepartmentGroupId;
+                _db.SaveChanges();
+            }
+        }
+
+        private void SwapExistingSlots(SlotDTO draggedSlotDTO, SlotDTO droppedOnSlotDTO)
+        {
+            Slot draggedSlot = GetSlot(draggedSlotDTO.Id);
+            Slot droppedOnSlot = GetSlot(droppedOnSlotDTO.Id);
+
+            (droppedOnSlot.GroupId, draggedSlot.GroupId) = (draggedSlot.GroupId, droppedOnSlot.GroupId);
+            (droppedOnSlot.LessonPeriodId, draggedSlot.LessonPeriodId) = (draggedSlot.LessonPeriodId, droppedOnSlot.LessonPeriodId);
+            //(droppedOnSlot.AnnouncementSectionId, draggedSlot.AnnouncementSectionId) = (draggedSlot.AnnouncementSectionId, droppedOnSlot.AnnouncementSectionId);
+            //(droppedOnSlot.LessonRoomId, draggedSlot.LessonRoomId) = (draggedSlot.LessonRoomId, droppedOnSlot.LessonRoomId);
+            //(droppedOnSlot.InstructorUserId, draggedSlot.InstructorUserId) = (draggedSlot.InstructorUserId, droppedOnSlot.InstructorUserId);
+
+            SlotExists(draggedSlot.Department.Id,
+                draggedSlot.Group.Id,
+                draggedSlot.LessonRoom.Id.ToString(),
+                draggedSlot.LessonPeriod.Id,
+                draggedSlot.DayOfWeek,
+                draggedSlot.Semester.Id,
+                draggedSlot.Id);
+
+            SlotExists(droppedOnSlot.Department.Id,
+                droppedOnSlot.Group.Id,
+                droppedOnSlot.LessonRoom.Id.ToString(),
+                droppedOnSlot.LessonPeriod.Id,
+                droppedOnSlot.DayOfWeek,
+                droppedOnSlot.Semester.Id,
+                droppedOnSlot.Id);
+
+            _db.SaveChanges();
         }
 
         public IEnumerable<IGrouping<string, SlotDTO>> GetSlotsForDepartment(int departmentId, int semesterId, int dayOfWeek, int groupId = 0)

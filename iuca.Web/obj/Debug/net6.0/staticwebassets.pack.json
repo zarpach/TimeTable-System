@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/.DS_Store",
+      "PackagePath": "staticwebassets/.DS_Store"
+    },
+    {
       "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
@@ -7727,6 +7731,38 @@
     {
       "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/google-charts/loader.js",
       "PackagePath": "staticwebassets/lib/google-charts/loader.js"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.css"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.js",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.js"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.min.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.min.css"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.min.js"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.structure.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.structure.css"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.structure.min.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.structure.min.css"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.theme.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.theme.css"
+    },
+    {
+      "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-ui/jquery-ui.theme.min.css",
+      "PackagePath": "staticwebassets/lib/jquery-ui/jquery-ui.theme.min.css"
     },
     {
       "Id": "/Users/admin/Projects/IUCA.Copy/iuca/iuca.Web/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",

@@ -1,8 +1,10 @@
-﻿$(document).ready(function () {
+﻿var departmentId = $('ul#myTab li a.active').data('department-id'); // Получаем активную вкладку департамента
+var dayOfWeek = $('div#dayOfWeekButtons input').val(); // Получаем активную кнопку дня недели
+var semesterId = $('#semesterSelect').val(); // Получаем значение семестра
 
-    var departmentId = $('ul#myTab li a.active').data('department-id'); // Получаем активную вкладку департамента
-    var dayOfWeek = $('div#dayOfWeekButtons input').val(); // Получаем активную кнопку дня недели
-    var semesterId = $('#semesterSelect').val(); // Получаем значение семестра
+$(document).ready(function () {
+
+
 
     // Сделать первую кнопку daysOfWeek активной и сфокусированной по умолчанию
     var firstButton = $('#dayOfWeekButtons label').first();
@@ -66,20 +68,7 @@
         updateSlotsTable(departmentId, semesterId, dayOfWeek);
     });
 
-    // Функция для обновления таблицы слотов
-    function updateSlotsTable(departmentId, semesterId, dayOfWeek) {
-        $.ajax({
-            type: "GET",
-            url: "/Slots/UpdateSlotsTable",
-            data: { "departmentId": departmentId, "semesterId": semesterId, "dayOfWeek": dayOfWeek },
-            success: function (data) {
-                $('#tableContainer').html(data); // Обновляем контейнер таблицы
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
+
 
     function updateSlotForm(selectedDepartments, isFromModal) {
         $.ajax({
@@ -92,7 +81,7 @@
                     $('#departmentGroupSelect').html(response.departmentGroupOptionsHtml); // Обновляем содержимое select на основе ответа от сервера
                     $('#departmentGroupSelect').multiselect('rebuild');
                 } else {
-                    $('#printGroup').html(response.departmentGroupOptionsHtml); // Обновляем содержимое select на основе ответа от сервера
+                    $('#printGroup').html(response.departmentGroupOptionsHtml);
                     $('#printGroup').multiselect('rebuild');
                 }
                 
@@ -103,6 +92,22 @@
         });
     }
 });
+
+// Функция для обновления таблицы слотов
+function updateSlotsTable(departmentId, semesterId, dayOfWeek) {
+    $.ajax({
+        type: "GET",
+        url: "/Slots/UpdateSlotsTable",
+        data: { "departmentId": departmentId, "semesterId": semesterId, "dayOfWeek": dayOfWeek },
+        success: function (data) {
+            $('#tableContainer').html(data); // Обновляем контейнер таблицы
+            initializeDragAndDrop();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
 
 
 

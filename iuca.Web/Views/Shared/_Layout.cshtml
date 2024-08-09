@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.min.css">
+
 </head>
 <body>
     <header>
@@ -71,7 +73,7 @@
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Nationalities.View)).Result.Succeeded)
                                         {
-                                             <li><a class="dropdown-item" asp-controller="Nationalities" asp-action="Index">Nationalities</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Nationalities" asp-action="Index">Nationalities</a></li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Countries.View)).Result.Succeeded)
                                         {
@@ -126,7 +128,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Courses  </a>
                                     <ul class="dropdown-menu">
-                                        
+
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Courses.View)).Result.Succeeded)
                                         {
                                             <li><a class="dropdown-item" asp-controller="Courses" asp-action="Index">Courses</a></li>
@@ -177,10 +179,10 @@
                                         {
                                             <li><a class="dropdown-item" asp-controller="AdviserStudents" asp-action="StudentRegistrations" asp-route-activeOnly="true">Student registrations for Advisers</a></li>
                                         }
-                                        
+
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Cycles.View)).Result.Succeeded)
                                         {
-                                            <hr class="m-1"/>
+                                            <hr class="m-1" />
                                             <li><a class="dropdown-item" asp-controller="Cycles" asp-action="Index">Cycles</a></li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.AcademicPlans.View)).Result.Succeeded)
@@ -213,8 +215,10 @@
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Instructors.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="InstructorInfo" asp-action="Index" 
-                                                asp-route-state="@enu_InstructorState.Active">Instructors</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="InstructorInfo" asp-action="Index"
+                                                   asp-route-state="@enu_InstructorState.Active">Instructors</a>
+                                            </li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Students.View)).Result.Succeeded)
                                         {
@@ -255,28 +259,38 @@
                                     <ul class="dropdown-menu">
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsAccounting.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageAccountingDebts" 
-                                                asp-route-activeOnly="true">Manage accounting debts</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageAccountingDebts"
+                                                   asp-route-activeOnly="true">Manage accounting debts</a>
+                                            </li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsLibrary.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageLibraryDebts" 
-                                                asp-route-activeOnly="true">Manage library debts</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageLibraryDebts"
+                                                   asp-route-activeOnly="true">Manage library debts</a>
+                                            </li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsDormitory.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageDormitoryDebts" 
-                                                asp-route-activeOnly="true">Manage dormitory debts</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageDormitoryDebts"
+                                                   asp-route-activeOnly="true">Manage dormitory debts</a>
+                                            </li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsRegistarOffice.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageRegistarOfficeDebts" 
-                                                asp-route-activeOnly="true">Manage registar office debts</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageRegistarOfficeDebts"
+                                                   asp-route-activeOnly="true">Manage registar office debts</a>
+                                            </li>
                                         }
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.DebtsMedicineOffice.View)).Result.Succeeded)
                                         {
-                                            <li><a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageMedicineOfficeDebts" 
-                                                asp-route-activeOnly="true">Manage medicine office debts</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="StudentDebts" asp-action="ManageMedicineOfficeDebts"
+                                                   asp-route-activeOnly="true">Manage medicine office debts</a>
+                                            </li>
                                         }
                                     </ul>
 
@@ -303,8 +317,8 @@
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsDean.View)).Result.Succeeded)
                                         {
                                             <li>
-                                                <a class="dropdown-item" asp-controller="StudentTranscripts" 
-                                                    asp-action="StudentTranscriptsForDean" asp-route-onlyActive="true">
+                                                <a class="dropdown-item" asp-controller="StudentTranscripts"
+                                                   asp-action="StudentTranscriptsForDean" asp-route-onlyActive="true">
                                                     Student Transcripts for Deans
                                                 </a>
                                             </li>
@@ -313,8 +327,8 @@
                                         @if ((AuthorizationService.AuthorizeAsync(User, Permissions.TranscriptsAdviser.View)).Result.Succeeded)
                                         {
                                             <li>
-                                                <a class="dropdown-item" asp-controller="StudentTranscripts" 
-                                                    asp-action="StudentTranscriptsForAdviser" asp-route-onlyActive="true">
+                                                <a class="dropdown-item" asp-controller="StudentTranscripts"
+                                                   asp-action="StudentTranscriptsForAdviser" asp-route-onlyActive="true">
                                                     Student Transcripts for Advisers
                                                 </a>
                                             </li>
@@ -430,16 +444,16 @@
                                     </ul>
                                 </li>
                             }
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Schedule</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-controller="Slots" asp-action="Index">Schedule Table</a></li>
-                            <hr class="m-1"/>
-                            <li><a class="dropdown-item" asp-controller="LessonPeriods" asp-action="Index">Lesson periods</a></li>
-                            <li><a class="dropdown-item" asp-controller="LessonRooms" asp-action="Index">Lesson rooms</a></li>
-                        </ul>
-                    </li>
-                         }    
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Schedule</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Slots" asp-action="Index">Schedule Table</a></li>
+                                    <hr class="m-1" />
+                                    <li><a class="dropdown-item" asp-controller="LessonPeriods" asp-action="Index">Lesson periods</a></li>
+                                    <li><a class="dropdown-item" asp-controller="LessonRooms" asp-action="Index">Lesson rooms</a></li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                     <partial name="_OrganizationsPartial" />
                     <partial name="_LoginPartial" />
@@ -468,6 +482,9 @@
     <script src="~/lib/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script src="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.js"></script>
     <script src="~/lib/google-charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/consts.js" asp-append-version="true"></script>
     <script src="~/js/popupModal.js" asp-append-version="true"></script>

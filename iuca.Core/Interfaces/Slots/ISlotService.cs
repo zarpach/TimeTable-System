@@ -12,9 +12,11 @@ namespace iuca.Application.Interfaces.Slots
 
         public IEnumerable<IGrouping<string, SlotDTO>> GetSlotsForDepartment(int departmentId, int semesterId, int dayOfWeek, int groupId = 0);
 
-        public SlotDTO SlotExist(int departmentId, int groupId, string lessonRoomId, int lessonPeriodId, int dayOfWeek);
+        public SlotDTO GetSlotDTO(Guid Id);
 
-        public SlotDTO GetSlot(Guid Id);
+        public Slot GetSlot(Guid Id);
+
+        void SwapSlots(string draggedId, string droppedOnId, int newLessonPeriod, int newDepartmentGroupId);
 
         void Create(SlotDTO slot);
 

@@ -7,6 +7,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\js\student-grades-adviser-report.js" />
     <Content Remove="Views\LessonPeriod\Index.cshtml" />
+    <Content Remove="wwwroot\lib\jquery-ui\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +49,7 @@
     <Folder Include="Views\Slots\" />
     <Folder Include="Views\LessonPeriods\" />
     <Folder Include="Views\LessonRooms\" />
+    <Folder Include="wwwroot\lib\jquery-ui\" />
   </ItemGroup>
 
   <ItemGroup>
